@@ -35,7 +35,7 @@
         ],
         techSkills: [
             // ─────────────── AUTOMATIZACIÓN / IA ───────────────
-            { name: "UiPath", icon: "uipath", color: "FA4616", area: ["automatizacion"],
+            { name: "UiPath", icon: "uipath", color: "FA4616", area: ["automatizacion"], cert: true,
               certUrl: "assets/diploma_uipath.pdf",
               desc: "RPA de nivel enterprise — Training oficial UiPath Academy", desc_en: "Enterprise-grade RPA — official UiPath Academy training", tags: ["rpa", "enterprise", "training"] },
             { name: "Power Automate", icon: "microsoftpowerautomate", color: "0066FF", area: ["automatizacion"],
