@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ismaelparras.vercel.app/sitemap.xml
+Sitemap: https://portfolio-web-dusky-six.vercel.app/sitemap.xml
