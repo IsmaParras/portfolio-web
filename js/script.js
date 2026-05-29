@@ -2,13 +2,13 @@
     "use strict";
 
     const CONFIG = {
-        githubUser: 'ismaelparras',
+        githubUser: 'IsmaParras',
         email: 'isma021m@gmail.com',
         // Sustituye por tu ID real de Formspree (https://formspree.io) antes de desplegar.
         formspreeId: 'xbdqqjbn',
         cvFiles: { es: 'Ismael_Parras_CV_ES.pdf', en: 'Ismael_Parras_CV_EN.pdf' },
         socialLinks: {
-            github: 'https://github.com/ismaelparras',
+            github: 'https://github.com/IsmaParras',
             linkedin: 'https://www.linkedin.com/in/ismaelparrasresino/'
         },
         projects: [
@@ -35,9 +35,9 @@
         ],
         techSkills: [
             // ─────────────── AUTOMATIZACIÓN / IA ───────────────
-            { name: "UiPath", icon: "uipath", color: "FA4616", area: ["automatizacion"], cert: true,
+            { name: "UiPath", icon: "uipath", color: "FA4616", area: ["automatizacion"],
               certUrl: "assets/diploma_uipath.pdf",
-              desc: "RPA de nivel enterprise — Certificación oficial", desc_en: "Enterprise-grade RPA — official certification", tags: ["rpa", "enterprise", "certificado"] },
+              desc: "RPA de nivel enterprise — Training oficial UiPath Academy", desc_en: "Enterprise-grade RPA — official UiPath Academy training", tags: ["rpa", "enterprise", "training"] },
             { name: "Power Automate", icon: "microsoftpowerautomate", color: "0066FF", area: ["automatizacion"],
               desc: "Automatización de procesos en el ecosistema Microsoft 365", desc_en: "Process automation across the Microsoft 365 ecosystem", tags: ["rpa", "microsoft"] },
             { name: "Druid AI", color: "6C2DC7", area: ["automatizacion"],
