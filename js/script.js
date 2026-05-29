@@ -36,6 +36,7 @@
         techSkills: [
             // ─────────────── AUTOMATIZACIÓN / IA ───────────────
             { name: "UiPath", icon: "uipath", color: "FA4616", area: ["automatizacion"], cert: true,
+              certUrl: "assets/diploma_uipath.pdf",
               desc: "RPA de nivel enterprise — Certificación oficial", desc_en: "Enterprise-grade RPA — official certification", tags: ["rpa", "enterprise", "certificado"] },
             { name: "Power Automate", icon: "microsoftpowerautomate", color: "0066FF", area: ["automatizacion"],
               desc: "Automatización de procesos en el ecosistema Microsoft 365", desc_en: "Process automation across the Microsoft 365 ecosystem", tags: ["rpa", "microsoft"] },
@@ -74,6 +75,7 @@
               certUrl: "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
               desc: "Servicios cognitivos de Azure — Certificado AI Fundamentals", desc_en: "Azure cognitive services — AI Fundamentals certified", tags: ["ia", "cloud", "certificado"] },
             { name: "PowerShell", icon: "powershell", color: "5391FE", area: ["cloud"], cert: true,
+              certUrl: "assets/diploma_powershell.pdf",
               desc: "Scripting de automatización en Windows y Azure — Certificado", desc_en: "Automation scripting on Windows and Azure — certified", tags: ["scripting", "windows", "certificado"] },
             { name: "Active Directory", color: "0078D4", area: ["cloud"],
               iconSvg: `<svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#0078D4"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#fff">AD</text></svg>`,

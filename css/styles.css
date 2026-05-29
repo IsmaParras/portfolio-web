@@ -228,10 +228,10 @@ nav.scrolled {
 .skill-card.hidden { display: none; }
 .skill-icon { width: 40px; height: 40px; margin-bottom: 1rem; }
 .skill-icon img, .skill-icon svg { width: 100%; height: 100%; object-fit: contain; }
-.skill-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
-.skill-name { font-family: var(--font-display); font-size: 1.2rem; color: var(--text); }
-.skill-cert { font-family: var(--font-mono); font-size: 0.65rem; color: var(--success); border: 1px solid var(--success); border-radius: 9999px; padding: 0.15rem 0.5rem; white-space: nowrap; }
-.skill-cert.is-link { color: var(--primary); border-color: var(--primary); }
+.skill-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.4rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.skill-name { font-family: var(--font-display); font-size: 1.2rem; color: var(--text); min-width: 0; word-break: break-word; }
+.skill-cert { font-family: var(--font-mono); font-size: 0.62rem; color: var(--success); border: 1px solid var(--success); border-radius: 9999px; padding: 0.15rem 0.5rem; white-space: nowrap; flex-shrink: 0; align-self: flex-start; margin-top: 0.2rem; }
+.skill-cert.is-link { color: var(--primary); border-color: var(--primary); text-decoration: none; }
 .skill-cert.is-link:hover { background: var(--primary); color: var(--bg); }
 .skill-desc { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; flex-grow: 1; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
