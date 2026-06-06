@@ -1,0 +1,392 @@
+[
+  {
+    "name": "UiPath",
+    "icon": "uipath",
+    "color": "FA4616",
+    "area": [
+      "automatizacion"
+    ],
+    "cert": true,
+    "certUrl": "assets/diploma_uipath.pdf",
+    "desc": "RPA de nivel enterprise — Training oficial UiPath Academy",
+    "desc_en": "Enterprise-grade RPA — official UiPath Academy training",
+    "tags": [
+      "rpa",
+      "enterprise",
+      "training"
+    ]
+  },
+  {
+    "name": "Power Automate",
+    "icon": "microsoftpowerautomate",
+    "color": "0066FF",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Automatización de procesos en el ecosistema Microsoft 365",
+    "desc_en": "Process automation across the Microsoft 365 ecosystem",
+    "tags": [
+      "rpa",
+      "microsoft"
+    ]
+  },
+  {
+    "name": "Druid AI",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#6C2DC7\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">D</text></svg>",
+    "color": "6C2DC7",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Agentes conversacionales en producción (Teams, web y voz)",
+    "desc_en": "Conversational agents in production (Teams, web, voice)",
+    "tags": [
+      "ia",
+      "agentes",
+      "conversacional"
+    ]
+  },
+  {
+    "name": "LangChain",
+    "icon": "langchain",
+    "color": "1C3C3C",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Orquestación de LLMs y automatización del ServiceDesk de un organismo público",
+    "desc_en": "LLM orchestration and ServiceDesk automation for a public-sector body",
+    "tags": [
+      "ia",
+      "llm",
+      "orquestación"
+    ]
+  },
+  {
+    "name": "n8n",
+    "icon": "n8n",
+    "color": "EA4B71",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Orquestación de flujos de trabajo y automatización low-code",
+    "desc_en": "Workflow orchestration and low-code automation",
+    "tags": [
+      "automatizacion",
+      "workflows"
+    ]
+  },
+  {
+    "name": "Make",
+    "icon": "make",
+    "color": "6D00CC",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Integraciones entre apps y automatización visual de procesos",
+    "desc_en": "App integrations and visual process automation",
+    "tags": [
+      "automatizacion",
+      "integraciones"
+    ]
+  },
+  {
+    "name": "Botpress",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00AEF3\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">BP</text></svg>",
+    "color": "00AEF3",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Chatbots e IA conversacional (proyecto CitaMatic)",
+    "desc_en": "Chatbots and conversational AI (CitaMatic project)",
+    "tags": [
+      "ia",
+      "chatbots"
+    ]
+  },
+  {
+    "name": "ElevenLabs",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0F172A\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">11</text></svg>",
+    "color": "0F172A",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Síntesis de voz por IA integrada en flujos automatizados",
+    "desc_en": "AI voice synthesis integrated into automated workflows",
+    "tags": [
+      "ia",
+      "voz",
+      "tts"
+    ]
+  },
+  {
+    "name": "LLMs",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0f172a\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"13\" fill=\"#00d4ff\">LLM</text></svg>",
+    "color": "00D4FF",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Integración de Large Language Models en soluciones reales",
+    "desc_en": "Integrating Large Language Models into real-world solutions",
+    "tags": [
+      "ia",
+      "nlp"
+    ]
+  },
+  {
+    "name": "NLP",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0E7490\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"13\" fill=\"#fff\">NLP</text></svg>",
+    "color": "0E7490",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Procesamiento del lenguaje natural en agentes conversacionales",
+    "desc_en": "Natural language processing for conversational agents",
+    "tags": [
+      "ia",
+      "lenguaje"
+    ]
+  },
+  {
+    "name": "Prompt Engineering",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#7C3AED\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"20\" fill=\"#fff\">>_</text></svg>",
+    "color": "7C3AED",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Diseño de prompts para fiabilidad y control de modelos generativos",
+    "desc_en": "Prompt design for reliability and control of generative models",
+    "tags": [
+      "ia",
+      "generativa"
+    ]
+  },
+  {
+    "name": "Generative AI",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#6366F1\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"11\" fill=\"#fff\">GenAI</text></svg>",
+    "color": "6366F1",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Aplicación de IA generativa a casos de uso de negocio",
+    "desc_en": "Applying generative AI to business use cases",
+    "tags": [
+      "ia",
+      "generativa"
+    ]
+  },
+  {
+    "name": "Microsoft Azure",
+    "icon": "microsoftazure",
+    "color": "0078D4",
+    "area": [
+      "cloud"
+    ],
+    "desc": "Servicios cloud para desplegar automatizaciones e IA",
+    "desc_en": "Cloud services for deploying automations and AI",
+    "tags": [
+      "cloud",
+      "microsoft"
+    ]
+  },
+  {
+    "name": "Azure AI",
+    "icon": "microsoftazure",
+    "color": "0078D4",
+    "area": [
+      "cloud"
+    ],
+    "cert": true,
+    "certUrl": "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
+    "desc": "Servicios cognitivos de Azure — Certificado AI Fundamentals",
+    "desc_en": "Azure cognitive services — AI Fundamentals certified",
+    "tags": [
+      "ia",
+      "cloud",
+      "certificado"
+    ]
+  },
+  {
+    "name": "PowerShell",
+    "icon": "powershell",
+    "color": "5391FE",
+    "area": [
+      "cloud"
+    ],
+    "cert": true,
+    "certUrl": "assets/diploma_powershell.pdf",
+    "desc": "Scripting de automatización en Windows y Azure — Certificado",
+    "desc_en": "Automation scripting on Windows and Azure — certified",
+    "tags": [
+      "scripting",
+      "windows",
+      "certificado"
+    ]
+  },
+  {
+    "name": "Active Directory",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0078D4\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">AD</text></svg>",
+    "color": "0078D4",
+    "area": [
+      "cloud"
+    ],
+    "desc": "Gestión de usuarios e identidades en entornos Windows",
+    "desc_en": "User and identity management in Windows environments",
+    "tags": [
+      "sistemas",
+      "windows"
+    ]
+  },
+  {
+    "name": "Linux",
+    "icon": "linux",
+    "color": "FCC624",
+    "area": [
+      "cloud"
+    ],
+    "desc": "Administración básica y despliegue en entornos Ubuntu",
+    "desc_en": "Basic administration and deployment on Ubuntu",
+    "tags": [
+      "sistemas",
+      "servidores"
+    ]
+  },
+  {
+    "name": "Docker",
+    "icon": "docker",
+    "color": "2496ED",
+    "area": [
+      "cloud"
+    ],
+    "desc": "Containerización y despliegue reproducible de aplicaciones",
+    "desc_en": "Containerization and reproducible app deployment",
+    "tags": [
+      "devops",
+      "contenedores"
+    ]
+  },
+  {
+    "name": "Python",
+    "icon": "python",
+    "color": "3776AB",
+    "area": [
+      "software"
+    ],
+    "desc": "Backend, automatización, scraping y análisis de datos",
+    "desc_en": "Backend, automation, scraping and data analysis",
+    "tags": [
+      "lenguaje",
+      "automatizacion"
+    ]
+  },
+  {
+    "name": "Java",
+    "icon": "openjdk",
+    "color": "437291",
+    "area": [
+      "software"
+    ],
+    "desc": "Programación orientada a objetos — base del ciclo DAM",
+    "desc_en": "Object-oriented programming — foundation of my DAM degree",
+    "tags": [
+      "lenguaje",
+      "oop"
+    ]
+  },
+  {
+    "name": "JavaScript",
+    "icon": "javascript",
+    "color": "F7DF1E",
+    "area": [
+      "software"
+    ],
+    "desc": "Scripting, automatización web y desarrollo front-end",
+    "desc_en": "Scripting, web automation and front-end development",
+    "tags": [
+      "lenguaje",
+      "frontend"
+    ]
+  },
+  {
+    "name": "REST APIs",
+    "icon": "postman",
+    "color": "FF6C37",
+    "area": [
+      "software"
+    ],
+    "desc": "Diseño e integración de servicios web — Jira, EasyVista y más",
+    "desc_en": "Designing and integrating web services — Jira, EasyVista and more",
+    "tags": [
+      "integraciones",
+      "backend"
+    ]
+  },
+  {
+    "name": "EasyVista",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00A88E\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">EV</text></svg>",
+    "color": "00A88E",
+    "area": [
+      "software"
+    ],
+    "desc": "ITSM e integración de gestión de servicios vía API",
+    "desc_en": "ITSM and service-management integration via API",
+    "tags": [
+      "itsm",
+      "integraciones"
+    ]
+  },
+  {
+    "name": "Jira",
+    "icon": "jira",
+    "color": "0052CC",
+    "area": [
+      "software"
+    ],
+    "desc": "Gestión ágil de proyectos e integración de incidencias",
+    "desc_en": "Agile project management and issue integration",
+    "tags": [
+      "agile",
+      "gestión"
+    ]
+  },
+  {
+    "name": "MySQL",
+    "icon": "mysql",
+    "color": "4479A1",
+    "area": [
+      "software"
+    ],
+    "desc": "Bases de datos relacionales y consultas",
+    "desc_en": "Relational databases and queries",
+    "tags": [
+      "datos",
+      "sql"
+    ]
+  },
+  {
+    "name": "PostgreSQL",
+    "icon": "postgresql",
+    "color": "4169E1",
+    "area": [
+      "software"
+    ],
+    "desc": "Bases de datos relacionales avanzadas",
+    "desc_en": "Advanced relational databases",
+    "tags": [
+      "datos",
+      "sql"
+    ]
+  },
+  {
+    "name": "Git",
+    "icon": "git",
+    "color": "F05032",
+    "area": [
+      "software"
+    ],
+    "desc": "Control de versiones y colaboración en código",
+    "desc_en": "Version control and code collaboration",
+    "tags": [
+      "devops",
+      "versionado"
+    ]
+  }
+]

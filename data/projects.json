@@ -1,0 +1,60 @@
+[
+  {
+    "id": "lead-auditor-pro",
+    "featured": true,
+    "badgeKey": "proj1_badge",
+    "title": "Lead Auditor Pro",
+    "tags": [
+      "Python",
+      "Google Maps API",
+      "Web Scraping",
+      "Lead Generation"
+    ],
+    "descKey": "proj1_desc",
+    "results": [
+      {
+        "es": "Prospección 100% automática",
+        "en": "100% automated prospecting"
+      },
+      {
+        "es": "Auditoría digital completa",
+        "en": "Full digital audit"
+      },
+      {
+        "es": "En desarrollo",
+        "en": "In development"
+      }
+    ],
+    "ctaKey": "proj_cta_info",
+    "ctaUrl": "#contact"
+  },
+  {
+    "id": "citamatic",
+    "featured": false,
+    "badgeKey": "proj2_badge",
+    "title": "CitaMatic",
+    "tags": [
+      "Botpress",
+      "Make",
+      "Google Calendar API",
+      "IA Conversacional"
+    ],
+    "descKey": "proj2_desc",
+    "results": [
+      {
+        "es": "Disponible 24/7",
+        "en": "Available 24/7"
+      },
+      {
+        "es": "0 intervención manual",
+        "en": "0 manual intervention"
+      },
+      {
+        "es": "En producción",
+        "en": "In production"
+      }
+    ],
+    "ctaKey": "proj_cta_info",
+    "ctaUrl": "#contact"
+  }
+]

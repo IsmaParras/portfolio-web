@@ -1,3 +1,44 @@
+/* ================= PROJECTS ================= */
+.bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+
+.project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2rem; display: flex; flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,212,255,0.06); border-color: var(--primary); }
+.project-card.featured {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--surface), var(--surface-hover));
+    border-color: var(--primary);
+}
+@media (min-width: 1024px) { .project-card.featured { grid-column: span 2; } }
+
+.project-badge {
+    display: inline-block; background: var(--primary); color: var(--bg);
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: bold;
+    padding: 0.3rem 0.75rem; margin-bottom: 1rem;
+    white-space: nowrap; max-width: 100%;
+}
+.project-title { font-size: 1.6rem; margin-bottom: 0.75rem; }
+.featured .project-title { font-size: 2rem; color: var(--primary); }
+.project-desc  { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem; flex-grow: 1; }
+
+.result-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.1rem; }
+.result-chip  {
+    font-family: var(--font-mono); font-size: 0.72rem; padding: 0.25rem 0.7rem;
+    background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.3); color: var(--primary);
+}
+[data-theme="light"] .result-chip { background: rgba(0,119,153,0.08); border-color: rgba(0,119,153,0.3); }
+
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.project-tags span {
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--secondary); background: rgba(124,58,237,0.1); padding: 0.2rem 0.5rem;
+}
+[data-theme="light"] .project-tags span { background: rgba(107,33,168,0.1); }
+.project-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-top: auto; }
+
 /* ================= VARIABLES Y TEMAS ================= */
 :root, :root[data-theme="dark"] {
     --bg: #0a0a0f;
@@ -265,68 +306,6 @@ nav.scrolled {
 .project-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .code-link { font-size: 0.85rem; }
 
-
-/* ================= CASE STUDY CARDS ================= */
-.project-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-.project-card.featured .project-inner {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: 2rem;
-}
-@media (max-width: 860px) {
-    .project-card.featured .project-inner { grid-template-columns: 1fr; }
-}
-
-/* Imagen real */
-.project-img {
-    width: 100%; aspect-ratio: 16/9;
-    object-fit: cover; display: block;
-    border: 1px solid var(--border);
-}
-
-/* Placeholder hasta tener captura */
-.project-img-placeholder {
-    width: 100%; aspect-ratio: 16/9;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 0.75rem;
-    background: linear-gradient(135deg, var(--surface), var(--surface-hover));
-    border: 1px dashed var(--border);
-    color: var(--muted); font-family: var(--font-mono); font-size: 0.78rem;
-    text-align: center; padding: 1rem;
-}
-.project-img-placeholder svg { opacity: 0.4; }
-
-/* Marco caso de estudio */
-.case-block { margin-bottom: 1.1rem; }
-.case-label {
-    display: inline-block;
-    font-family: var(--font-mono); font-size: 0.68rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--primary); margin-bottom: 0.3rem;
-}
-.case-block p {
-    color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin: 0;
-}
-
-/* Chips de resultados */
-.result-chips {
-    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.1rem;
-}
-.result-chip {
-    font-family: var(--font-mono); font-size: 0.72rem;
-    padding: 0.25rem 0.7rem;
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    color: var(--primary);
-}
-[data-theme="light"] .result-chip {
-    background: rgba(0, 119, 153, 0.08);
-    border-color: rgba(0, 119, 153, 0.3);
-}
 
 /* ================= CONTACT ================= */
 .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1rem; }
