@@ -28,6 +28,15 @@
     --muted: #475569;
     --border: #00000022;
 }
+/* ================= UTILIDADES EXTRAÍDAS DE INLINE STYLES ================= */
+.reveal--late { transition-delay: 0.2s; }
+.cv-btn-icon  { margin-right: 8px; }
+.form-honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+.btn-full { width: 100%; }
+
+/* Pausa bg-grid cuando la pestaña está oculta (ahorra CPU) */
+.bg-grid.is-paused { animation-play-state: paused; }
+
 
 /* ================= RESET Y BASE ================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }

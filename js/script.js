@@ -341,6 +341,11 @@
         document.documentElement.setAttribute('data-theme', theme);
         if (themeToggle) themeToggle.innerHTML = theme === 'dark' ? sunIconSVG : moonIconSVG;
         try { localStorage.setItem('theme', theme); } catch (e) {}
+        // Sincronizar theme-color de la barra del navegador en móvil
+        const tcDark  = document.getElementById('theme-color-dark');
+        const tcLight = document.getElementById('theme-color-light');
+        if (tcDark)  tcDark.setAttribute('content',  theme === 'dark'  ? '#0a0a0f' : '#fdfbf7');
+        if (tcLight) tcLight.setAttribute('content', theme === 'light' ? '#fdfbf7' : '#0a0a0f');
     }
     function initTheme() {
         let saved = 'dark';
@@ -684,6 +689,13 @@
         initTheme();
         initNav();
         initRevealObserver();
+        // Pausa la animación del grid cuando el usuario cambia de pestaña
+        const bgGrid = document.querySelector('.bg-grid');
+        if (bgGrid && !prefersReducedMotion) {
+            document.addEventListener('visibilitychange', () => {
+                bgGrid.classList.toggle('is-paused', document.hidden);
+            });
+        }
         window.addEventListener('scroll', onScrollHandler, { passive: true });
         if (downloadCvBtn) downloadCvBtn.addEventListener('click', downloadCV);
         if (contactForm) contactForm.addEventListener('submit', handleFormSubmit);

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#fdfbf7" media="(prefers-color-scheme: light)">
+    <title>404 — Ismael Parras</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f; --primary: #00d4ff; --secondary: #7c3aed;
+            --text: #e2e8f0; --muted: #8b97a8;
+            --font-display: 'Syne', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        :root[data-theme="light"] {
+            --bg: #fdfbf7; --primary: #007799; --text: #0f172a; --muted: #475569;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg); color: var(--text);
+            font-family: var(--font-mono);
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 2rem; gap: 1.5rem;
+        }
+        .code {
+            font-family: var(--font-display); font-size: clamp(5rem, 20vw, 10rem);
+            font-weight: 800; color: var(--primary);
+            text-shadow: 6px 6px 0 var(--secondary);
+            line-height: 1;
+        }
+        .label { font-size: 0.75rem; letter-spacing: 0.15em; color: var(--muted); }
+        .msg  { font-size: clamp(1rem, 3vw, 1.3rem); color: var(--text); max-width: 400px; }
+        .hint { font-size: 0.8rem; color: var(--muted); max-width: 360px; line-height: 1.6; }
+        .back {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border: 2px solid var(--primary); background: var(--primary);
+            color: var(--bg); font-family: var(--font-mono); font-size: 0.9rem;
+            font-weight: 700; text-decoration: none; margin-top: 0.5rem;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .back:hover {
+            background: transparent; color: var(--primary);
+            box-shadow: 4px 4px 0 var(--primary); transform: translate(-2px, -2px);
+        }
+        .grid {
+            position: fixed; inset: 0;
+            background-image: radial-gradient(var(--muted) 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.04; z-index: -1; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid" aria-hidden="true"></div>
+    <p class="label">// ERROR</p>
+    <div class="code" aria-label="Error 404">404</div>
+    <p class="msg">Esta página no existe (o se ha movido).</p>
+    <p class="hint">Si llegaste aquí desde un enlace, puede que la URL esté rota. Vuelve al inicio y encuentra lo que buscas.</p>
+    <a href="/" class="back">← Volver al portfolio</a>
+    <script>
+        // Respetar tema guardado
+        try {
+            const t = localStorage.getItem('theme');
+            if (t) document.documentElement.setAttribute('data-theme', t);
+        } catch(e) {}
+    </script>
+</body>
+</html>

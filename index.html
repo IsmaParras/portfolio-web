@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" id="theme-color-dark">
+    <meta name="theme-color" content="#fdfbf7" media="(prefers-color-scheme: light)" id="theme-color-light">
 
     <!-- ============ SEO PRINCIPAL ============ -->
     <title>Ismael Parras Resino | RPA & AI Automation Developer</title>
@@ -12,14 +14,14 @@
     <meta name="robots" content="index, follow">
 
     <!-- IMPORTANTE: sustituye esta URL por tu dominio real una vez desplegado -->
-    <link rel="canonical" href="https://ismaelparras.vercel.app/">
+    <link rel="canonical" href="https://portfolio-web-dusky-six.vercel.app/">
 
     <!-- ============ OPEN GRAPH (LinkedIn / Facebook) ============ -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ismaelparras.vercel.app/">
+    <meta property="og:url" content="https://portfolio-web-dusky-six.vercel.app/">
     <meta property="og:title" content="Ismael Parras Resino | RPA & AI Automation Developer">
     <meta property="og:description" content="Hiperautomatización, IA Generativa y agentes conversacionales. Automatizo procesos de negocio de extremo a extremo con UiPath, Power Automate, Druid AI y LangChain.">
-    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta property="og:image" content="https://portfolio-web-dusky-six.vercel.app/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="es_ES">
@@ -29,7 +31,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ismael Parras Resino | RPA & AI Automation Developer">
     <meta name="twitter:description" content="Hiperautomatización, IA Generativa y agentes conversacionales con UiPath, Power Automate, Druid AI y LangChain.">
-    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta name="twitter:image" content="https://portfolio-web-dusky-six.vercel.app/assets/og-image.png">
 
     <!-- ============ DATOS ESTRUCTURADOS (JSON-LD Person) ============ -->
     <script type="application/ld+json">
@@ -39,7 +41,7 @@
       "name": "Ismael Parras Resino",
       "jobTitle": "RPA & AI Automation Developer",
       "email": "mailto:isma021m@gmail.com",
-      "url": "https://ismaelparras.vercel.app/",
+      "url": "https://portfolio-web-dusky-six.vercel.app/",
       "address": { "@type": "PostalAddress", "addressLocality": "Leganés", "addressRegion": "Madrid", "addressCountry": "ES" },
       "worksFor": { "@type": "Organization", "name": "Sermicro" },
       "alumniOf": { "@type": "EducationalOrganization", "name": "IES Federica Montseny" },
@@ -124,13 +126,13 @@
                     <div class="hero-actions">
                         <a href="#projects" class="btn btn-primary" data-i18n="btn_projects">Ver proyectos</a>
                         <button class="btn btn-secondary" id="downloadCvBtn" aria-label="Descargar CV">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cv-btn-icon" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             <span data-i18n="btn_cv">Descargar CV</span>
                         </button>
                     </div>
                     <div class="social-icons" id="socialIcons"></div>
                 </div>
-                <div class="hero-visual reveal" style="transition-delay: 0.2s;">
+                <div class="hero-visual reveal reveal--late">
                     <div class="avatar">IPR</div>
                 </div>
             </div>
@@ -163,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-experience reveal" style="transition-delay: 0.2s;">
+                <div class="about-experience reveal reveal--late">
                     <h3 class="mono about-subtitle" data-i18n="exp_title">Trayectoria</h3>
                     <div class="timeline" id="timeline">
                         <div class="timeline-line" id="timelineLine"></div>
@@ -247,10 +249,10 @@
                     <a href="#" id="contactEmailLink" class="contact-email">isma021m@gmail.com</a>
                     <div class="social-icons" id="contactSocialIcons"></div>
                 </div>
-                <div class="contact-form reveal" style="transition-delay: 0.2s;">
+                <div class="contact-form reveal reveal--late">
                     <form id="contactForm" method="POST">
                         <!-- Honeypot anti-spam (oculto a humanos) -->
-                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-honeypot">
                         <div class="form-group"><label for="name" data-i18n="form_name">Nombre</label><input type="text" id="name" name="name" class="form-control" required placeholder="Tu nombre" autocomplete="name"></div>
                         <div class="form-group"><label for="email" data-i18n="form_email">Email</label><input type="email" id="email" name="email" class="form-control" required placeholder="tu@email.com" autocomplete="email"></div>
                         <div class="form-group"><label for="subject" data-i18n="form_subject">Asunto</label>
@@ -263,7 +265,7 @@
                             </select>
                         </div>
                         <div class="form-group"><label for="message" data-i18n="form_message">Mensaje</label><textarea id="message" name="message" class="form-control" required placeholder="¿En qué puedo ayudarte?"></textarea></div>
-                        <button type="submit" class="btn btn-primary" id="formSubmitBtn" style="width: 100%;" data-i18n="form_btn">Enviar mensaje</button>
+                        <button type="submit" class="btn btn-primary btn-full" id="formSubmitBtn" data-i18n="form_btn">Enviar mensaje</button>
                         <div id="formSuccess" class="form-feedback" role="status" data-i18n="form_success">¡Mensaje enviado correctamente! Te responderé pronto.</div>
                         <div id="formError" class="form-feedback" role="alert" data-i18n="form_error">Hubo un error al enviar. Revisa los datos e inténtalo de nuevo.</div>
                     </form>
