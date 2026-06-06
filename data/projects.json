@@ -1,8 +1,7 @@
 [
   {
     "id": "lead-auditor-pro",
-    "featured": true,
-    "badgeKey": "proj1_badge",
+    "featured": false,
     "title": "Lead Auditor Pro",
     "tags": [
       "Python",
@@ -19,10 +18,6 @@
       {
         "es": "Auditoría digital completa",
         "en": "Full digital audit"
-      },
-      {
-        "es": "En desarrollo",
-        "en": "In development"
       }
     ],
     "ctaKey": "proj_cta_info",
@@ -31,7 +26,6 @@
   {
     "id": "citamatic",
     "featured": false,
-    "badgeKey": "proj2_badge",
     "title": "CitaMatic",
     "tags": [
       "Botpress",
@@ -48,10 +42,6 @@
       {
         "es": "0 intervención manual",
         "en": "0 manual intervention"
-      },
-      {
-        "es": "En producción",
-        "en": "In production"
       }
     ],
     "ctaKey": "proj_cta_info",
