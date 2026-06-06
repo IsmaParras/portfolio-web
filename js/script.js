@@ -2,9 +2,7 @@
     "use strict";
 
     const CONFIG = {
-        githubUser: 'IsmaParras',
         email: 'isma021m@gmail.com',
-        // Sustituye por tu ID real de Formspree (https://formspree.io) antes de desplegar.
         formspreeId: 'xbdqqjbn',
         cvFiles: { es: 'Ismael_Parras_CV_ES.pdf', en: 'Ismael_Parras_CV_EN.pdf' },
         socialLinks: {
@@ -13,24 +11,38 @@
         },
         projects: [
             {
+                id: 'lead-auditor-pro',
                 featured: true,
                 badgeKey: 'proj1_badge',
                 title: 'Lead Auditor Pro',
                 tags: ['Python', 'Google Maps API', 'Web Scraping', 'Lead Generation'],
-                descKey: 'proj1_desc',
+                // image: 'assets/img/lead-auditor-pro.png',
+                problemKey: 'proj1_problem',
+                solutionKey: 'proj1_solution',
+                results: [
+                    { es: 'Prospección 100% automática', en: '100% automated prospecting' },
+                    { es: 'Auditoría digital completa',  en: 'Full digital audit' },
+                    { es: 'En desarrollo',               en: 'In development' }
+                ],
                 ctaKey: 'proj_cta_info',
-                ctaUrl: '#contact',
-                codeUrl: null
+                ctaUrl: '#contact'
             },
             {
+                id: 'citamatic',
                 featured: false,
                 badgeKey: 'proj2_badge',
                 title: 'CitaMatic',
                 tags: ['Botpress', 'Make', 'Google Calendar API', 'IA Conversacional'],
-                descKey: 'proj2_desc',
+                // image: 'assets/img/citamatic.png',
+                problemKey: 'proj2_problem',
+                solutionKey: 'proj2_solution',
+                results: [
+                    { es: 'Disponible 24/7',       en: 'Available 24/7' },
+                    { es: '0 intervención manual', en: '0 manual intervention' },
+                    { es: 'En producción',         en: 'In production' }
+                ],
                 ctaKey: 'proj_cta_info',
-                ctaUrl: '#contact',
-                codeUrl: null
+                ctaUrl: '#contact'
             }
         ],
         techSkills: [
@@ -160,10 +172,13 @@
             projects_title: "Proyectos Destacados",
             projects_subtitle: "Una selección de soluciones reales de automatización e IA en las que estoy trabajando.",
             proj1_badge: "🚀 Producto propio · En desarrollo",
-            proj1_desc: "Herramienta de prospección comercial en Python con interfaz visual. Conectada a la API de Google Maps, detecta qué negocios de una zona tienen o no página web y audita su presencia digital: extrae email, redes sociales, formularios, WhatsApp y mide el rendimiento de carga. Genera leads cualificados de forma automática.",
+            proj1_problem: "La prospección de leads B2B locales es lenta, manual y poco escalable. Identificar qué negocios de una zona tienen o no presencia digital requiere horas de búsqueda manual.",
+            proj1_solution: "Herramienta en Python con interfaz visual conectada a la API de Google Maps. Detecta automáticamente qué negocios carecen de web y audita los que sí la tienen: extrae email, redes sociales, formularios, WhatsApp y mide el rendimiento de carga.",
             proj2_badge: "🤖 En producción",
-            proj2_desc: "Agente conversacional para una clínica de belleza que gestiona y reserva citas de forma autónoma. Construido con Botpress y Make, e integrado con Google Calendar para registrar automáticamente cada cita sin intervención manual.",
+            proj2_problem: "Una clínica de belleza gestionaba sus reservas manualmente por teléfono y WhatsApp, con pérdida de citas fuera del horario de atención.",
+            proj2_solution: "Agente conversacional construido con Botpress y Make, integrado con Google Calendar. Gestiona y confirma reservas de forma autónoma las 24 horas sin intervención del equipo.",
             proj_cta_info: "Más información", proj_cta_demo: "Ver demo",
+            case_challenge: "El reto", case_solution: "La solución", case_results: "Resultados", proj_img_soon: "Screenshot próximamente",
             contact_title: "Hablemos",
             contact_text: "¿Tienes un proceso que se puede automatizar, una idea de agente conversacional o una vacante donde encaje mi perfil? Escríbeme y lo vemos.",
             form_name: "Nombre", form_email: "Email", form_subject: "Asunto", form_message: "Mensaje",
@@ -201,10 +216,13 @@
             projects_title: "Featured Projects",
             projects_subtitle: "A selection of real automation and AI solutions I'm working on.",
             proj1_badge: "🚀 Own product · In development",
-            proj1_desc: "A Python lead-generation tool with a visual interface. Connected to the Google Maps API, it detects which businesses in an area have a website and audits their digital presence: extracting email, social media, forms and WhatsApp, and measuring load performance. It generates qualified leads automatically.",
+            proj1_problem: "B2B local lead prospecting is slow, manual and hard to scale. Identifying which businesses in an area lack a digital presence requires hours of manual searching.",
+            proj1_solution: "A Python tool with a visual interface connected to the Google Maps API. It automatically detects businesses with no website and audits those that have one: extracting email, social media, forms, WhatsApp and measuring load performance.",
             proj2_badge: "🤖 In production",
-            proj2_desc: "A conversational agent for a beauty clinic that manages and books appointments autonomously. Built with Botpress and Make, integrated with Google Calendar to automatically log every booking with no manual work.",
+            proj2_problem: "A beauty clinic was managing bookings manually by phone and WhatsApp, losing appointments made outside business hours.",
+            proj2_solution: "A conversational agent built with Botpress and Make, integrated with Google Calendar. It autonomously manages and confirms bookings around the clock with no staff intervention.",
             proj_cta_info: "Learn more", proj_cta_demo: "View demo",
+            case_challenge: "The challenge", case_solution: "The solution", case_results: "Results", proj_img_soon: "Screenshot coming soon",
             contact_title: "Let's talk",
             contact_text: "Got a process worth automating, a conversational-agent idea, or a role my profile fits? Drop me a line and let's look at it.",
             form_name: "Name", form_email: "Email", form_subject: "Subject", form_message: "Message",
@@ -236,12 +254,38 @@
 
         const projectsGrid = document.getElementById('projectsGrid');
         if (projectsGrid) projectsGrid.innerHTML = CONFIG.projects.map(proj => {
+            const t = translations[currentLang];
             const featuredClass = proj.featured ? 'featured' : '';
-            const badgeHtml = proj.badgeKey ? `<div class="project-badge" data-i18n="${proj.badgeKey}">${translations[currentLang][proj.badgeKey] || ''}</div>` : '';
-            const ctaBtn = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${translations[currentLang][proj.ctaKey] || ''}</a>` : '';
-            const codeLink = proj.codeUrl ? `<a href="${proj.codeUrl}" class="mono code-link" target="_blank" rel="noopener noreferrer">View Code &rarr;</a>` : '';
+            const badge = `<div class="project-badge" data-i18n="${proj.badgeKey}">${t[proj.badgeKey] || ''}</div>`;
+            const imgHtml = proj.image
+                ? `<img src="${proj.image}" alt="${proj.title}" loading="lazy" class="project-img">`
+                : `<div class="project-img-placeholder" aria-hidden="true">
+                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>
+                     <span data-i18n="proj_img_soon">${t.proj_img_soon || 'Screenshot próximamente'}</span>
+                   </div>`;
             const tagsHtml = proj.tags.map(tag => `<span>${tag}</span>`).join('');
-            return `<article class="project-card ${featuredClass} reveal">${badgeHtml}<h3 class="project-title">${proj.title}</h3><div class="project-tags">${tagsHtml}</div><p class="project-desc" data-i18n="${proj.descKey}"></p><div class="project-actions">${ctaBtn}${codeLink}</div></article>`;
+            const resultsHtml = (proj.results || []).map(r => `<span class="result-chip">${r[currentLang] || r.es}</span>`).join('');
+            const ctaBtn = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
+            return `<article class="project-card ${featuredClass} reveal" id="proj-${proj.id}">
+              <div class="project-inner">
+                <div class="project-media">${imgHtml}</div>
+                <div class="project-content">
+                  ${badge}
+                  <h3 class="project-title">${proj.title}</h3>
+                  <div class="case-block">
+                    <span class="case-label" data-i18n="case_challenge">${t.case_challenge || 'El reto'}</span>
+                    <p data-i18n="${proj.problemKey}"></p>
+                  </div>
+                  <div class="case-block">
+                    <span class="case-label" data-i18n="case_solution">${t.case_solution || 'La solución'}</span>
+                    <p data-i18n="${proj.solutionKey}"></p>
+                  </div>
+                  <div class="result-chips" aria-label="${t.case_results || 'Resultados'}">${resultsHtml}</div>
+                  <div class="project-tags">${tagsHtml}</div>
+                  <div class="project-actions">${ctaBtn}</div>
+                </div>
+              </div>
+            </article>`;
         }).join('');
 
         if (contactForm) contactForm.action = (CONFIG.formspreeId && CONFIG.formspreeId !== 'YOUR_FORMSPREE_ID') ? `https://formspree.io/f/${CONFIG.formspreeId}` : '#';
@@ -368,12 +412,20 @@
     }
 
     function initRevealObserver() {
-        if (prefersReducedMotion) {
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-            return;
-        }
-        const observer = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+        const revealAll = () => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        if (prefersReducedMotion) { revealAll(); return; }
+        const observer = new IntersectionObserver(
+            entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+            { threshold: 0, rootMargin: '0px 0px 80px 0px' }
+        );
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Fallback: si algún reveal queda invisible tras 600ms (p.ej. modo claro, nav clic), forzar visible
+        setTimeout(() => {
+            document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+                const r = el.getBoundingClientRect();
+                if (r.top < window.innerHeight + 200) el.classList.add('visible');
+            });
+        }, 600);
     }
 
     function updateTimelineOnScroll() {
