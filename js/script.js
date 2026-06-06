@@ -7,7 +7,13 @@
     let typeTexts    = {};   // i18n.json
 
     let currentLang = navigator.language.startsWith('es') ? 'es' : 'en';
-    let rerenderSkills = null;
+    let rerenderSkills  = null;
+    let revealObserver  = null;   // module-level so dynamic renders can register elements
+
+    function observeNewReveals(container) {
+        if (!revealObserver || !container) return;
+        container.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+    }
     let typewriterTimeout = null;
     let cursorAnimFrame   = null;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -74,19 +80,24 @@
         if (contactSocial) contactSocial.innerHTML = socialMarkup(32);
 
         const projectsGrid = document.getElementById('projectsGrid');
-        if (projectsGrid) projectsGrid.innerHTML = CONFIG.projects.map(proj => {
-            const tagsHtml    = proj.tags.map(tag => `<span>${tag}</span>`).join('');
-            const resultsHtml = (proj.results || []).map(r => `<span class="result-chip">${r[currentLang] || r.es}</span>`).join('');
-            const ctaBtn      = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
-            return `<article class="project-card ${proj.featured ? 'featured' : ''} reveal" id="proj-${proj.id}">
-              <div class="project-badge" data-i18n="${proj.badgeKey}">${t[proj.badgeKey] || ''}</div>
-              <h3 class="project-title">${proj.title}</h3>
-              <p class="project-desc" data-i18n="${proj.descKey}"></p>
-              <div class="result-chips">${resultsHtml}</div>
-              <div class="project-tags">${tagsHtml}</div>
-              <div class="project-actions">${ctaBtn}</div>
-            </article>`;
-        }).join('');
+        if (projectsGrid) {
+            projectsGrid.innerHTML = CONFIG.projects.map(proj => {
+                const tagsHtml    = proj.tags.map(tag => `<span>${tag}</span>`).join('');
+                const resultsHtml = (proj.results || []).map(r => `<span class="result-chip">${r[currentLang] || r.es}</span>`).join('');
+                const ctaBtn      = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
+                const badgeHtml   = proj.badgeKey ? `<div class="project-badge" data-i18n="${proj.badgeKey}">${t[proj.badgeKey] || ''}</div>` : '';
+                return `<article class="project-card reveal visible" id="proj-${proj.id}">
+                  ${badgeHtml}
+                  <h3 class="project-title">${proj.title}</h3>
+                  <p class="project-desc" data-i18n="${proj.descKey}"></p>
+                  <div class="result-chips">${resultsHtml}</div>
+                  <div class="project-tags">${tagsHtml}</div>
+                  <div class="project-actions">${ctaBtn}</div>
+                </article>`;
+            }).join('');
+            // Registra en el observer cualquier reveal dinámico restante
+            observeNewReveals(projectsGrid);
+        }
 
         if (contactForm) contactForm.action = (CONFIG.formspreeId && CONFIG.formspreeId !== 'YOUR_FORMSPREE_ID')
             ? `https://formspree.io/f/${CONFIG.formspreeId}` : '#';
@@ -218,16 +229,17 @@
     function initRevealObserver() {
         const revealAll = () => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
         if (prefersReducedMotion) { revealAll(); return; }
-        const observer = new IntersectionObserver(
+        revealObserver = new IntersectionObserver(
             entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-            { threshold: 0, rootMargin: '0px 0px 80px 0px' }
+            { threshold: 0, rootMargin: '0px 0px 100px 0px' }
         );
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        // Fallback ampliado: fuerza visible cualquier reveal que ya esté cerca
         setTimeout(() => {
             document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight + 200) el.classList.add('visible');
+                if (el.getBoundingClientRect().top < window.innerHeight + 400) el.classList.add('visible');
             });
-        }, 600);
+        }, 800);
     }
 
     // ─────────────── SCROLL ───────────────
