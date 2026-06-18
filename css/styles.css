@@ -140,6 +140,7 @@ nav.scrolled {
 
 /* ================= SECCIONES ================= */
 .section { padding: 100px 0 4rem; }
+@media (max-width: 700px) { .section { padding: 64px 0 2rem; } }
 #home { min-height: 100vh; display: flex; align-items: center; }
 /* El desplazamiento bajo la barra fija lo gestiona scroll-padding-top en <html>.
    No añadir scroll-margin-top aquí: se sumaría y dejaría las secciones a 160px. */
@@ -187,6 +188,7 @@ img.avatar {
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; display: inline-block; }
+@media (max-width: 700px) { .section-title { font-size: 1.5rem; } }
 
 /* ================= ABOUT ================= */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1.5rem; }
@@ -277,10 +279,15 @@ img.avatar {
 /* Móvil: una columna, cards compactas y títulos legibles.
    Va DESPUÉS de las reglas base para que gane por orden de fuente. */
 @media (max-width: 700px) {
-    .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .project-card { padding: 1.5rem; }
-    .project-title { font-size: 1.3rem; }
-    .featured .project-title { font-size: 1.5rem; }
+    .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1rem; }
+    .project-card { padding: 1.25rem; }
+    .project-title { font-size: 1.2rem; margin-top: 0.25rem; margin-bottom: 0.4rem; }
+    .featured .project-title { font-size: 1.4rem; }
+    .project-desc { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.85rem; }
+    .result-chips { margin-bottom: 0.75rem; }
+    /* Sin botón: la card no debe dejar hueco muerto debajo de los tags */
+    .project-tags { margin-bottom: 0; }
+    .project-actions:not(:empty) { margin-top: 0.9rem; }
 }
 
 
