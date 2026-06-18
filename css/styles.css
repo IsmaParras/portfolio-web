@@ -41,7 +41,7 @@
 
 /* ================= RESET Y BASE ================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; overflow-x: hidden; }
 
 body {
     font-family: var(--font-body);
@@ -73,7 +73,7 @@ body {
 .skip-link:focus { top: 8px; }
 
 .bg-grid {
-    position: fixed; inset: 0; width: 100vw; height: 100vh;
+    position: fixed; inset: 0; width: 100%; height: 100%;
     background-image: radial-gradient(var(--muted) 1px, transparent 1px);
     background-size: 40px 40px;
     opacity: 0.05; z-index: -1; pointer-events: none;
@@ -260,6 +260,7 @@ img.avatar {
 .empty-state p { color: var(--muted); font-family: var(--font-body); margin-bottom: 1.5rem; }
 
 /* ================= PROJECTS ================= */
+#projects { width: 100%; max-width: 100%; }
 .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(240px, auto); gap: 1.5rem; margin-top: 1rem; }
 .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
 .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.05); border-color: var(--primary); }
@@ -279,8 +280,8 @@ img.avatar {
 /* Móvil: una columna, cards compactas y títulos legibles.
    Va DESPUÉS de las reglas base para que gane por orden de fuente. */
 @media (max-width: 700px) {
-    .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1rem; }
-    .project-card { padding: 1.25rem; }
+    .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1rem; width: 100%; }
+    .project-card { padding: 1.25rem; width: 100%; min-width: 0; box-sizing: border-box; }
     .project-title { font-size: 1.2rem; margin-top: 0.25rem; margin-bottom: 0.4rem; }
     .featured .project-title { font-size: 1.4rem; }
     .project-desc { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.85rem; }
