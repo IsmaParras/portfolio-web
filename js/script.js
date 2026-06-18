@@ -86,7 +86,7 @@
                 const resultsHtml = (proj.results || []).map(r => `<span class="result-chip">${r[currentLang] || r.es}</span>`).join('');
                 const ctaBtn      = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
                 const badgeHtml   = proj.badgeKey ? `<div class="project-badge" data-i18n="${proj.badgeKey}">${t[proj.badgeKey] || ''}</div>` : '';
-                return `<article class="project-card reveal visible" id="proj-${proj.id}">
+                return `<article class="project-card${proj.featured ? ' featured' : ''} reveal visible" id="proj-${proj.id}">
                   ${badgeHtml}
                   <h3 class="project-title">${proj.title}</h3>
                   <p class="project-desc" data-i18n="${proj.descKey}"></p>

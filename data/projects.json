@@ -1,24 +1,53 @@
 [
   {
+    "id": "druid-ai-agents",
+    "featured": true,
+    "title": "Agentes Conversacionales Druid AI",
+    "badgeKey": "proj3_badge",
+    "tags": ["Druid AI", "NLP", "Microsoft Teams", "Voicebot"],
+    "descKey": "proj3_desc",
+    "results": [
+      { "es": "En producción 24/7", "en": "Live 24/7" },
+      { "es": "Multicanal: Teams · Web · Voz", "en": "Multichannel: Teams · Web · Voice" },
+      { "es": "Escalado a agente humano", "en": "Human handover" }
+    ]
+  },
+  {
+    "id": "servicedesk-langchain",
+    "featured": false,
+    "title": "Automatización ServiceDesk con LangChain",
+    "badgeKey": "proj4_badge",
+    "tags": ["LangChain", "LLM", "API REST", "Jira", "EasyVista"],
+    "descKey": "proj4_desc",
+    "results": [
+      { "es": "Clasificación automática de tickets", "en": "Automatic ticket triage" },
+      { "es": "Integración Jira · EasyVista", "en": "Jira · EasyVista integration" },
+      { "es": "Menos trabajo manual de soporte", "en": "Less manual support work" }
+    ]
+  },
+  {
+    "id": "rpa-uipath-azure",
+    "featured": false,
+    "title": "Automatización RPA con UiPath en Azure",
+    "badgeKey": "proj5_badge",
+    "tags": ["UiPath", "Power Automate", "Azure", "RPA"],
+    "descKey": "proj5_desc",
+    "results": [
+      { "es": "Ejecución desatendida", "en": "Unattended execution" },
+      { "es": "Desplegado en VM de Azure", "en": "Deployed on Azure VM" },
+      { "es": "Procesos de extremo a extremo", "en": "End-to-end processes" }
+    ]
+  },
+  {
     "id": "lead-auditor-pro",
     "featured": false,
     "title": "Lead Auditor Pro",
-    "tags": [
-      "Python",
-      "Google Maps API",
-      "Web Scraping",
-      "Lead Generation"
-    ],
+    "badgeKey": "proj1_badge",
+    "tags": ["Python", "Google Maps API", "Web Scraping", "Lead Generation"],
     "descKey": "proj1_desc",
     "results": [
-      {
-        "es": "Prospección 100% automática",
-        "en": "100% automated prospecting"
-      },
-      {
-        "es": "Auditoría digital completa",
-        "en": "Full digital audit"
-      }
+      { "es": "Prospección 100% automática", "en": "100% automated prospecting" },
+      { "es": "Auditoría digital completa", "en": "Full digital audit" }
     ],
     "ctaKey": "proj_cta_info",
     "ctaUrl": "#contact"
@@ -27,22 +56,12 @@
     "id": "citamatic",
     "featured": false,
     "title": "CitaMatic",
-    "tags": [
-      "Botpress",
-      "Make",
-      "Google Calendar API",
-      "IA Conversacional"
-    ],
+    "badgeKey": "proj2_badge",
+    "tags": ["Botpress", "Make", "Google Calendar API", "IA Conversacional"],
     "descKey": "proj2_desc",
     "results": [
-      {
-        "es": "Disponible 24/7",
-        "en": "Available 24/7"
-      },
-      {
-        "es": "0 intervención manual",
-        "en": "0 manual intervention"
-      }
+      { "es": "Disponible 24/7", "en": "Available 24/7" },
+      { "es": "0 intervención manual", "en": "0 manual intervention" }
     ],
     "ctaKey": "proj_cta_info",
     "ctaUrl": "#contact"
