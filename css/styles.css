@@ -29,6 +29,7 @@
     --border: #00000022;
 }
 /* ================= UTILIDADES EXTRAÍDAS DE INLINE STYLES ================= */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .reveal--late { transition-delay: 0.2s; }
 .cv-btn-icon  { margin-right: 8px; }
 .form-honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
