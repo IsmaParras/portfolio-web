@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-web",
+  "version": "1.0.0",
+  "description": "Portfolio personal de Ismael Parras Resino — RPA & AI Automation Developer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/prerender.mjs"
+  },
+  "license": "MIT"
+}

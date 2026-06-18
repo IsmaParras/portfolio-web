@@ -42,10 +42,12 @@
     }
 
     function showSkeletons() {
+        // Si el contenido viene prerenderizado (build C4), no lo pisamos con
+        // skeletons: evita el flash contenido-real → skeleton → contenido-real.
         const pg = document.getElementById('projectsGrid');
-        if (pg) pg.innerHTML = '<div class="skeleton-card skeleton"></div><div class="skeleton-card skeleton"></div>';
+        if (pg && !pg.children.length) pg.innerHTML = '<div class="skeleton-card skeleton"></div><div class="skeleton-card skeleton"></div>';
         const sg = document.getElementById('techSkillsGrid');
-        if (sg) sg.innerHTML = Array(6).fill('<div class="skeleton-skill skeleton"></div>').join('');
+        if (sg && !sg.children.length) sg.innerHTML = Array(6).fill('<div class="skeleton-skill skeleton"></div>').join('');
     }
 
     // ─────────────── REFERENCIAS DOM ───────────────
