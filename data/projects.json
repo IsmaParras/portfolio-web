@@ -17,11 +17,11 @@
     "featured": false,
     "title": "Automatización ServiceDesk con LangChain",
     "badgeKey": "proj4_badge",
-    "tags": ["LangChain", "LLM", "API REST", "Jira", "EasyVista"],
+    "tags": ["LangChain", "LLM", "API REST", "Jira"],
     "descKey": "proj4_desc",
     "results": [
       { "es": "Clasificación automática de tickets", "en": "Automatic ticket triage" },
-      { "es": "Integración Jira · EasyVista", "en": "Jira · EasyVista integration" },
+      { "es": "Integración Jira", "en": "Jira integration" },
       { "es": "Menos trabajo manual de soporte", "en": "Less manual support work" }
     ]
   },

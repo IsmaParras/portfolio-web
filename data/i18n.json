@@ -55,8 +55,8 @@
     "cert_label": "Certificado",
     "projects_title": "Proyectos Destacados",
     "projects_subtitle": "Una selección de soluciones reales de automatización e IA en las que estoy trabajando.",
-    "proj1_badge": "🚀 Producto propio · En desarrollo",
-    "proj2_badge": "🤖 En producción",
+    "proj1_badge": "🚀 Producto propio",
+    "proj2_badge": "🚀 Producto propio",
     "proj3_badge": "🤖 En producción",
     "proj4_badge": "🏛️ Sector público · En producción",
     "proj5_badge": "⚙️ En producción",
@@ -82,7 +82,7 @@
     "proj1_desc": "Herramienta propia en Python con interfaz visual que automatiza la prospección de leads B2B locales. Conectada a la API de Google Maps, detecta qué negocios de una zona carecen de presencia digital, audita los que sí la tienen —email, redes, formularios, WhatsApp, rendimiento de carga— y genera listas de leads cualificados de forma automática.",
     "proj2_desc": "Agente conversacional para una clínica de belleza que gestiona reservas de forma autónoma con Botpress y Make, integrado con Google Calendar. Elimina la gestión manual de citas por teléfono y WhatsApp y opera las 24 horas sin intervención del equipo.",
     "proj3_desc": "Diseño, desarrollo y puesta en producción de agentes conversacionales con Druid AI para entornos empresariales. Operan de forma simultánea en Microsoft Teams, web y canal de voz: resuelven consultas y ejecutan acciones de negocio de forma autónoma, con escalado a agente humano cuando es necesario.",
-    "proj4_desc": "Automatización del ServiceDesk de un organismo público mediante orquestación de LLMs con LangChain. El sistema clasifica y enruta tickets automáticamente e integra el flujo con Jira y EasyVista vía API REST, reduciendo el trabajo manual del equipo de soporte.",
+    "proj4_desc": "Automatización del ServiceDesk de un organismo público mediante orquestación de LLMs con LangChain. El sistema clasifica y enruta tickets automáticamente e integra el flujo con Jira vía API REST, reduciendo el trabajo manual del equipo de soporte.",
     "proj5_desc": "Automatización de procesos de negocio repetitivos con UiPath y Power Automate, desplegada en máquinas virtuales de Azure para ejecución desatendida. Bots que operan de extremo a extremo sobre los sistemas del cliente sin intervención manual."
   },
   "en": {
@@ -127,8 +127,8 @@
     "cert_label": "Certified",
     "projects_title": "Featured Projects",
     "projects_subtitle": "A selection of real automation and AI solutions I'm working on.",
-    "proj1_badge": "🚀 Own product · In development",
-    "proj2_badge": "🤖 In production",
+    "proj1_badge": "🚀 Own product",
+    "proj2_badge": "🚀 Own product",
     "proj3_badge": "🤖 In production",
     "proj4_badge": "🏛️ Public sector · In production",
     "proj5_badge": "⚙️ In production",
@@ -154,7 +154,7 @@
     "proj1_desc": "A proprietary Python tool with a visual interface that automates B2B local lead prospecting. Connected to the Google Maps API, it detects which businesses in an area lack a digital presence, audits those that have one —email, social media, forms, WhatsApp, load performance— and automatically generates qualified lead lists.",
     "proj2_desc": "A conversational agent for a beauty clinic that autonomously manages bookings using Botpress and Make, integrated with Google Calendar. It eliminates manual appointment handling by phone and WhatsApp and operates around the clock with no staff intervention.",
     "proj3_desc": "Design, development and production deployment of conversational agents with Druid AI for enterprise environments. They run simultaneously across Microsoft Teams, web and a voice channel: resolving queries and executing business actions autonomously, with handover to a human agent when needed.",
-    "proj4_desc": "ServiceDesk automation for a public-sector organization using LLM orchestration with LangChain. The system automatically classifies and routes tickets and integrates the workflow with Jira and EasyVista via REST API, reducing the support team's manual work.",
+    "proj4_desc": "ServiceDesk automation for a public-sector organization using LLM orchestration with LangChain. The system automatically classifies and routes tickets and integrates the workflow with Jira via REST API, reducing the support team's manual work.",
     "proj5_desc": "Automation of repetitive business processes with UiPath and Power Automate, deployed on Azure virtual machines for unattended execution. Bots running end to end across the client's systems with no manual intervention."
   }
 }
