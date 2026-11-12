@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".",
   "functions": {
-    "api/chat.js": { "maxDuration": 15 }
+    "api/chat.js": { "maxDuration": 30 }
   },
   "headers": [
     {

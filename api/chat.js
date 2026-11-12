@@ -11,12 +11,13 @@ const LIMITS = {
     historyTurns: 4,
     historyChars: 400,
     bodyChars: 8000,
-    perMinute: 4,
-    perDay: 20,
+    perMinute: 6,
+    perDay: 30,
     globalPerDay: 120,   // ≈ cuota diaria de tokens de la capa gratuita (200.000 / ~1.500 por pregunta)
     storedQuestions: 2000,
     maxTokens: 700,   // los modelos que razonan gastan parte en pensar
-    modelTimeoutMs: 12000,
+    modelTimeoutMs: 10000,
+    maxRetryWaitS: 5,   // espera máxima para reintentar un 429 por minuto del proveedor
 };
 
 const SECTIONS = ['home', 'about', 'tech-skills', 'projects', 'contact'];
@@ -100,7 +101,9 @@ async function storeQuestion(now, lang, question, outcome) {
 }
 
 // ───────────── Modelo ─────────────
-async function callModel(messages, withTools) {
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function callModel(messages, withTools, retried = false) {
     const body = { model: LLM_MODEL, messages, max_tokens: LIMITS.maxTokens, temperature: 0.3 };
     if (withTools) { body.tools = TOOLS; body.tool_choice = 'auto'; }
     if (/gpt-oss/i.test(LLM_MODEL)) body.reasoning_effort = 'low';
@@ -110,6 +113,13 @@ async function callModel(messages, withTools) {
         body: JSON.stringify(body),
         signal: AbortSignal.timeout(LIMITS.modelTimeoutMs),
     });
+    // Pico de uso: si el proveedor pide esperar poco, se espera y se reintenta una vez.
+    const raw = res.headers?.get?.('retry-after');
+    const wait = raw == null || raw === '' ? NaN : Number(raw);
+    if (res.status === 429 && !retried && wait >= 0 && wait <= LIMITS.maxRetryWaitS) {
+        await sleep(wait * 1000 + 200);
+        return callModel(messages, withTools, true);
+    }
     if (!res.ok) {
         const info = (await res.json().catch(() => ({}))).error || {};
         const e = new Error(`model ${res.status}`); e.status = res.status;
