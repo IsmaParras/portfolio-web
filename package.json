@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/prerender.mjs",
+    "build": "node scripts/prerender.mjs && node scripts/check.mjs",
+    "check": "node scripts/check.mjs",
     "assets": "node scripts/render-assets.mjs"
   },
   "license": "MIT"
