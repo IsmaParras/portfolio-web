@@ -8,6 +8,7 @@
 
     let currentLang = document.documentElement.lang === 'en' ? 'en' : 'es';   // lo fija la URL: / o /en/
     let rerenderSkills  = null;
+    const portfolioApi  = {};   // API mínima para el agente (js/agent.js); ver window.portfolio
     let revealObserver  = null;   // module-level so dynamic renders can register elements
 
     function observeNewReveals(container) {
@@ -442,6 +443,15 @@
         resetBtn?.addEventListener('click', resetAll);
         showAllBtn?.addEventListener('click', () => { expanded = !expanded; applyFilters(); });
 
+        const AREAS = ['automatizacion', 'cloud', 'software'];
+        portfolioApi.filterSkills = (area, search) => {
+            activeFilters = new Set(AREAS.includes(area) ? [area] : []);
+            searchTerm = String(search || '').trim().slice(0, 60);
+            if (searchInput) searchInput.value = searchTerm;
+            if (clearBtn) clearBtn.style.display = searchTerm ? 'flex' : 'none';
+            updatePills(); applyFilters();
+        };
+
         rerenderSkills = () => {
             grid.innerHTML = '';
             skills.forEach(s => grid.appendChild(createCard(s)));
@@ -452,6 +462,23 @@
     }
 
     // ─────────────── INIT ───────────────
+    // ─────────────── API PARA EL AGENTE ───────────────
+    // Solo acciones que el visitante podría hacer a mano; nunca envía el formulario.
+    const SECTIONS = ['home', 'about', 'tech-skills', 'projects', 'contact'];
+    const SUBJECTS = { opportunity: 'Oportunidad laboral', project: 'Proyecto de automatización', other: 'Otro' };
+    portfolioApi.goTo = id => {
+        const target = SECTIONS.includes(id) && document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    };
+    portfolioApi.downloadCV = downloadCV;
+    portfolioApi.prefillContact = (subject, message) => {
+        const select = document.getElementById('subject'), area = document.getElementById('message');
+        if (select && SUBJECTS[subject]) select.value = SUBJECTS[subject];
+        if (area && message) area.value = String(message).slice(0, 1000);
+        portfolioApi.goTo('contact');
+        (document.getElementById('name') || area)?.focus({ preventScroll: true });
+    };
+
     async function init() {
         // Cosas que no necesitan datos: tema y skeletons de carga
         initTheme();
@@ -487,6 +514,8 @@
         }
 
         initTechSkills();
+        window.portfolio = Object.freeze({ ...portfolioApi, lang: () => currentLang, t: key => translations[currentLang]?.[key] });
+        document.dispatchEvent(new Event('portfolio:ready'));
         navbar?.classList.toggle('scrolled', window.scrollY > 50);
         updateTimelineOnScroll();
     }

@@ -39,7 +39,7 @@ if (!errors.length) {
     for (const k of used) if (!(k in es)) fail(`La clave "${k}" se usa pero no existe en i18n.json`);
 
     // 4. Ninguna clave huérfana (las que no están en la plantilla deben usarse desde JS)
-    const code = read('js/script.js') + read('scripts/prerender.mjs');
+    const code = read('js/script.js') + read('js/agent.js') + read('scripts/prerender.mjs');
     for (const k of Object.keys(es)) {
         if (!used.has(k) && !code.includes(k)) fail(`i18n: "${k}" no se usa en ningún sitio`);
     }
