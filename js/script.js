@@ -6,7 +6,7 @@
     let translations = {};   // i18n.json
     let typeTexts    = {};   // i18n.json
 
-    let currentLang = navigator.language.startsWith('es') ? 'es' : 'en';
+    let currentLang = document.documentElement.lang === 'en' ? 'en' : 'es';   // lo fija la URL: / o /en/
     let rerenderSkills  = null;
     let revealObserver  = null;   // module-level so dynamic renders can register elements
 
@@ -15,18 +15,16 @@
         container.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
     }
     let typewriterTimeout = null;
-    let cursorAnimFrame   = null;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ─────────────── CARGA DE DATOS ───────────────
     async function loadData() {
-        const base = document.querySelector('base')?.href || './';
         const get  = url => fetch(url).then(r => { if (!r.ok) throw new Error(url); return r.json(); });
         const [profile, projects, skills, i18n] = await Promise.all([
-            get('data/profile.json'),
-            get('data/projects.json'),
-            get('data/skills.json'),
-            get('data/i18n.json'),
+            get('/data/profile.json'),
+            get('/data/projects.json'),
+            get('/data/skills.json'),
+            get('/data/i18n.json'),
         ]);
         CONFIG = { ...profile, projects, techSkills: skills };
         translations = { es: i18n.es, en: i18n.en };
@@ -112,13 +110,18 @@
     function updateLanguage(lang) {
         currentLang = lang;
         document.documentElement.lang = lang;
+        const t = translations[lang] || {};
         document.querySelectorAll('[data-i18n]').forEach(el => {
-            const val = translations[lang]?.[el.getAttribute('data-i18n')];
-            if (val === undefined) return;
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val;
-            else el.textContent = val;
+            const val = t[el.getAttribute('data-i18n')];
+            if (val !== undefined) el.textContent = val;
         });
-        if (langToggle) langToggle.textContent = translations[lang]?.flag || '';
+        // data-i18n-attr="atributo:clave;atributo:clave"
+        document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+            el.getAttribute('data-i18n-attr').split(';').forEach(pair => {
+                const [attr, key] = pair.split(':').map(s => s.trim());
+                if (attr && t[key] !== undefined) el.setAttribute(attr, t[key]);
+            });
+        });
         resetTypewriter();
     }
 
@@ -225,6 +228,24 @@
                 menuBtn.setAttribute('aria-expanded', 'false');
             }
         });
+        document.addEventListener('keydown', e => {
+            if (!navLinksContainer.classList.contains('open')) return;
+            const links = [...navLinksContainer.querySelectorAll('a')];
+            const active = document.activeElement;
+            if (e.key === 'Escape') {
+                navLinksContainer.classList.remove('open');
+                menuBtn.classList.remove('open');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.focus();
+            } else if (e.key === 'Tab' && links.length) {
+                // el menú ocupa toda la pantalla: el foco circula entre sus enlaces y el botón
+                const first = links[0], last = links[links.length - 1];
+                if (!e.shiftKey && active === last)          { e.preventDefault(); menuBtn.focus(); }
+                else if (!e.shiftKey && active === menuBtn)  { e.preventDefault(); first.focus(); }
+                else if (e.shiftKey && active === first)     { e.preventDefault(); menuBtn.focus(); }
+                else if (e.shiftKey && active === menuBtn)   { e.preventDefault(); last.focus(); }
+            }
+        });
     }
 
     // ─────────────── REVEAL ───────────────
@@ -264,23 +285,6 @@
         }
     }, { passive: true });
 
-    // ─────────────── CURSOR ───────────────
-    function initCustomCursor() {
-        const cursor = document.getElementById('cursor');
-        if (!cursor || !window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion) return;
-        document.body.classList.add('custom-cursor');
-        let mx = 0, my = 0;
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            if (!cursorAnimFrame) cursorAnimFrame = requestAnimationFrame(() => {
-                cursor.style.transform = `translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;
-                cursorAnimFrame = null;
-            });
-        });
-        document.addEventListener('mousedown', () => cursor.style.transform += ' scale(0.7)');
-        document.addEventListener('mouseup',   () => cursor.style.transform = cursor.style.transform.replace(' scale(0.7)', ''));
-    }
-
     // ─────────────── CV ───────────────
     function downloadCV() {
         const a = document.createElement('a');
@@ -302,23 +306,15 @@
         e.preventDefault();
         const isDemo = !contactForm.action || contactForm.action === '#' || contactForm.action.includes('YOUR_FORMSPREE');
         const orig = formSubmitBtn?.textContent;
-        if (formSubmitBtn) { formSubmitBtn.disabled = true; formSubmitBtn.textContent = currentLang === 'es' ? 'Enviando…' : 'Sending…'; }
+        if (formSubmitBtn) { formSubmitBtn.disabled = true; formSubmitBtn.textContent = translations[currentLang]?.form_sending || '…'; }
         try {
-            if (isDemo) { await new Promise(r => setTimeout(r, 700)); showFeedback(formSuccess, true); fireConfetti(); contactForm.reset(); }
+            if (isDemo) { await new Promise(r => setTimeout(r, 700)); showFeedback(formSuccess, true); contactForm.reset(); }
             else {
                 const resp = await fetch(contactForm.action, { method: 'POST', body: new FormData(contactForm), headers: { Accept: 'application/json' } });
-                if (resp.ok) { showFeedback(formSuccess, true); fireConfetti(); contactForm.reset(); } else throw new Error();
+                if (resp.ok) { showFeedback(formSuccess, true); contactForm.reset(); } else throw new Error();
             }
         } catch { showFeedback(formError, false); }
         finally { if (formSubmitBtn) { formSubmitBtn.disabled = false; formSubmitBtn.textContent = orig; } }
-    }
-    function fireConfetti() {
-        if (prefersReducedMotion) return;
-        for (let i = 0; i < 50; i++) {
-            const c = document.createElement('div'); c.className = 'confetti';
-            c.style.cssText = `left:${Math.random()*100}vw;animation-duration:${Math.random()*2+1}s;background:${Math.random()>.5?'var(--primary)':'var(--secondary)'}`;
-            document.body.appendChild(c); setTimeout(() => c.remove(), 3000);
-        }
     }
 
     // ─────────────── SKILLS ───────────────
@@ -335,8 +331,10 @@
         const activeContainer = document.getElementById('activeFiltersContainer');
         const chipsDiv    = document.getElementById('activeFiltersChips');
         const filterPills = document.querySelectorAll('.filter-pill');
+        const showAllWrap = document.getElementById('showAllWrap');
+        const showAllBtn  = document.getElementById('showAllBtn');
 
-        let activeFilters = new Set(), searchTerm = '', debounce;
+        let activeFilters = new Set(), searchTerm = '', debounce, expanded = false;
 
         const areaLabel = f => ({ automatizacion: translations[currentLang]?.techskills_area_auto, cloud: translations[currentLang]?.techskills_area_cloud, software: translations[currentLang]?.techskills_area_software }[f] || f);
 
@@ -344,21 +342,11 @@
             const art = document.createElement('article');
             art.className = 'skill-card reveal visible';
             art.dataset.areas      = s.area.join(' ');
+            if (s.core) art.dataset.core = '1';
             art.dataset.searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
-            const color = s.color === 'FFFFFF' ? '000000' : s.color;
             const desc  = currentLang === 'en' && s.desc_en ? s.desc_en : s.desc;
             const iconWrap = document.createElement('div'); iconWrap.className = 'skill-icon';
-            if (s.iconSvg) { iconWrap.innerHTML = s.iconSvg; }
-            else {
-                const img = document.createElement('img');
-                img.src = `https://cdn.simpleicons.org/${s.icon}/${color}`;
-                img.alt = s.name; img.loading = 'lazy'; img.width = 40; img.height = 40;
-                img.addEventListener('error', () => {
-                    const abbr = s.name.replace(/[^A-Za-z0-9]/g,'').substring(0,2).toUpperCase();
-                    iconWrap.innerHTML = `<svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#${color}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#fff">${abbr}</text></svg>`;
-                });
-                iconWrap.appendChild(img);
-            }
+            iconWrap.innerHTML = s.iconSvg || '';
             const head = document.createElement('div'); head.className = 'skill-head';
             const h3   = document.createElement('h3');  h3.className = 'skill-name'; h3.textContent = s.name;
             head.appendChild(h3);
@@ -378,16 +366,26 @@
 
         function applyFilters() {
             const cards = grid.querySelectorAll('.skill-card');
+            // Sin filtros ni búsqueda solo se ven las principales, salvo que se pida "ver todas"
+            const filtering = activeFilters.size > 0 || !!searchTerm;
+            const collapsed = !expanded && !filtering;
             let vis = 0;
             cards.forEach(c => {
                 const areas = c.dataset.areas.split(' ');
                 const show  = (activeFilters.size ? areas.some(a => activeFilters.has(a)) : true)
-                           && (searchTerm ? c.dataset.searchable.includes(searchTerm.toLowerCase()) : true);
+                           && (searchTerm ? c.dataset.searchable.includes(searchTerm.toLowerCase()) : true)
+                           && (!collapsed || c.dataset.core === '1');
                 c.classList.toggle('hidden', !show);
                 if (show) vis++;
             });
             if (countSpan) countSpan.textContent = vis;
             if (resetBtn)  resetBtn.style.display = (activeFilters.size || searchTerm) ? 'inline-block' : 'none';
+            if (showAllWrap && showAllBtn) {
+                const tr = translations[currentLang] || {};
+                showAllWrap.hidden = filtering;
+                showAllBtn.textContent = expanded ? tr.techskills_show_less : `${tr.techskills_show_all} (${skills.length})`;
+                showAllBtn.setAttribute('aria-expanded', String(expanded));
+            }
             updateChips(); handleEmpty(vis);
         }
         function handleEmpty(vis) {
@@ -406,7 +404,7 @@
             if (searchTerm) chips.push({ type:'search', value:searchTerm, label:`"${searchTerm}"` });
             if (chips.length) {
                 if (activeContainer) activeContainer.style.display = 'block';
-                if (chipsDiv) chipsDiv.innerHTML = chips.map(c => `<span class="filter-chip">${c.label}<button data-remove-type="${c.type}" data-remove-value="${c.value}" aria-label="Quitar filtro">×</button></span>`).join('');
+                if (chipsDiv) chipsDiv.innerHTML = chips.map(c => `<span class="filter-chip">${c.label}<button data-remove-type="${c.type}" data-remove-value="${c.value}" aria-label="${translations[currentLang]?.aria_remove_filter || ''}">×</button></span>`).join('');
                 chipsDiv?.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
                     if (b.dataset.removeType === 'filter') { activeFilters.delete(b.dataset.removeValue); updatePills(); }
                     else { if (searchInput) searchInput.value = ''; searchTerm = ''; if (clearBtn) clearBtn.style.display = 'none'; }
@@ -442,6 +440,7 @@
             updatePills(); applyFilters();
         }));
         resetBtn?.addEventListener('click', resetAll);
+        showAllBtn?.addEventListener('click', () => { expanded = !expanded; applyFilters(); });
 
         rerenderSkills = () => {
             grid.innerHTML = '';
@@ -470,10 +469,7 @@
         updateLanguage(currentLang);
 
         if (langToggle) langToggle.addEventListener('click', () => {
-            updateLanguage(currentLang === 'es' ? 'en' : 'es');
-            updateDynamicContent();
-            updateLanguage(currentLang);
-            if (rerenderSkills) rerenderSkills();
+            langToggle.href = langToggle.getAttribute('href').split('#')[0] + location.hash;
         });
 
         if (downloadCvBtn) downloadCvBtn.addEventListener('click', downloadCV);
@@ -482,7 +478,6 @@
         initNav();
         initMobileMenu();
         initRevealObserver();
-        initCustomCursor();
 
         const bgGrid = document.querySelector('.bg-grid');
         if (bgGrid && !prefersReducedMotion) {
