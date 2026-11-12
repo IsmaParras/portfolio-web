@@ -133,11 +133,11 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   503 y el botón no aparece.
 - **Seguridad:** el modelo solo ve el documento de datos; la clave nunca llega al
   navegador; las respuestas se muestran como texto plano; las acciones se validan en
-  servidor y en navegador contra listas cerradas; hay límite por visitante (3/min,
-  15/día) y global (60/día). Esos números salen de la capa gratuita de Groq: cada
-  pregunta gasta ≈ 2.800 tokens (una sola llamada al modelo) y el modelo por defecto
-  permite unos 200.000 al día y 8.000 por minuto; si cambias de modelo o de plan,
-  ajusta `LIMITS` en `api/chat.js`.
+  servidor y en navegador contra listas cerradas; hay límite por visitante (4/min,
+  20/día) y global (120/día). Esos números salen de la capa gratuita de Groq: cada
+  pregunta gasta ≈ 1.500 tokens (una sola llamada al modelo, contexto compacto) y
+  `openai/gpt-oss-120b` permite 200.000 al día y 8.000 por minuto (los tokens en caché
+  no cuentan). Si cambias de modelo o de plan, ajusta `LIMITS` en `api/chat.js`.
 - **Privacidad:** se guarda solo día, idioma, texto de la pregunta y su resultado
   (máximo 2.000). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
   identificador no reversible que cambia cada día, para el límite de uso. Las

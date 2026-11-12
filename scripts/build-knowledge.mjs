@@ -28,40 +28,27 @@ const LABELS = {
         areas: { automatizacion: 'Automation / AI', cloud: 'Cloud & systems', software: 'Development & data' }, email: 'Email', site: 'Website' },
 };
 
+const first = text => (String(text).match(/^.*?[.!?](?=\s|$)/s) || [text])[0];
+
 function build(lang) {
     const t = i18n[lang], f = facts[lang], L = LABELS[lang];
     const out = [];
     out.push(`## ${L.profile}`,
-        `${L.name}: Ismael Parras Resino`,
-        `${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}`,
-        `${L.place}: ${t.hero_location}`,
-        `${L.avail}: ${t.hero_availability}`, '');
-    out.push(`## ${L.about}`, t.about_p1, t.about_p2, '');
+        `${L.name}: Ismael Parras Resino. ${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}. ${L.place}: ${t.hero_location}. ${L.avail}: ${t.hero_availability}.`, '');
+    out.push(`## ${L.about}`, t.about_p1, '');
     out.push(`## ${L.exp}`,
         `- ${t.exp_sgs_date} · ${t.exp_sgs_role} · ${t.exp_sgs_company}: ${t.exp_sgs_desc}`,
         `- ${t.exp_sermicro_date} · ${t.exp_sermicro_role} · Sermicro (Madrid): ${t.exp_sermicro_desc}`,
-        `- ${t.exp_elecnor_date} · ${t.exp_elecnor_role} · Elecnor Deimos: ${t.exp_elecnor_desc}`, '');
+        `- ${t.exp_elecnor_date} · ${t.exp_elecnor_role} · Elecnor Deimos: ${first(t.exp_elecnor_desc)}`, '');
     out.push(`## ${L.edu}`,
         `- ${t.edu1_degree} — ${f.education_places.edu1}`,
         `- ${t.edu2_degree} — ${f.education_places.edu2}`, '');
     out.push(`## ${L.proj}`);
-    for (const p of projects) {
-        const badge = t[p.badgeKey] ? ` (${t[p.badgeKey]})` : '';
-        out.push(`- ${p.title}${badge}: ${t[p.descKey]} ${L.results}: ${(p.results || []).map(r => r[lang] || r.es).join('; ')}. ${L.tags}: ${p.tags.join(', ')}.`);
-    }
-    out.push('', `## ${L.skills}`);
-    const core = skills.filter(s => s.core);
-    out.push(`${L.main}: ${core.map(s => s.name).join(', ')}.`);
-    for (const [area, label] of Object.entries(L.areas)) {
-        const names = skills.filter(s => s.area.includes(area) && !s.core).map(s => s.name);
-        if (names.length) out.push(`${label} (${L.rest.toLowerCase()}): ${names.join(', ')}.`);
-    }
-    out.push('', `## ${L.certs}`, ...skills.filter(s => s.cert).map(s => `- ${s.name}: ${s.desc_en && lang === 'en' ? s.desc_en : s.desc}`), '');
+    for (const p of projects) out.push(`- ${p.title}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);
+    out.push('', `## ${L.skills}`, `${skills.map(s => s.name).join(', ')}.`, '');
+    out.push(`## ${L.certs}`, skills.filter(s => s.cert).map(s => s.name).join(', ') + '.', '');
     out.push(`## ${L.contact}`,
-        `${L.email}: ${profile.email}`,
-        `LinkedIn: ${profile.socialLinks.linkedin}`,
-        `GitHub: ${profile.socialLinks.github}`,
-        `${L.site}: https://ismaelparras.vercel.app${lang === 'en' ? '/en/' : '/'}`,
+        `${L.email}: ${profile.email}. LinkedIn: ${profile.socialLinks.linkedin}. GitHub: ${profile.socialLinks.github}. ${L.site}: https://ismaelparras.vercel.app${lang === 'en' ? '/en/' : '/'}`,
         f.contact_how, '');
     out.push(`## ${L.other}`, f.languages, f.interests, f.sgs_policy);
     return out.join('\n');
