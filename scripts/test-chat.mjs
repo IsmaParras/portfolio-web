@@ -79,6 +79,7 @@ await test('respuesta normal: usa la clave solo en el servidor y no devuelve acc
     const r = await ask('¿Dónde trabaja?');
     assert.equal(r.code, 200); assert.equal(r.body.reply, 'Trabaja en SGS.'); assert.deepEqual(r.body.actions, []);
     assert.equal(modelCalls[0].headers.Authorization, 'Bearer test-key');
+    assert.equal(modelCalls[0].body.model, 'openai/gpt-oss-120b'); assert.equal(modelCalls[0].body.reasoning_effort, 'low');
     assert.match(modelCalls[0].body.messages[0].content, /SGS/);
     assert.ok(!JSON.stringify(r.body).includes('test-key'));
 });

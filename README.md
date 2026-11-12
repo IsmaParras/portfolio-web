@@ -129,7 +129,7 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
 - **Variables de entorno (Vercel):** `LLM_API_KEY` (obligatoria), y las de Upstash
   `UPSTASH_KV_REST_API_URL` / `UPSTASH_KV_REST_API_TOKEN`, que añade la integración.
   Opcionales: `LLM_BASE_URL` (por defecto la API compatible con OpenAI de Groq) y
-  `LLM_MODEL` (por defecto `llama-3.3-70b-versatile`). Sin ellas, `/api/chat` responde
+  `LLM_MODEL` (por defecto `openai/gpt-oss-120b`; si Groq lo retira, basta con poner otro modelo con herramientas en esta variable). Sin ellas, `/api/chat` responde
   503 y el botón no aparece.
 - **Seguridad:** el modelo solo ve el documento de datos; la clave nunca llega al
   navegador; las respuestas se muestran como texto plano; las acciones se validan en

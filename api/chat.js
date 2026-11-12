@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { KNOWLEDGE } from './_knowledge.js';
 
 const LLM_BASE_URL = (process.env.LLM_BASE_URL || 'https://api.groq.com/openai/v1').replace(/\/$/, '');
-const LLM_MODEL = process.env.LLM_MODEL || 'llama-3.3-70b-versatile';
+const LLM_MODEL = process.env.LLM_MODEL || 'openai/gpt-oss-120b';
 
 const LIMITS = {
     messageChars: 500,
@@ -15,7 +15,7 @@ const LIMITS = {
     perDay: 40,
     globalPerDay: 400,
     storedQuestions: 2000,
-    maxTokens: 350,
+    maxTokens: 700,   // los modelos que razonan gastan parte en pensar
     modelTimeoutMs: 12000,
 };
 
@@ -110,6 +110,7 @@ async function storeQuestion(now, lang, question, outcome) {
 async function callModel(messages, withTools) {
     const body = { model: LLM_MODEL, messages, max_tokens: LIMITS.maxTokens, temperature: 0.3 };
     if (withTools) { body.tools = TOOLS; body.tool_choice = 'auto'; }
+    if (/gpt-oss/i.test(LLM_MODEL)) body.reasoning_effort = 'low';
     const res = await fetch(`${LLM_BASE_URL}/chat/completions`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${process.env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
