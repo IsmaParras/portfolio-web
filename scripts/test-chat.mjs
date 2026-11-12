@@ -60,6 +60,7 @@ await test('sin variables de entorno responde 503 y no llama a nada', async () =
     const g = await call('GET'); const p = await ask('hola');
     process.env.LLM_API_KEY = saved;
     assert.equal(g.code, 503); assert.equal(p.code, 503); assert.equal(modelCalls.length, 0);
+    assert.deepEqual(g.body, { enabled: false, missing: ['LLM_API_KEY'] });
 });
 await test('método no permitido', async () => { assert.equal((await call('PUT', {})).code, 405); });
 await test('rechaza otro origen y acepta el propio', async () => {

@@ -171,7 +171,10 @@ const T = {
     en: { limit: 'You have asked many questions in a row. Please wait a moment or write to him through the contact form.', busy: "The assistant has reached today's usage limit. You can write to him through the contact form.", error: 'The assistant is unavailable right now. You can write to him through the contact form.', long: 'Your message is too long; please shorten it.' },
 };
 
-const configured = () => !!(process.env.LLM_API_KEY && redisUrl() && redisToken());
+// Nombres de las variables de entorno que faltan (nunca sus valores).
+const missingConfig = () => [['LLM_API_KEY', process.env.LLM_API_KEY], ['UPSTASH_KV_REST_API_URL', redisUrl()], ['UPSTASH_KV_REST_API_TOKEN', redisToken()]]
+    .filter(([, v]) => !v).map(([k]) => k);
+const configured = () => missingConfig().length === 0;
 
 function sameOrigin(req) {
     const origin = req.headers.origin;
@@ -183,7 +186,7 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 'no-store');
 
     if (req.method === 'GET') {
-        return configured() ? res.status(200).json({ enabled: true }) : res.status(503).json({ enabled: false });
+        return configured() ? res.status(200).json({ enabled: true }) : res.status(503).json({ enabled: false, missing: missingConfig() });
     }
     if (req.method !== 'POST') { res.setHeader('Allow', 'GET, POST'); return res.status(405).json({ error: 'method' }); }
     if (!configured()) return res.status(503).json({ enabled: false });
