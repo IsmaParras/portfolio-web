@@ -30,8 +30,12 @@ portfolio-web/
 ├── scripts/
 │   ├── prerender.mjs       # Build: genera index.html y en/index.html
 │   ├── check.mjs           # Build: comprueba claves i18n y datos
+│   ├── build-knowledge.mjs # Build: genera el contexto del agente
+│   ├── test-chat.mjs       # Pruebas de api/chat.js (npm test)
+│   ├── agent-evals.mjs     # Evaluación del agente real sobre una URL
 │   ├── render-assets.mjs   # Genera los CVs en PDF y la og-image (npm run assets)
 │   └── og-image.html       # Plantilla de assets/og-image.png
+├── api/chat.js         # Función de Vercel del asistente de IA
 ├── cv/                 # Plantillas HTML de los CVs (cv-es.html, cv-en.html, cv.css)
 ├── package.json        # Scripts `npm run build` (prerender) y `npm run assets`
 ├── data/
@@ -106,6 +110,38 @@ versión. El script es **idempotente**.
 > **Importante:** ejecuta `npm run build` **siempre que edites** `data/*.json` o
 > `index.html` y commitea `index.html` y `en/index.html`. Si las comprobaciones
 > fallan, el despliegue en Vercel también falla.
+
+## Asistente de IA
+
+Botón "Pregúntame" que abre un chat que responde sobre Ismael y puede actuar sobre
+la página (ir a una sección, filtrar skills, cambiar de idioma, descargar el CV o
+dejar rellenado el formulario de contacto, que **nunca envía**).
+
+```
+Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto)
+                                    └→ Upstash Redis: límites de uso y preguntas anónimas
+```
+
+- **Conocimiento:** se genera en el build (`scripts/build-knowledge.mjs` →
+  `api/_knowledge.js`) a partir de `data/*.json` y `data/agent-facts.json`, así que
+  no puede contradecir la web. Lo que la web no dice (idiomas, política sobre SGS…)
+  se edita en `data/agent-facts.json`.
+- **Variables de entorno (Vercel):** `LLM_API_KEY` (obligatoria), y las de Upstash
+  `UPSTASH_KV_REST_API_URL` / `UPSTASH_KV_REST_API_TOKEN`, que añade la integración.
+  Opcionales: `LLM_BASE_URL` (por defecto la API compatible con OpenAI de Groq) y
+  `LLM_MODEL` (por defecto `llama-3.3-70b-versatile`). Sin ellas, `/api/chat` responde
+  503 y el botón no aparece.
+- **Seguridad:** el modelo solo ve el documento de datos; la clave nunca llega al
+  navegador; las respuestas se muestran como texto plano; las acciones se validan en
+  servidor y en navegador contra listas cerradas; hay límite por visitante (6/min,
+  40/día) y global (400/día).
+- **Privacidad:** se guarda solo día, idioma, texto de la pregunta y su resultado
+  (máximo 2.000). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
+  identificador no reversible que cambia cada día, para el límite de uso. Las
+  preguntas se leen en el panel de datos de Upstash.
+- **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
+  `node scripts/agent-evals.mjs --url <URL desplegada>` (≈ 24 preguntas contra el
+  modelo real; tarda unos 4 minutos por el límite de uso).
 
 ## CVs e imagen para compartir
 

@@ -1,0 +1,22 @@
+{
+  "es": {
+    "languages": "Español nativo; inglés intermedio (lectura técnica fluida).",
+    "education_places": {
+      "edu1": "IES Federica Montseny, septiembre 2021 – diciembre 2023",
+      "edu2": "IES Julio Verne, septiembre 2019 – junio 2021"
+    },
+    "interests": "Le interesan los proyectos de agentes de IA y de automatización de procesos, y las conversaciones profesionales sobre ellos.",
+    "contact_how": "Se le puede escribir con el formulario de contacto de esta web, por email o por LinkedIn.",
+    "sgs_policy": "Sobre su puesto actual en SGS solo se puede decir lo que figura en este documento: cargo, ciudad, modalidad híbrida, fecha de inicio y la descripción pública. No se conocen ni se pueden dar más detalles sobre SGS, sus clientes, sus proyectos o su organización interna."
+  },
+  "en": {
+    "languages": "Native Spanish; intermediate English (fluent technical reading).",
+    "education_places": {
+      "edu1": "IES Federica Montseny, September 2021 – December 2023",
+      "edu2": "IES Julio Verne, September 2019 – June 2021"
+    },
+    "interests": "He is interested in AI-agent and process-automation projects, and in professional conversations about them.",
+    "contact_how": "He can be reached through this site's contact form, by email or on LinkedIn.",
+    "sgs_policy": "About his current role at SGS, only what appears in this document can be said: job title, city, hybrid arrangement, start date and the public description. No further detail about SGS, its clients, its projects or its internal organisation is known or may be given."
+  }
+}

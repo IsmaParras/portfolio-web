@@ -110,7 +110,22 @@
     "form_name_ph": "Tu nombre",
     "form_email_ph": "tu@email.com",
     "form_message_ph": "¿En qué puedo ayudarte?",
-    "form_sending": "Enviando…"
+    "form_sending": "Enviando…",
+    "agent_open": "Preguntar a mi asistente de IA",
+    "agent_open_short": "Pregúntame",
+    "agent_title": "Asistente de IA",
+    "agent_close": "Cerrar el asistente",
+    "agent_hello": "Hola, soy el asistente de IA de Ismael. Puedo contarte sobre su trayectoria, proyectos y habilidades, o llevarte a una sección de la página.",
+    "agent_notice": "Es una IA y puede equivocarse. Tus preguntas se envían a un proveedor externo de IA y se guardan sin identificarte; no escribas datos personales.",
+    "agent_placeholder": "Escribe tu pregunta…",
+    "agent_send": "Enviar",
+    "agent_thinking": "Pensando…",
+    "agent_error": "No he podido conectar. Inténtalo de nuevo o escríbele desde el formulario de contacto.",
+    "agent_sug1": "¿A qué se dedica ahora?",
+    "agent_sug2": "Enséñame sus proyectos",
+    "agent_sug3": "¿Cómo puedo contactarle?",
+    "agent_you": "Tú",
+    "agent_bot": "Asistente"
   },
   "en": {
     "skip_link": "Skip to content",
@@ -209,6 +224,21 @@
     "form_name_ph": "Your name",
     "form_email_ph": "you@email.com",
     "form_message_ph": "How can I help?",
-    "form_sending": "Sending…"
+    "form_sending": "Sending…",
+    "agent_open": "Ask my AI assistant",
+    "agent_open_short": "Ask me",
+    "agent_title": "AI assistant",
+    "agent_close": "Close the assistant",
+    "agent_hello": "Hi, I'm Ismael's AI assistant. I can tell you about his background, projects and skills, or take you to a section of the page.",
+    "agent_notice": "This is an AI and it can be wrong. Your questions are sent to an external AI provider and stored without identifying you; please do not enter personal data.",
+    "agent_placeholder": "Type your question…",
+    "agent_send": "Send",
+    "agent_thinking": "Thinking…",
+    "agent_error": "I couldn't connect. Try again or write to him through the contact form.",
+    "agent_sug1": "What does he do now?",
+    "agent_sug2": "Show me his projects",
+    "agent_sug3": "How can I contact him?",
+    "agent_you": "You",
+    "agent_bot": "Assistant"
   }
 }

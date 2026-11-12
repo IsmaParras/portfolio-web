@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/prerender.mjs && node scripts/check.mjs",
+    "build": "node scripts/build-knowledge.mjs && node scripts/prerender.mjs && node scripts/check.mjs",
+    "test": "node scripts/test-chat.mjs",
     "check": "node scripts/check.mjs",
     "assets": "node scripts/render-assets.mjs"
   },
