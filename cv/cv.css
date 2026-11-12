@@ -1,0 +1,42 @@
+/* Plantilla de CV (A4, una página). Se imprime a PDF con `npm run assets`. */
+@page { size: A4; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+    width: 210mm;
+    padding: 13mm 22mm 0;
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif;
+    font-size: 9.3pt;
+    line-height: 1.36;
+    color: #1f2937;
+    background: #fff;
+}
+
+h1 { font-size: 21pt; line-height: 1.15; color: #111827; }
+.headline { font-size: 12pt; color: #0e7490; margin-top: 1mm; }
+.contact { margin-top: 2.2mm; color: #4b5563; }
+
+h2 {
+    margin-top: 3.3mm;
+    padding-bottom: 1.5mm;
+    margin-bottom: 2.4mm;
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    color: #0e7490;
+    border-bottom: 0.3mm solid #e5e7eb;
+}
+
+.entry { margin-bottom: 2.4mm; break-inside: avoid; }
+.entry:last-child { margin-bottom: 0; }
+.entry h3 { font-size: 10pt; color: #111827; }
+.entry .meta { color: #4b5563; font-size: 9.6pt; }
+
+ul { list-style: none; margin-top: 0.5mm; }
+li { padding-left: 5.5mm; position: relative; margin-top: 0.4mm; }
+li::before { content: "•"; position: absolute; left: 3.5mm; }
+
+.skills p { margin-top: 0.4mm; }
+.skills strong { color: #111827; }
