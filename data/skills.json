@@ -1,5 +1,20 @@
 [
   {
+    "name": "Copilot Studio",
+    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0E7A6B\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">CS</text></svg>",
+    "color": "0E7A6B",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Agentes de IA en el ecosistema Microsoft",
+    "desc_en": "AI agents across the Microsoft ecosystem",
+    "tags": [
+      "agentes",
+      "microsoft",
+      "ia"
+    ]
+  },
+  {
     "name": "UiPath",
     "icon": "uipath",
     "color": "FA4616",
