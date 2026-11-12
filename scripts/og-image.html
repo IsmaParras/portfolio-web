@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>og-image</title>
+    <!-- Fuente de assets/og-image.png (1200×630). Se captura con `npm run assets`. -->
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { width: 1200px; height: 630px; overflow: hidden; }
+        body {
+            position: relative;
+            background-color: #0a0a0f;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: "Inter", "DejaVu Sans", Arial, sans-serif;
+            color: #e2e8f0;
+        }
+        .blob { position: absolute; border-radius: 50%; }
+        .blob-cyan { width: 520px; height: 520px; left: -120px; top: -120px; background: radial-gradient(circle, rgba(0, 190, 230, 0.9) 0%, rgba(0, 150, 190, 0.55) 55%, rgba(0, 150, 190, 0) 72%); }
+        .blob-violet { width: 640px; height: 640px; right: -220px; bottom: -250px; background: radial-gradient(circle, rgba(100, 40, 200, 0.95) 0%, rgba(90, 35, 180, 0.6) 55%, rgba(90, 35, 180, 0) 72%); }
+        .content { position: absolute; left: 80px; top: 150px; height: 320px; padding-left: 40px; border-left: 9px solid #00d4ff; }
+        .mono { font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace; }
+        .kicker { font-size: 24px; color: #00d4ff; letter-spacing: 0.5px; }
+        h1 { margin-top: 18px; font-size: 96px; line-height: 1; font-weight: 800; letter-spacing: -1px; }
+        .title { margin-top: 26px; font-size: 34px; color: #00d4ff; }
+        .subtitle { margin-top: 12px; font-size: 27px; color: #64748b; }
+        .chips { position: absolute; right: 60px; bottom: 26px; display: flex; gap: 12px; }
+        .chips span { padding: 8px 16px; font-size: 24px; color: #7c8aa0; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(10, 10, 15, 0.55); }
+    </style>
+</head>
+<body>
+    <div class="blob blob-cyan"></div>
+    <div class="blob blob-violet"></div>
+    <div class="content">
+        <p class="kicker mono">// PORTFOLIO</p>
+        <h1>Ismael Parras<br>Resino</h1>
+        <p class="title mono">Agentic AI Solution Architect</p>
+        <p class="subtitle">Agentes de IA · Automatización · IA Generativa</p>
+    </div>
+    <div class="chips mono">
+        <span>Copilot Studio</span><span>Power Automate</span><span>LangChain</span><span>UiPath</span>
+    </div>
+</body>
+</html>
