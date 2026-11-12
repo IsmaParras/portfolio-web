@@ -78,7 +78,7 @@ async function redis(commands) {
         body: JSON.stringify(commands),
         signal: AbortSignal.timeout(4000),
     });
-    if (!res.ok) throw new Error(`redis ${res.status}`);
+    if (!res.ok) { const e = new Error(`redis ${res.status}`); e.detail = `redis ${res.status}`; throw e; }
     return (await res.json()).map(r => r.result);
 }
 
@@ -116,7 +116,12 @@ async function callModel(messages, withTools) {
         body: JSON.stringify(body),
         signal: AbortSignal.timeout(LIMITS.modelTimeoutMs),
     });
-    if (!res.ok) { const e = new Error(`model ${res.status}`); e.status = res.status; throw e; }
+    if (!res.ok) {
+        const info = (await res.json().catch(() => ({}))).error || {};
+        const e = new Error(`model ${res.status}`); e.status = res.status;
+        e.detail = `model ${res.status} ${clean(info.code || info.type || '', 60)}`.trim();
+        throw e;
+    }
     return (await res.json()).choices?.[0]?.message || {};
 }
 
@@ -212,13 +217,17 @@ export default async function handler(req, res) {
     try {
         const blocked = await checkRate(req, now);
         if (blocked) return res.status(429).json({ error: 'rate', reply: blocked === 'global' ? t.busy : t.limit });
-    } catch { return res.status(503).json({ error: 'unavailable', reply: t.error }); }
+    } catch (e) {
+        console.error('chat: redis', e.detail || e.message);
+        return res.status(503).json({ error: 'unavailable', detail: e.detail || 'redis', reply: t.error });
+    }
 
     let result;
     try { result = await runAgent(lang, history, question); }
     catch (e) {
         storeQuestion(now, lang, question, 'error').catch(() => {});
-        return res.status(e.status === 429 ? 429 : 502).json({ error: 'model', reply: e.status === 429 ? t.busy : t.error });
+        console.error('chat: modelo', e.detail || e.message);
+        return res.status(e.status === 429 ? 429 : 502).json({ error: 'model', detail: e.detail || 'model', reply: e.status === 429 ? t.busy : t.error });
     }
 
     // Se guarda solo la pregunta y su resultado; nunca la respuesta, la IP ni el navegador.

@@ -80,6 +80,7 @@
             });
             const data = await res.json().catch(() => ({}));
             const reply = typeof data.reply === 'string' && data.reply ? data.reply : t('agent_error');
+            if (!res.ok) console.warn('Asistente:', res.status, data.error || '', data.detail || '');
             pending.classList.remove('agent-msg--pending');
             pending.querySelector('p').textContent = reply;
             if (res.ok) {
