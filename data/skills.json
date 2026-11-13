@@ -1,7 +1,6 @@
 [
   {
     "name": "Copilot Studio",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0E7A6B\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">CS</text></svg>",
     "color": "0E7A6B",
     "area": [
       "automatizacion"
@@ -13,11 +12,12 @@
       "agentes",
       "microsoft",
       "ia"
-    ]
+    ],
+    "iconImg": "/assets/logos/copilot-studio.png"
   },
   {
     "name": "Power Automate",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0066FF\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">PA</text></svg>",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"#0066FF\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"m20.079 7.235l3.666 4.097c.34.38.34.956 0 1.336l-7.63 8.528c-.19.213-.462.334-.748.334H7.289zM6.789 21.53H1.005c-.867 0-1.326-1.025-.748-1.671L15.748 2.545c.139.057.265.145.367.259l3.631 4.058l-.039.039L6.916 21.197a.5.5 0 0 0-.127.333m8.356-19.06l-8.192 9.155L.257 4.141c-.578-.646-.119-1.671.748-1.671z\"/></svg>",
     "color": "0066FF",
     "area": [
       "automatizacion"
@@ -66,7 +66,6 @@
   },
   {
     "name": "Druid AI",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#6C2DC7\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">D</text></svg>",
     "color": "6C2DC7",
     "area": [
       "automatizacion"
@@ -78,7 +77,8 @@
       "ia",
       "agentes",
       "conversacional"
-    ]
+    ],
+    "iconImg": "/assets/logos/druid-ai.png"
   },
   {
     "name": "LLMs",
@@ -144,6 +144,36 @@
     "core": true
   },
   {
+    "name": "Microsoft Foundry",
+    "iconImg": "/assets/logos/microsoft-foundry.png",
+    "color": "2E2BC4",
+    "area": [
+      "automatizacion",
+      "cloud"
+    ],
+    "desc": "Plataforma de Microsoft para construir y desplegar agentes y aplicaciones de IA",
+    "desc_en": "Microsoft platform to build and deploy AI agents and applications",
+    "tags": [
+      "ia",
+      "agentes",
+      "azure"
+    ]
+  },
+  {
+    "name": "Power Apps",
+    "iconImg": "/assets/logos/power-apps.png",
+    "color": "0F7B6C",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Aplicaciones low-code sobre Power Platform",
+    "desc_en": "Low-code apps on Power Platform",
+    "tags": [
+      "low-code",
+      "microsoft"
+    ]
+  },
+  {
     "name": "n8n",
     "iconSvg": "<svg viewBox=\"0 0 24 24\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"#EA4B71\" aria-hidden=\"true\"><path d=\"M4.8 16.8c.45 0 .6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4H9c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6s.6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4h1.2c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6s.6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4h1.2c.45 0 .6-.15.6-.6s-.15-.6-.6-.6h-1.2c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H15c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H7.8c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H.6c-.45 0-.6.15-.6.6s.15.6.6.6h1.2c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6\"/></svg>",
     "color": "EA4B71",
@@ -173,7 +203,6 @@
   },
   {
     "name": "Botpress",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00AEF3\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">BP</text></svg>",
     "color": "00AEF3",
     "area": [
       "automatizacion"
@@ -183,7 +212,8 @@
     "tags": [
       "ia",
       "chatbots"
-    ]
+    ],
+    "iconImg": "/assets/logos/botpress.png"
   },
   {
     "name": "ElevenLabs",
@@ -258,7 +288,7 @@
   },
   {
     "name": "PowerShell",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#5391FE\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">PS</text></svg>",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"#5391FE\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M23.181 2.974c.568 0 .923.463.792 1.035l-3.659 15.982c-.13.572-.697 1.035-1.265 1.035H.819c-.568 0-.923-.463-.792-1.035L3.686 4.009c.13-.572.697-1.035 1.265-1.035zm-8.375 9.346c.251-.394.227-.905-.09-1.243L9.122 5.125c-.38-.404-1.037-.407-1.466-.003c-.429.402-.468 1.056-.088 1.46l4.662 4.96v.11l-7.42 5.374c-.45.327-.533.977-.187 1.453s.991.597 1.44.27l8.229-5.91c.28-.196.438-.365.514-.52zm-2.796 4.399a.93.93 0 0 0-.934.923c0 .51.418.923.934.923h4.433a.93.93 0 0 0 .934-.923a.93.93 0 0 0-.934-.923z\"/></svg>",
     "color": "5391FE",
     "area": [
       "cloud"
@@ -275,7 +305,6 @@
   },
   {
     "name": "Active Directory",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0078D4\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">AD</text></svg>",
     "color": "0078D4",
     "area": [
       "cloud"
@@ -285,7 +314,8 @@
     "tags": [
       "sistemas",
       "windows"
-    ]
+    ],
+    "iconImg": "/assets/logos/active-directory.png"
   },
   {
     "name": "Linux",
@@ -313,6 +343,22 @@
     "tags": [
       "devops",
       "contenedores"
+    ]
+  },
+  {
+    "name": "Azure DevOps",
+    "iconImg": "/assets/logos/azure-devops.png",
+    "color": "0078D7",
+    "area": [
+      "cloud",
+      "software"
+    ],
+    "desc": "Repositorios, pipelines y seguimiento del trabajo en Azure DevOps",
+    "desc_en": "Repos, pipelines and work tracking in Azure DevOps",
+    "tags": [
+      "devops",
+      "ci/cd",
+      "microsoft"
     ]
   },
   {
@@ -345,7 +391,6 @@
   },
   {
     "name": "EasyVista",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00A88E\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">EV</text></svg>",
     "color": "00A88E",
     "area": [
       "software"
@@ -355,7 +400,8 @@
     "tags": [
       "itsm",
       "integraciones"
-    ]
+    ],
+    "iconImg": "/assets/logos/easyvista.png"
   },
   {
     "name": "Jira",

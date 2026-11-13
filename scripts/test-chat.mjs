@@ -166,6 +166,18 @@ await test('solo se guarda día, idioma, pregunta y resultado; nunca IP ni respu
     const dump = JSON.stringify([redisStore.list, Object.keys(redisStore.counters)]);
     assert.ok(!dump.includes('203.0.113.7') && !dump.includes('Mozilla') && !dump.includes('RESPUESTA SECRETA'));
 });
+await test('se retira el Markdown de la respuesta y se conserva el texto', async () => {
+    const cases = [
+        ['Ismael trabaja como **Agentic AI Solution Architect en SGS**, con `Python`.', 'Ismael trabaja como Agentic AI Solution Architect en SGS, con Python.'],
+        ['Usa *Copilot Studio* y __Power Automate__ (no 2*3*4).', 'Usa Copilot Studio y Power Automate (no 2*3*4).'],
+        ['## Proyectos. Mira [su web](https://ismaelparras.vercel.app/) ahora.', 'Proyectos. Mira su web (https://ismaelparras.vercel.app/) ahora.'],
+        ['Texto con ** suelto y __ otro.', 'Texto con  suelto y  otro.'],
+    ];
+    for (const [input, expected] of cases) {
+        reset(); modelScript.push({ role: 'assistant', content: input });
+        assert.equal((await ask('hola')).body.reply, expected);
+    }
+});
 await test('[NO] marca la pregunta como rechazada y no aparece en la respuesta', async () => {
     modelScript.push({ role: 'assistant', content: '[NO] No puedo dar detalles de SGS.' });
     const r = await ask('¿Qué clientes tiene SGS?');
