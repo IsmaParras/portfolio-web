@@ -401,8 +401,7 @@
       "itsm",
       "integraciones"
     ],
-    "iconImg": "/assets/logos/easyvista.png",
-    "iconWide": 119
+    "iconImg": "/assets/logos/easyvista.png"
   },
   {
     "name": "Jira",

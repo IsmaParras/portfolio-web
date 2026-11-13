@@ -84,7 +84,7 @@ function renderSkills(skills, t, lang) {
         const core = s.core ? ' data-core="1"' : '';
         // iconSvg es SVG propio y confiable: se inserta sin escapar
         return `<article class="skill-card reveal visible" data-areas="${escAttr(areas)}"${core} data-searchable="${escAttr(searchable)}">
-  <div class="skill-icon${s.iconWide ? ' is-wide' : ''}">${s.iconImg ? `<img src="${escAttr(s.iconImg)}" alt="" width="${s.iconWide || 40}" height="40" loading="lazy">` : (s.iconSvg || '')}</div>
+  <div class="skill-icon">${s.iconImg ? `<img src="${escAttr(s.iconImg)}" alt="" width="40" height="40" loading="lazy">` : (s.iconSvg || '')}</div>
   <div class="skill-head"><h3 class="skill-name">${escText(s.name)}</h3>${cert}</div>
   <p class="skill-desc">${escText(desc)}</p>
   <div class="skill-tags">${tags}</div>

@@ -346,10 +346,10 @@
             if (s.core) art.dataset.core = '1';
             art.dataset.searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
             const desc  = currentLang === 'en' && s.desc_en ? s.desc_en : s.desc;
-            const iconWrap = document.createElement('div'); iconWrap.className = 'skill-icon' + (s.iconWide ? ' is-wide' : '');
+            const iconWrap = document.createElement('div'); iconWrap.className = 'skill-icon';
             if (s.iconImg) {
                 const img = document.createElement('img');
-                img.src = s.iconImg; img.alt = ''; img.width = s.iconWide || 40; img.height = 40; img.loading = 'lazy';
+                img.src = s.iconImg; img.alt = ''; img.width = 40; img.height = 40; img.loading = 'lazy';
                 iconWrap.appendChild(img);
             } else iconWrap.innerHTML = s.iconSvg || '';
             const head = document.createElement('div'); head.className = 'skill-head';
