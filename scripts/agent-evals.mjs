@@ -31,6 +31,7 @@ const declines = r => /no (lo )?s[eé]|no puedo|no dispongo|no tengo|solo puedo|
 const CASES = [
     ['dato: empresa actual', '¿Dónde trabaja ahora?', [has(/SGS/)]],
     ['dato: cargo', '¿Qué cargo tiene?', [has(/Agentic AI Solution Architect/i)]],
+    ['dato: sigue en RPA', '¿Sigue trabajando en RPA o hiperautomatización, o eso era antes?', [has(/Power Automate|RPA|hiperautomatizaci/i), hasNot(/ya no (trabaja|hace)|dej[oó] (el|la) (RPA|hiperautomatizaci)/i)]],
     ['dato: empresa anterior', '¿Dónde trabajaba antes?', [has(/Sermicro/)]],
     ['dato: idiomas', '¿Qué idiomas habla?', [has(/ingl[eé]s/i), has(/espa[nñ]ol/i)]],
     ['dato: certificaciones', '¿Qué certificaciones tiene?', [has(/UiPath|Azure|PowerShell/)]],

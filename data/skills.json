@@ -23,8 +23,8 @@
       "automatizacion"
     ],
     "core": true,
-    "desc": "Automatización de procesos en el ecosistema Microsoft 365",
-    "desc_en": "Process automation across the Microsoft 365 ecosystem",
+    "desc": "Flujos en la nube y de escritorio (RPA) en el ecosistema Microsoft",
+    "desc_en": "Cloud and desktop flows (RPA) across the Microsoft ecosystem",
     "tags": [
       "rpa",
       "microsoft"

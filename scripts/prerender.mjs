@@ -110,8 +110,8 @@ function renderSeo(lang) {
 
 function renderJsonLd(lang, t, profile) {
     const knowsAbout = {
-        es: ['Agentic AI', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'IA Generativa', 'Agentes Conversacionales', 'API REST', 'Python'],
-        en: ['Agentic AI', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'Generative AI', 'Conversational Agents', 'REST APIs', 'Python'],
+        es: ['Agentic AI', 'Hiperautomatización', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'IA Generativa', 'Agentes Conversacionales', 'API REST', 'Python'],
+        en: ['Agentic AI', 'Hyperautomation', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'Generative AI', 'Conversational Agents', 'REST APIs', 'Python'],
     };
     const data = {
         '@context': 'https://schema.org',
