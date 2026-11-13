@@ -139,12 +139,14 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   `openai/gpt-oss-120b` permite 200.000 al día y 8.000 por minuto (los tokens en caché
   no cuentan). Si cambias de modelo o de plan, ajusta `LIMITS` en `api/chat.js`.
 - **Privacidad:** se guarda solo día, idioma, texto de la pregunta y su resultado
-  (máximo 2.000). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
+  (una clave por día, máximo 300 por día, y se borran solas a los 30 días). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
 - **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
-  `node scripts/agent-evals.mjs --url <URL desplegada>` (≈ 24 preguntas contra el
-  modelo real; tarda unos 4 minutos por el límite de uso).
+  `node scripts/agent-evals.mjs --url <URL desplegada>` (27 preguntas contra el
+  modelo real, ≈ 5 minutos). El modelo no es determinista: `--only <texto>` y
+  `--repeat N` permiten repetir solo los casos que fallan. El límite por visitante
+  (30 preguntas al día) se aplica también a la evaluación.
 
 ## CVs e imagen para compartir
 
