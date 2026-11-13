@@ -14,7 +14,8 @@ const LIMITS = {
     perMinute: 6,
     perDay: 30,
     globalPerDay: 120,   // ≈ cuota diaria de tokens de la capa gratuita (200.000 / ~1.500 por pregunta)
-    storedQuestions: 2000,
+    storedPerDay: 300,        // tope de preguntas guardadas por día
+    retentionDays: 30,        // las preguntas se borran solas pasado este tiempo
     maxTokens: 700,   // los modelos que razonan gastan parte en pensar
     modelTimeoutMs: 10000,
     maxRetryWaitS: 5,   // espera máxima para reintentar un 429 por minuto del proveedor
@@ -99,7 +100,9 @@ async function checkRate(req, now) {
 
 async function storeQuestion(now, lang, question, outcome) {
     const entry = JSON.stringify({ d: now.toISOString().slice(0, 10), l: lang, q: question, o: outcome });
-    await redis([['LPUSH', 'questions', entry], ['LTRIM', 'questions', 0, LIMITS.storedQuestions - 1]]);
+    // Una clave por día con caducidad: la conservación es real (30 días), no solo un tope de cantidad.
+    const key = `q:${now.toISOString().slice(0, 10)}`;
+    await redis([['LPUSH', key, entry], ['LTRIM', key, 0, LIMITS.storedPerDay - 1], ['EXPIRE', key, LIMITS.retentionDays * 86400]]);
 }
 
 // ───────────── Modelo ─────────────

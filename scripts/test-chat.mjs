@@ -14,13 +14,14 @@ const { default: handler } = await import('../api/chat.js');
 
 // ───────────── simulación de red ─────────────
 let redisStore, modelScript, modelCalls, redisFails;
-const reset = () => { redisStore = { counters: {}, list: [] }; modelScript = []; modelCalls = []; redisFails = false; };
+const reset = () => { redisStore = { counters: {}, list: [], commands: [] }; modelScript = []; modelCalls = []; redisFails = false; };
 
 globalThis.fetch = async (url, opts = {}) => {
     const body = JSON.parse(opts.body || 'null');
     if (String(url).startsWith('https://redis.test')) {
         if (redisFails) return new Response('boom', { status: 500 });
         const out = body.map(([cmd, key, ...rest]) => {
+            redisStore.commands.push([cmd, key, ...rest]);
             if (cmd === 'INCR') return { result: (redisStore.counters[key] = (redisStore.counters[key] || 0) + 1) };
             if (cmd === 'LPUSH') { redisStore.list.unshift(rest[0]); return { result: redisStore.list.length }; }
             if (cmd === 'LTRIM') { redisStore.list = redisStore.list.slice(0, rest[1] + 1); return { result: 'OK' }; }
@@ -204,10 +205,19 @@ await test('429 del proveedor: distingue límite por minuto y por día', async (
     reset(); modelScript.push({ status: 429, message: 'Rate limit reached on tokens per day (TPD)' });
     assert.match((await ask('hola')).body.reply, /de hoy/);
 });
-await test('la lista de preguntas guardadas está acotada', async () => {
-    redisStore.list = Array.from({ length: 2500 }, (_, i) => String(i));
+await test('las preguntas van a una clave por día que caduca a los 30 días', async () => {
     modelScript.push({ role: 'assistant', content: 'ok' }); await ask('hola');
-    assert.equal(redisStore.list.length, 2000);
+    const day = new Date().toISOString().slice(0, 10);
+    const stored = redisStore.commands.filter(c => ['LPUSH', 'LTRIM', 'EXPIRE'].includes(c[0]) && String(c[1]).startsWith('q:'));
+    assert.deepEqual(stored.map(c => c[0]), ['LPUSH', 'LTRIM', 'EXPIRE']);
+    assert.ok(stored.every(c => c[1] === `q:${day}`));
+    assert.equal(stored[2][2], 30 * 86400);
+    assert.ok(!redisStore.commands.some(c => c[1] === 'questions'), 'ya no se escribe en la lista sin caducidad');
+});
+await test('la lista de preguntas guardadas está acotada por día', async () => {
+    redisStore.list = Array.from({ length: 400 }, (_, i) => String(i));
+    modelScript.push({ role: 'assistant', content: 'ok' }); await ask('hola');
+    assert.equal(redisStore.list.length, 300);
 });
 
 console.log(`\n${passed} pruebas correctas${process.exitCode ? ' (hay fallos)' : ''}`);
