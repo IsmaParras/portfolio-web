@@ -66,7 +66,6 @@
   },
   {
     "name": "Druid AI",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#6C2DC7\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">D</text></svg>",
     "color": "6C2DC7",
     "area": [
       "automatizacion"
@@ -78,7 +77,8 @@
       "ia",
       "agentes",
       "conversacional"
-    ]
+    ],
+    "iconImg": "/assets/logos/druid-ai.png"
   },
   {
     "name": "LLMs",
@@ -305,7 +305,6 @@
   },
   {
     "name": "Active Directory",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0078D4\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">AD</text></svg>",
     "color": "0078D4",
     "area": [
       "cloud"
@@ -315,7 +314,8 @@
     "tags": [
       "sistemas",
       "windows"
-    ]
+    ],
+    "iconImg": "/assets/logos/active-directory.png"
   },
   {
     "name": "Linux",
@@ -391,7 +391,6 @@
   },
   {
     "name": "EasyVista",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00A88E\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"16\" fill=\"#fff\">EV</text></svg>",
     "color": "00A88E",
     "area": [
       "software"
@@ -401,7 +400,9 @@
     "tags": [
       "itsm",
       "integraciones"
-    ]
+    ],
+    "iconImg": "/assets/logos/easyvista.png",
+    "iconWide": 119
   },
   {
     "name": "Jira",
