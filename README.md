@@ -2,7 +2,7 @@
 
 Portfolio personal de **Ismael Parras Resino**, *Agentic AI Solution Architect*.
 Sitio web estático, bilingüe (ES/EN), con tema claro/oscuro, enfocado en
-agentes de IA, automatización e IA generativa.
+agentes de IA, hiperautomatización e IA generativa.
 
 🔗 **En producción:** https://ismaelparras.vercel.app/
 
@@ -143,7 +143,7 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
 - **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
-  `node scripts/agent-evals.mjs --url <URL desplegada>` (27 preguntas contra el
+  `node scripts/agent-evals.mjs --url <URL desplegada>` (28 preguntas contra el
   modelo real, ≈ 5 minutos). El modelo no es determinista: `--only <texto>` y
   `--repeat N` permiten repetir solo los casos que fallan. El límite por visitante
   (30 preguntas al día) se aplica también a la evaluación.
