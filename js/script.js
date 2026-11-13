@@ -347,7 +347,11 @@
             art.dataset.searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
             const desc  = currentLang === 'en' && s.desc_en ? s.desc_en : s.desc;
             const iconWrap = document.createElement('div'); iconWrap.className = 'skill-icon';
-            iconWrap.innerHTML = s.iconSvg || '';
+            if (s.iconImg) {
+                const img = document.createElement('img');
+                img.src = s.iconImg; img.alt = ''; img.width = 40; img.height = 40; img.loading = 'lazy';
+                iconWrap.appendChild(img);
+            } else iconWrap.innerHTML = s.iconSvg || '';
             const head = document.createElement('div'); head.className = 'skill-head';
             const h3   = document.createElement('h3');  h3.className = 'skill-name'; h3.textContent = s.name;
             head.appendChild(h3);

@@ -1,7 +1,6 @@
 [
   {
     "name": "Copilot Studio",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#0E7A6B\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">CS</text></svg>",
     "color": "0E7A6B",
     "area": [
       "automatizacion"
@@ -13,7 +12,8 @@
       "agentes",
       "microsoft",
       "ia"
-    ]
+    ],
+    "iconImg": "/assets/logos/copilot-studio.png"
   },
   {
     "name": "Power Automate",
@@ -144,6 +144,36 @@
     "core": true
   },
   {
+    "name": "Microsoft Foundry",
+    "iconImg": "/assets/logos/microsoft-foundry.png",
+    "color": "2E2BC4",
+    "area": [
+      "automatizacion",
+      "cloud"
+    ],
+    "desc": "Plataforma de Microsoft para construir y desplegar agentes y aplicaciones de IA",
+    "desc_en": "Microsoft platform to build and deploy AI agents and applications",
+    "tags": [
+      "ia",
+      "agentes",
+      "azure"
+    ]
+  },
+  {
+    "name": "Power Apps",
+    "iconImg": "/assets/logos/power-apps.png",
+    "color": "0F7B6C",
+    "area": [
+      "automatizacion"
+    ],
+    "desc": "Aplicaciones low-code sobre Power Platform",
+    "desc_en": "Low-code apps on Power Platform",
+    "tags": [
+      "low-code",
+      "microsoft"
+    ]
+  },
+  {
     "name": "n8n",
     "iconSvg": "<svg viewBox=\"0 0 24 24\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"#EA4B71\" aria-hidden=\"true\"><path d=\"M4.8 16.8c.45 0 .6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4H9c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6s.6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4h1.2c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6s.6-.15.6-.6V15c0-1.8.6-2.4 2.4-2.4h1.2c.45 0 .6-.15.6-.6s-.15-.6-.6-.6h-1.2c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H15c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H7.8c-1.8 0-2.4-.6-2.4-2.4V7.8c0-.45-.15-.6-.6-.6s-.6.15-.6.6V9c0 1.8-.6 2.4-2.4 2.4H.6c-.45 0-.6.15-.6.6s.15.6.6.6h1.2c1.8 0 2.4.6 2.4 2.4v1.2c0 .45.15.6.6.6\"/></svg>",
     "color": "EA4B71",
@@ -173,7 +203,6 @@
   },
   {
     "name": "Botpress",
-    "iconSvg": "<svg viewBox=\"0 0 40 40\" width=\"40\" height=\"40\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"40\" height=\"40\" rx=\"8\" fill=\"#00AEF3\"/><text x=\"50%\" y=\"55%\" dominant-baseline=\"middle\" text-anchor=\"middle\" font-family=\"sans-serif\" font-weight=\"bold\" font-size=\"14\" fill=\"#fff\">BP</text></svg>",
     "color": "00AEF3",
     "area": [
       "automatizacion"
@@ -183,7 +212,8 @@
     "tags": [
       "ia",
       "chatbots"
-    ]
+    ],
+    "iconImg": "/assets/logos/botpress.png"
   },
   {
     "name": "ElevenLabs",
@@ -313,6 +343,22 @@
     "tags": [
       "devops",
       "contenedores"
+    ]
+  },
+  {
+    "name": "Azure DevOps",
+    "iconImg": "/assets/logos/azure-devops.png",
+    "color": "0078D7",
+    "area": [
+      "cloud",
+      "software"
+    ],
+    "desc": "Repositorios, pipelines y seguimiento del trabajo en Azure DevOps",
+    "desc_en": "Repos, pipelines and work tracking in Azure DevOps",
+    "tags": [
+      "devops",
+      "ci/cd",
+      "microsoft"
     ]
   },
   {

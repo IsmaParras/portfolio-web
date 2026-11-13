@@ -49,7 +49,8 @@ if (!errors.length) {
         for (const r of p.results || []) if (!r.es || !r.en) fail(`Proyecto ${p.id}: resultado sin es/en`);
     }
     for (const s of json.skills) {
-        if (!s.iconSvg) fail(`Skill ${s.name}: falta iconSvg`);
+        if (!s.iconSvg && !s.iconImg) fail(`Skill ${s.name}: falta iconSvg o iconImg`);
+        if (s.iconImg && !existsSync(join(ROOT, s.iconImg.replace(/^\//, '')))) fail(`Skill ${s.name}: no existe ${s.iconImg}`);
         if (!s.desc || !s.desc_en) fail(`Skill ${s.name}: falta desc o desc_en`);
     }
 
