@@ -143,8 +143,10 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
 - **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
-  `node scripts/agent-evals.mjs --url <URL desplegada>` (≈ 24 preguntas contra el
-  modelo real; tarda unos 4 minutos por el límite de uso).
+  `node scripts/agent-evals.mjs --url <URL desplegada>` (27 preguntas contra el
+  modelo real, ≈ 5 minutos). El modelo no es determinista: `--only <texto>` y
+  `--repeat N` permiten repetir solo los casos que fallan. El límite por visitante
+  (30 preguntas al día) se aplica también a la evaluación.
 
 ## CVs e imagen para compartir
 

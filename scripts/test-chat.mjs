@@ -123,6 +123,35 @@ await test('filtrar_skills y preparar_contacto normalizan y limitan el texto', a
     const c = (await ask('quiero contactar')).body.actions[0];
     assert.equal(c.type, 'prefillContact'); assert.equal(c.subject, 'project'); assert.equal(c.message.length, 500);
 });
+await test('el modelo escribe el asunto en español o lo omite: se traduce a la lista cerrada', async () => {
+    const cases = [[{ asunto: 'proyecto' }, 'project'], [{ asunto: 'Proyecto de automatización' }, 'project'], [{ asunto: 'Oportunidad laboral' }, 'opportunity'], [{ asunto: 'oferta de empleo' }, 'opportunity'], [{}, 'other'], [{ asunto: 'xyz' }, 'other']];
+    for (const [args, expected] of cases) {
+        reset(); modelScript.push(tool('preparar_contacto', { ...args, mensaje: 'Hola' }));
+        const r = await ask('quiero escribirle'); assert.deepEqual(r.body.actions, [{ type: 'prefillContact', subject: expected, message: 'Hola' }], JSON.stringify(args));
+    }
+});
+await test('secciones, áreas e idiomas en español también se aceptan, y lo peligroso se sigue descartando', async () => {
+    const ok = [[tool('ir_a_seccion', { seccion: 'Proyectos' }), { type: 'goTo', section: 'projects' }], [tool('ir_a_seccion', { seccion: 'Habilidades técnicas' }), { type: 'goTo', section: 'tech-skills' }],
+        [tool('filtrar_skills', { area: 'Cloud y sistemas' }), { type: 'filterSkills', area: 'cloud', search: '' }], [tool('filtrar_skills', {}), { type: 'filterSkills', area: '', search: '' }],
+        [tool('cambiar_idioma', { idioma: 'inglés' }), { type: 'setLang', lang: 'en' }]];
+    for (const [call, expected] of ok) { reset(); modelScript.push(call); assert.deepEqual((await ask('hazlo')).body.actions, [expected]); }
+    for (const bad of [tool('ir_a_seccion', { seccion: 'javascript:alert(1)' }), tool('ir_a_seccion', { seccion: '<img src=x>' }), tool('cambiar_idioma', { idioma: 'fr' }), tool('filtrar_skills', { area: 'rm -rf' })]) {
+        reset(); modelScript.push(bad); assert.deepEqual((await ask('hazlo')).body.actions, []);
+    }
+});
+await test('herramienta llamada sin ninguna acción válida: aviso neutro, no la negativa genérica', async () => {
+    modelScript.push(tool('ir_a_seccion', { seccion: 'x' }));
+    const r = await ask('llévame a x'); assert.match(r.body.reply, /formulario de contacto/); assert.ok(!/No puedo ayudarte con eso/.test(r.body.reply));
+    assert.equal(JSON.parse(redisStore.list[0]).o, 'unactionable');
+    reset(); modelScript.push(tool('ir_a_seccion', { seccion: 'x' }));
+    assert.match((await call('POST', { message: 'go to x', lang: 'en' })).body.reply, /contact form/);
+});
+await test('la identidad es la primera regla fija del prompt, en ambos idiomas', async () => {
+    for (const [lang, re] of [['es', /Reglas fijas[^\n]*\n- Si te preguntan qué eres: eres un asistente de IA, no una persona/], ['en', /Fixed rules[^\n]*\n- If asked what you are: you are an AI assistant, not a person/]]) {
+        reset(); modelScript.push({ role: 'assistant', content: 'ok' }); await call('POST', { message: 'hola', lang });
+        assert.match(modelCalls[0].body.messages[0].content, re);
+    }
+});
 await test('una sola llamada al modelo por pregunta, también con herramientas', async () => {
     modelScript.push(tool('descargar_cv', {}), { role: 'assistant', content: 'nunca' });
     const r = await ask('cv'); assert.equal(modelCalls.length, 1); assert.equal(r.body.reply, 'Descargando el CV.'); assert.deepEqual(r.body.actions, [{ type: 'downloadCV' }]);
