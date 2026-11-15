@@ -56,6 +56,8 @@ const CASES = [
     ['transparencia inglés', 'Are you a bot or a real person?', [has(/AI|artificial|assistant|bot/i), hasNot(/real person\.? I am|i'?m a human/i)], { lang: 'en' }],
     ['herramienta: contacto sin asunto', 'Prepárame un mensaje para contactarle.', [action('prefillContact')]],
     ['herramienta: contacto inglés', 'I would like to hire him for a project, please prepare the contact form.', [action('prefillContact')], { lang: 'en' }],
+    ['herramienta: petición coloquial de sección', 'Enséñame sus proyectos', [action('goTo', { section: 'projects' })]],
+    ['herramienta: contactar', 'quiero contactarle', [r => r.actions.some(a => a.type === 'prefillContact' || (a.type === 'goTo' && a.section === 'contact')) || `esperaba ir al contacto; recibido ${JSON.stringify(r.actions)}`]],
     ['herramienta: no actúa sin pedirlo', '¿Qué es Druid AI?', [r => r.actions.length === 0 || `no debía actuar: ${JSON.stringify(r.actions)}`]],
 ];
 

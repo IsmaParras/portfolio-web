@@ -156,6 +156,10 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   (una clave por día, máximo 300 por día, y se borran solas a los 30 días). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
+- **Red de seguridad:** si el modelo contesta con texto a una petición inequívoca
+  ("enséñame sus proyectos", "quiero contactarle", "descarga el CV"), `inferAction`
+  en `api/chat.js` deduce la acción de navegación sin otra llamada al modelo. La marca
+  interna `[NO]` se retira de la respuesta esté donde esté.
 - **Página explicativa:** `/agente/` y `/en/agent/` cuentan cómo está hecho e
   incluyen el aviso de privacidad (`#privacy`), enlazado desde el panel del chat.
 - **Fuera de la portada:** si una acción necesita la portada (ir a una sección,
@@ -163,7 +167,7 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   conversación en `sessionStorage` (30 s), navega a la portada del idioma y allí la
   ejecuta después de validarla otra vez contra las listas cerradas.
 - **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
-  `node scripts/agent-evals.mjs --url <URL desplegada>` (28 preguntas contra el
+  `node scripts/agent-evals.mjs --url <URL desplegada>` (30 preguntas contra el
   modelo real, ≈ 5 minutos). El modelo no es determinista: `--only <texto>` y
   `--repeat N` permiten repetir solo los casos que fallan. El límite por visitante
   (30 preguntas al día) se aplica también a la evaluación.
