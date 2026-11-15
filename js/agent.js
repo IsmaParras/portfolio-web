@@ -9,6 +9,9 @@
     const SECTIONS = ['home', 'about', 'tech-skills', 'projects', 'contact'];
     const AREAS = ['', 'automatizacion', 'cloud', 'software'];
     const SUBJECTS = ['opportunity', 'project', 'other'];
+    const HOME_ACTIONS = ['goTo', 'filterSkills', 'prefillContact'];   // necesitan la portada
+    const PENDING_KEY = 'agent:pending';
+    const PENDING_TTL = 30000;
 
     const history = [];
     let panel, list, input, sendBtn, toggleBtn, busy = false;
@@ -18,27 +21,65 @@
     const lang = () => (p()?.lang() === 'en' ? 'en' : 'es');
 
     // ───────── acciones pedidas por el agente (validadas otra vez en el navegador) ─────────
-    function run(action) {
-        if (!action || typeof action !== 'object') return;
+    // Devuelve la acción reducida a sus campos conocidos, o null si no está en las listas cerradas.
+    function sanitize(action) {
+        if (!action || typeof action !== 'object') return null;
         switch (action.type) {
-            case 'goTo':
-                if (SECTIONS.includes(action.section)) p().goTo(action.section);
-                break;
-            case 'filterSkills':
-                if (AREAS.includes(action.area)) { p().filterSkills(action.area, String(action.search || '').slice(0, 60)); p().goTo('tech-skills'); }
-                break;
-            case 'setLang':
-                if (action.lang === 'es' || action.lang === 'en') {
-                    if (action.lang !== lang()) location.href = (action.lang === 'en' ? '/en/' : '/') + location.hash;
-                }
-                break;
-            case 'downloadCV':
-                p().downloadCV();
-                break;
-            case 'prefillContact':
-                if (SUBJECTS.includes(action.subject)) { close(false); p().prefillContact(action.subject, String(action.message || '').slice(0, 500)); }
-                break;
+            case 'goTo': return SECTIONS.includes(action.section) ? { type: 'goTo', section: action.section } : null;
+            case 'filterSkills': return AREAS.includes(action.area) ? { type: 'filterSkills', area: action.area, search: String(action.search || '').slice(0, 60) } : null;
+            case 'setLang': return action.lang === 'es' || action.lang === 'en' ? { type: 'setLang', lang: action.lang } : null;
+            case 'downloadCV': return { type: 'downloadCV' };
+            case 'prefillContact': return SUBJECTS.includes(action.subject) ? { type: 'prefillContact', subject: action.subject, message: String(action.message || '').slice(0, 500) } : null;
+            default: return null;
         }
+    }
+
+    function execute(action) {
+        switch (action.type) {
+            case 'goTo': p().goTo(action.section); break;
+            case 'filterSkills': p().filterSkills?.(action.area, action.search); p().goTo('tech-skills'); break;
+            case 'downloadCV': p().downloadCV(); break;
+            case 'prefillContact': close(false); p().prefillContact(action.subject, action.message); break;
+        }
+    }
+
+    const onHome = () => !!document.getElementById('home');
+    const homeUrl = l => (l === 'en' ? '/en/' : '/');
+    // El selector de idioma apunta siempre a la página equivalente en el otro idioma.
+    const otherLangUrl = () => (document.getElementById('langToggle')?.getAttribute('href') || homeUrl(lang() === 'en' ? 'es' : 'en')).split('#')[0];
+
+    // Cambia de página conservando la conversación y las acciones que quedan por hacer.
+    function leave(url, actions) {
+        try { sessionStorage.setItem(PENDING_KEY, JSON.stringify({ at: Date.now(), actions, history: history.slice(-MAX_HISTORY) })); } catch { /* sin almacenamiento: se navega igual */ }
+        location.href = url;
+    }
+
+    function runAll(actions) {
+        const clean = actions.map(sanitize).filter(Boolean);
+        const langChange = clean.find(a => a.type === 'setLang' && a.lang !== lang());
+        const needHome = clean.filter(a => HOME_ACTIONS.includes(a.type));
+        clean.filter(a => a.type === 'downloadCV').forEach(execute);
+        if (langChange) leave(needHome.length ? homeUrl(langChange.lang) : otherLangUrl() + location.hash, needHome);
+        else if (needHome.length && !onHome()) leave(homeUrl(lang()), needHome);
+        else needHome.forEach(execute);
+    }
+
+    // Al llegar de otra página: recupera la conversación y ejecuta lo pendiente, validado de nuevo.
+    function resume() {
+        let saved;
+        try {
+            saved = JSON.parse(sessionStorage.getItem(PENDING_KEY) || 'null');
+            sessionStorage.removeItem(PENDING_KEY);
+        } catch { return; }
+        if (!saved || typeof saved !== 'object' || !(Date.now() - saved.at < PENDING_TTL)) return;
+        const turns = (Array.isArray(saved.history) ? saved.history : []).slice(-MAX_HISTORY)
+            .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+            .map(m => ({ role: m.role, content: m.content.slice(0, 1200) }));
+        turns.forEach(m => { history.push(m); addMessage(m.role === 'user' ? 'user' : 'bot', m.content); });
+        const actions = (Array.isArray(saved.actions) ? saved.actions.slice(0, 3) : []).map(sanitize)
+            .filter(a => a && HOME_ACTIONS.includes(a.type));
+        if (turns.length) open();
+        if (onHome()) actions.forEach(execute);
     }
 
     // ───────── interfaz ─────────
@@ -85,7 +126,7 @@
             pending.querySelector('p').textContent = reply;
             if (res.ok) {
                 history.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
-                (Array.isArray(data.actions) ? data.actions.slice(0, 3) : []).forEach(run);
+                runAll(Array.isArray(data.actions) ? data.actions.slice(0, 3) : []);
             }
         } catch {
             pending.classList.remove('agent-msg--pending');
@@ -132,7 +173,12 @@
             sugg.append(b);
         });
 
-        panel.append(head, list, sugg, form, el('p', { class: 'agent-notice' }, t('agent_notice')));
+        const notice = el('p', { class: 'agent-notice' }, t('agent_notice') + ' ');
+        const more = el('a', { href: t('agent_privacy_href') }, t('agent_privacy_link'));
+        more.addEventListener('click', () => { if (more.pathname === location.pathname) close(false); });
+        notice.append(more);
+
+        panel.append(head, list, sugg, form, notice);
         document.body.append(toggleBtn, panel);
 
         addMessage('bot', t('agent_hello'));
@@ -141,6 +187,14 @@
         closeBtn.addEventListener('click', () => close());
         form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
         panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); close(); } });
+
+        // Botones "Probarlo" de la página: solo se muestran cuando el asistente existe
+        document.documentElement.classList.add('agent-on');
+        document.addEventListener('click', e => {
+            if (e.target.closest?.('[data-agent-open]')) { e.preventDefault(); open(); }
+        });
+
+        resume();
     }
 
     // ───────── arranque: solo si el servidor está configurado ─────────

@@ -2,7 +2,7 @@
   {
     "id": "druid-ai-agents",
     "featured": true,
-    "title": "Agentes Conversacionales Druid AI",
+    "title": { "es": "Agentes Conversacionales Druid AI", "en": "Druid AI Conversational Agents" },
     "badgeKey": "proj3_badge",
     "tags": ["Druid AI", "NLP", "Microsoft Teams", "Voicebot"],
     "descKey": "proj3_desc",
@@ -13,9 +13,26 @@
     ]
   },
   {
+    "id": "portfolio-assistant",
+    "featured": false,
+    "wide": true,
+    "title": { "es": "Asistente de IA de este portfolio", "en": "This portfolio's AI assistant" },
+    "badgeKey": "proj6_badge",
+    "tags": ["Tool calling", "Vercel Functions", "Groq", "Upstash Redis"],
+    "descKey": "proj6_desc",
+    "results": [
+      { "es": "Responde solo con datos de la web", "en": "Answers only from the site's data" },
+      { "es": "Actúa sobre la página", "en": "Acts on the page" },
+      { "es": "Código público en GitHub", "en": "Public code on GitHub" }
+    ],
+    "agentCta": true,
+    "ctaKey": "proj6_cta",
+    "ctaUrl": { "es": "/agente/", "en": "/en/agent/" }
+  },
+  {
     "id": "servicedesk-langchain",
     "featured": false,
-    "title": "Automatización ServiceDesk con LangChain",
+    "title": { "es": "Automatización ServiceDesk con LangChain", "en": "ServiceDesk Automation with LangChain" },
     "badgeKey": "proj4_badge",
     "tags": ["LangChain", "LLM", "API REST", "Jira"],
     "descKey": "proj4_desc",
@@ -28,7 +45,7 @@
   {
     "id": "rpa-uipath-azure",
     "featured": false,
-    "title": "Automatización RPA con UiPath en Azure",
+    "title": { "es": "Automatización RPA con UiPath en Azure", "en": "RPA Automation with UiPath on Azure" },
     "badgeKey": "proj5_badge",
     "tags": ["UiPath", "Power Automate", "Azure", "RPA"],
     "descKey": "proj5_desc",

@@ -24,11 +24,16 @@ agentes de IA, hiperautomatización e IA generativa.
 portfolio-web/
 ├── index.html          # Plantilla y página en español (generada por el build)
 ├── en/index.html       # Página en inglés (generada por el build)
+├── agente/index.html   # "Cómo está hecho el asistente": plantilla y página en español
+├── en/agent/index.html # La misma página en inglés (generada por el build)
 ├── 404.html            # Página de error personalizada
 ├── css/styles.css      # Estilos (variables CSS, temas claro/oscuro)
+├── css/page.css        # Estilos de las páginas de texto largo (/agente/)
+├── css/agent.css       # Estilos del asistente de IA
 ├── js/script.js        # Lógica: i18n, tema, render dinámico, form, filtros
+├── js/agent.js         # Asistente de IA: chat y acciones sobre la página
 ├── scripts/
-│   ├── prerender.mjs       # Build: genera index.html y en/index.html
+│   ├── prerender.mjs       # Build: genera las páginas en español e inglés
 │   ├── check.mjs           # Build: comprueba claves i18n y datos
 │   ├── build-knowledge.mjs # Build: genera el contexto del agente
 │   ├── test-chat.mjs       # Pruebas de api/chat.js (npm test)
@@ -54,10 +59,12 @@ portfolio-web/
 Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualizarlo:
 
 - **`profile.json`** — datos de contacto, ID de Formspree y rutas de los CVs.
-- **`projects.json`** — array de proyectos. Cada uno: `id`, `title`, `featured`
-  (bool, destaca la tarjeta a ancho completo), `badgeKey` y `descKey` (claves en
+- **`projects.json`** — array de proyectos. Cada uno: `id`, `title` (texto o
+  `{es, en}`), `featured` (bool, destaca la tarjeta a ancho completo), `wide`
+  (ancho completo sin el estilo de destacado), `badgeKey` y `descKey` (claves en
   `i18n.json`), `tags`, `results` (con `es`/`en`) y, opcionalmente, `ctaKey` +
-  `ctaUrl`.
+  `ctaUrl` (texto o `{es, en}`) y `agentCta` (añade el botón "Probarlo", que abre
+  el asistente y solo se muestra si está activo).
 - **`skills.json`** — array de habilidades. Campos: `name`, `iconSvg` (SVG en
   línea), `color` (hex), `area` (`automatizacion` | `cloud` | `software`),
   `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`,
@@ -87,14 +94,16 @@ Luego abre http://localhost:8000.
 
 ## Build / Prerender (SEO)
 
-`index.html` es a la vez la plantilla y la página en español. Un script de Node
-sin dependencias lee `data/*.json` y:
+Cada página tiene una plantilla que es a la vez su versión en español:
+`index.html` (portada) y `agente/index.html` (cómo está hecho el asistente). Un
+script de Node sin dependencias lee `data/*.json` y, para cada página:
 
 - rellena todos los textos y atributos traducibles,
 - inyecta proyectos y skills entre marcadores `<!--prerender:…-->`,
 - genera el bloque SEO de cada idioma (canonical, `hreflang`, Open Graph) y el
   JSON-LD,
-- escribe `index.html` (español, `/`) y `en/index.html` (inglés, `/en/`),
+- escribe la versión en español (`/`, `/agente/`) y en inglés (`/en/`,
+  `/en/agent/`), con los enlaces a la portada de su idioma,
 - comprueba la coherencia del contenido (`scripts/check.mjs`): mismas claves en
   ambos idiomas, ninguna clave inexistente o sin uso, datos completos.
 
@@ -108,8 +117,13 @@ JavaScript. El idioma lo fija la URL; el botón de idioma es un enlace a la otra
 versión. El script es **idempotente**.
 
 > **Importante:** ejecuta `npm run build` **siempre que edites** `data/*.json` o
-> `index.html` y commitea `index.html` y `en/index.html`. Si las comprobaciones
-> fallan, el despliegue en Vercel también falla.
+> una plantilla y commitea las páginas generadas (`index.html`, `en/index.html`,
+> `agente/index.html`, `en/agent/index.html`). Si las comprobaciones fallan, el
+> despliegue en Vercel también falla.
+
+Para añadir otra página: crea su plantilla, añádela a `PAGES` en
+`scripts/prerender.mjs`, a `TEMPLATES` y `PAGES` en `scripts/check.mjs` y a
+`sitemap.xml`.
 
 ## Asistente de IA
 
@@ -142,6 +156,12 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   (una clave por día, máximo 300 por día, y se borran solas a los 30 días). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
+- **Página explicativa:** `/agente/` y `/en/agent/` cuentan cómo está hecho e
+  incluyen el aviso de privacidad (`#privacy`), enlazado desde el panel del chat.
+- **Fuera de la portada:** si una acción necesita la portada (ir a una sección,
+  filtrar skills, preparar el contacto), `js/agent.js` la guarda junto con la
+  conversación en `sessionStorage` (30 s), navega a la portada del idioma y allí la
+  ejecuta después de validarla otra vez contra las listas cerradas.
 - **Pruebas:** `npm test` (endpoint con modelo y Redis simulados) y
   `node scripts/agent-evals.mjs --url <URL desplegada>` (28 preguntas contra el
   modelo real, ≈ 5 minutos). El modelo no es determinista: `--only <texto>` y

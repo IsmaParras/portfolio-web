@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" id="theme-color-dark">
+    <meta name="theme-color" content="#fdfbf7" media="(prefers-color-scheme: light)" id="theme-color-light">
+
+    <title data-i18n="agentpage_meta_title">Cómo está hecho el asistente de IA | Ismael Parras Resino</title>
+    <meta name="description" content="Arquitectura, decisiones de diseño, seguridad y privacidad del asistente de IA de mi portfolio: función serverless, modelo con llamadas a herramientas y límites de uso." data-i18n-attr="content:agentpage_meta_description">
+    <meta name="author" content="Ismael Parras Resino">
+    <meta name="robots" content="index, follow">
+
+<!--prerender:seo:start-->
+    <link rel="canonical" href="https://ismaelparras.vercel.app/agente/">
+    <link rel="alternate" hreflang="es" href="https://ismaelparras.vercel.app/agente/">
+    <link rel="alternate" hreflang="en" href="https://ismaelparras.vercel.app/en/agent/">
+    <link rel="alternate" hreflang="x-default" href="https://ismaelparras.vercel.app/agente/">
+    <meta property="og:url" content="https://ismaelparras.vercel.app/agente/">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale:alternate" content="en_US">
+<!--prerender:seo:end-->
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Cómo está hecho el asistente de IA | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
+    <meta property="og:description" content="Arquitectura, decisiones de diseño, seguridad y privacidad del asistente de IA de mi portfolio: función serverless, modelo con llamadas a herramientas y límites de uso." data-i18n-attr="content:agentpage_meta_description">
+    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ismael Parras Resino — Agentic AI Solution Architect" data-i18n-attr="content:og_image_alt">
+    <meta property="og:site_name" content="Ismael Parras · Portfolio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cómo está hecho el asistente de IA | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
+    <meta name="twitter:description" content="Arquitectura, decisiones de diseño, seguridad y privacidad del asistente de IA de mi portfolio: función serverless, modelo con llamadas a herramientas y límites de uso." data-i18n-attr="content:agentpage_meta_description">
+    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230a0a0f%22/><text x=%2250%22 y=%2250%22 font-family=%22Syne, sans-serif%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%2300d4ff%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>IPR</text></svg>">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/page.css">
+    <link rel="stylesheet" href="/css/agent.css">
+</head>
+<body>
+
+    <a href="#main" class="skip-link" data-i18n="skip_link">Saltar al contenido</a>
+
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="/" data-home-href="" class="logo" aria-label="Ismael Parras — Inicio" data-i18n-attr="aria-label:aria_logo">ISMAEL<span>.</span></a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/#home" data-home-href="#home" data-i18n="nav_home">Inicio</a>
+                <a href="/#about" data-home-href="#about" data-i18n="nav_about">Sobre mí</a>
+                <a href="/#tech-skills" data-home-href="#tech-skills" data-i18n="nav_skills">Habilidades</a>
+                <a href="/#projects" data-home-href="#projects" data-i18n="nav_projects">Proyectos</a>
+                <a href="/#contact" data-home-href="#contact" data-i18n="nav_contact">Contacto</a>
+            </div>
+
+            <div class="controls">
+                <a class="icon-btn lang-switch" id="langToggle" href="/en/agent/" hreflang="en" aria-label="Ver en inglés" title="Ver en inglés" data-i18n="lang_switch_label" data-i18n-attr="href:agentpage_lang_href;hreflang:lang_switch_code;aria-label:lang_switch_aria;title:lang_switch_aria">EN</a>
+                <button type="button" class="icon-btn" id="themeToggle" aria-label="Modo claro/oscuro" title="Modo claro/oscuro" data-i18n-attr="aria-label:aria_theme;title:aria_theme">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </button>
+                <button class="menu-btn" id="menuBtn" aria-label="Menú de navegación" aria-expanded="false" aria-controls="navLinks" data-i18n-attr="aria-label:aria_menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container page" id="main">
+
+        <header class="page-head">
+            <p class="mono page-kicker" data-i18n="agentpage_kicker">// Proyecto propio</p>
+            <h1 data-i18n="agentpage_title">Cómo está hecho el asistente de IA</h1>
+            <p class="page-lead" data-i18n="agentpage_lead">El botón «Pregúntame» de esta web abre un asistente que responde preguntas sobre mi perfil y actúa sobre la propia página. Lo diseñé y lo construí yo. Aquí explico cómo funciona, qué decisiones tomé y dónde están sus límites.</p>
+            <div class="page-actions">
+                <button type="button" class="btn btn-primary" data-agent-open data-i18n="proj_cta_try">Probarlo</button>
+                <a class="btn btn-secondary" href="https://github.com/IsmaParras/portfolio-web" target="_blank" rel="noopener noreferrer" data-i18n="agentpage_code">Ver el código</a>
+            </div>
+        </header>
+
+        <section id="what">
+            <h2 data-i18n="agentpage_does_title">Qué hace y qué no hace</h2>
+            <div class="page-cols">
+                <div>
+                    <h3 class="mono page-subtitle" data-i18n="agentpage_does_yes">Sí hace</h3>
+                    <ul class="page-list page-list--yes">
+                    <li data-i18n="agentpage_yes1">Responde preguntas sobre mi trayectoria, proyectos y habilidades, en español o en inglés.</li>
+                    <li data-i18n="agentpage_yes2">Actúa sobre la página cuando se lo pides: te lleva a una sección, filtra las habilidades, cambia el idioma, descarga el CV o deja preparado el formulario de contacto.</li>
+                    <li data-i18n="agentpage_yes3">Dice que no lo sabe cuando el dato no está en la web.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mono page-subtitle" data-i18n="agentpage_does_no">No hace</h3>
+                    <ul class="page-list page-list--no">
+                    <li data-i18n="agentpage_no1">No envía nunca el formulario: lo deja escrito para que lo revises y lo envíes tú.</li>
+                    <li data-i18n="agentpage_no2">No da detalles de mi trabajo en SGS más allá de lo que ya es público aquí.</li>
+                    <li data-i18n="agentpage_no3">No habla de otros temas ni cambia de papel aunque se lo pidan.</li>
+                    <li data-i18n="agentpage_no4">No es infalible: es una IA y puede equivocarse.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2 data-i18n="agentpage_arch_title">Arquitectura</h2>
+            <p data-i18n="agentpage_arch_intro">Cuatro piezas y ninguna base de conocimiento aparte: todo lo que el asistente sabe de mí cabe en su contexto.</p>
+            <div class="arch">
+                <div class="arch-node">
+                    <span class="arch-tech mono" data-i18n="agentpage_n1_tech">JavaScript sin dependencias</span>
+                    <h3 data-i18n="agentpage_n1_title">Navegador</h3>
+                    <p data-i18n="agentpage_n1_desc">El panel de chat envía la pregunta y ejecuta las acciones que devuelve el servidor.</p>
+                </div>
+                <div class="arch-arrow" aria-hidden="true"></div>
+                <div class="arch-stack">
+                <div class="arch-node">
+                    <span class="arch-tech mono" data-i18n="agentpage_n2_tech">Vercel</span>
+                    <h3 data-i18n="agentpage_n2_title">Función serverless</h3>
+                    <p data-i18n="agentpage_n2_desc">Valida la petición, aplica los límites de uso, llama al modelo y devuelve la respuesta con una lista de acciones.</p>
+                </div>
+                <div class="arch-arrow arch-arrow--v" aria-hidden="true"></div>
+                <div class="arch-node">
+                    <span class="arch-tech mono" data-i18n="agentpage_n4_tech">Upstash Redis</span>
+                    <h3 data-i18n="agentpage_n4_title">Almacén</h3>
+                    <p data-i18n="agentpage_n4_desc">Lleva la cuenta de los límites de uso y guarda las preguntas, sin identificar a nadie, durante 30 días.</p>
+                </div>
+                </div>
+                <div class="arch-arrow" aria-hidden="true"></div>
+                <div class="arch-node">
+                    <span class="arch-tech mono" data-i18n="agentpage_n3_tech">Groq</span>
+                    <h3 data-i18n="agentpage_n3_title">Modelo de lenguaje</h3>
+                    <p data-i18n="agentpage_n3_desc">Recibe las reglas, mis datos y la pregunta. Contesta en texto y, si procede, pide una acción con una llamada a herramienta.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="decisions">
+            <h2 data-i18n="agentpage_dec_title">Decisiones de diseño</h2>
+            <div class="page-cards">
+                <article class="page-card">
+                    <h3 data-i18n="agentpage_d1_title">El conocimiento sale de los mismos datos que la web</h3>
+                    <p data-i18n="agentpage_d1">El texto que recibe el modelo se genera en cada despliegue a partir de los ficheros que pintan esta página. Así no puede contradecir lo que ves y no hay una segunda copia que mantener.</p>
+                </article>
+                <article class="page-card">
+                    <h3 data-i18n="agentpage_d2_title">Una sola llamada al modelo por pregunta</h3>
+                    <p data-i18n="agentpage_d2">La cuota gratuita del proveedor es el recurso escaso. Con una única herramienta y un contexto compacto, cada pregunta cuesta lo mínimo y el asistente atiende más conversaciones.</p>
+                </article>
+                <article class="page-card">
+                    <h3 data-i18n="agentpage_d3_title">Acciones contra una lista cerrada</h3>
+                    <p data-i18n="agentpage_d3">El modelo no ejecuta nada: propone una acción y el servidor la traduce a un conjunto fijo de valores. El navegador la valida otra vez antes de hacerla. Lo que no encaja se descarta.</p>
+                </article>
+                <article class="page-card">
+                    <h3 data-i18n="agentpage_d4_title">Respuestas como texto plano</h3>
+                    <p data-i18n="agentpage_d4">Lo que escribe el modelo nunca se interpreta como HTML, así que no puede inyectar contenido en la página.</p>
+                </article>
+                <article class="page-card">
+                    <h3 data-i18n="agentpage_d5_title">Si no está configurado, no aparece</h3>
+                    <p data-i18n="agentpage_d5">Sin las claves del proveedor, el servidor lo indica y el botón no se muestra. La web funciona igual con el asistente o sin él.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="security">
+            <h2 data-i18n="agentpage_sec_title">Seguridad</h2>
+            <ul class="page-list">
+                    <li data-i18n="agentpage_s1">La clave del proveedor vive solo en el servidor; el navegador nunca la ve.</li>
+                    <li data-i18n="agentpage_s2">Hay un límite de preguntas por visitante y otro global. Si el almacén de límites falla, no se llama al modelo.</li>
+                    <li data-i18n="agentpage_s3">Las reglas del asistente van separadas del texto del visitante, que se recorta y se limpia antes de enviarlo.</li>
+                    <li data-i18n="agentpage_s4">Ante intentos de cambiar sus instrucciones, de llevarlo a otros temas o de sacarle datos internos, responde con una negativa.</li>
+            </ul>
+        </section>
+
+        <section id="testing">
+            <h2 data-i18n="agentpage_test_title">Cómo lo pruebo</h2>
+            <p data-i18n="agentpage_test1">En dos niveles. Pruebas automáticas del servidor con el modelo y el almacén simulados: validación, límites, acciones fuera de lista, errores del proveedor y que no se guarda nada indebido. Y una batería de preguntas contra el modelo real con resultado esperado: datos correctos, preguntas sin respuesta en la web, intentos de manipulación, temas ajenos y uso de cada acción.</p>
+            <p data-i18n="agentpage_test2">Un modelo de lenguaje no es determinista: que una batería pase no garantiza la siguiente respuesta. Por eso las reglas importantes están también en el código que valida lo que el modelo devuelve, además de en sus instrucciones.</p>
+        </section>
+
+        <section id="limits">
+            <h2 data-i18n="agentpage_lim_title">Límites que conozco</h2>
+            <ul class="page-list">
+                    <li data-i18n="agentpage_l1">Funciona sobre una capa gratuita: si recibe muchas preguntas en poco tiempo, pide esperar o remite al formulario de contacto.</li>
+                    <li data-i18n="agentpage_l2">Puede equivocarse o no entender una petición. Para cualquier cosa importante, escríbeme.</li>
+                    <li data-i18n="agentpage_l3">Depende de un único proveedor de modelos, aunque cambiarlo por otro compatible es cuestión de configuración.</li>
+            </ul>
+        </section>
+
+        <section id="privacy">
+            <h2 data-i18n="agentpage_priv_title">Privacidad</h2>
+            <p data-i18n="agentpage_priv_intro">Qué ocurre con lo que escribes en el asistente.</p>
+            <dl class="page-defs">
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p1_t">Responsable</dt>
+                    <dd data-i18n="agentpage_p1">Ismael Parras Resino. Puedes escribirme desde el formulario de contacto o al email que aparece en esta web.</dd>
+                </div>
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p2_t">Qué se trata</dt>
+                    <dd data-i18n="agentpage_p2">El texto de tu pregunta, para responderla y para mejorar el asistente.</dd>
+                </div>
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p3_t">Qué se guarda</dt>
+                    <dd data-i18n="agentpage_p3">El día, el idioma, el texto de la pregunta y si se respondió, durante 30 días. No se guardan tu dirección IP, tu navegador ni las respuestas. La IP se usa solo un momento, convertida en un identificador que no permite recuperarla y que caduca en torno a un día, para limitar el uso.</dd>
+                </div>
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p4_t">Quién más interviene</dt>
+                    <dd data-i18n="agentpage_p4">Groq genera la respuesta; es una empresa de Estados Unidos y tu pregunta puede tratarse fuera de la Unión Europea. Upstash aloja la base de datos (región de Dublín) y Vercel aloja la web.</dd>
+                </div>
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p5_t">Borrado</dt>
+                    <dd data-i18n="agentpage_p5">Las preguntas no están asociadas a ninguna persona. Si escribiste un dato personal por error, dime el día y el texto aproximado y lo borro.</dd>
+                </div>
+                <div class="page-def">
+                    <dt data-i18n="agentpage_p6_t">Consejo</dt>
+                    <dd data-i18n="agentpage_p6">No escribas datos personales en el asistente.</dd>
+                </div>
+            </dl>
+        </section>
+
+        <p class="page-back"><a href="/" data-home-href="" data-i18n="agentpage_back">← Volver al portfolio</a></p>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p class="mono">© <span id="footerYear"></span> Ismael Parras Resino · <span data-i18n="footer_tagline">Agentic AI Solution Architect</span></p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js" defer></script>
+    <script src="/js/agent.js" defer></script>
+</body>
+</html>

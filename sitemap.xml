@@ -5,7 +5,7 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://ismaelparras.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ismaelparras.vercel.app/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ismaelparras.vercel.app/"/>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,8 +14,26 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://ismaelparras.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://ismaelparras.vercel.app/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ismaelparras.vercel.app/"/>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ismaelparras.vercel.app/agente/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ismaelparras.vercel.app/agente/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ismaelparras.vercel.app/en/agent/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ismaelparras.vercel.app/agente/"/>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ismaelparras.vercel.app/en/agent/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ismaelparras.vercel.app/agente/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ismaelparras.vercel.app/en/agent/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ismaelparras.vercel.app/agente/"/>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

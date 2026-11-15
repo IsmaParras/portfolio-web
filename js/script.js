@@ -85,15 +85,18 @@
             projectsGrid.innerHTML = CONFIG.projects.map(proj => {
                 const tagsHtml    = proj.tags.map(tag => `<span>${tag}</span>`).join('');
                 const resultsHtml = (proj.results || []).map(r => `<span class="result-chip">${r[currentLang] || r.es}</span>`).join('');
-                const ctaBtn      = proj.ctaUrl ? `<a href="${proj.ctaUrl}" class="btn btn-primary project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
+                const title       = typeof proj.title === 'string' ? proj.title : (proj.title[currentLang] || proj.title.es);
+                const url         = proj.ctaUrl && (typeof proj.ctaUrl === 'string' ? proj.ctaUrl : (proj.ctaUrl[currentLang] || proj.ctaUrl.es));
+                const tryBtn      = proj.agentCta ? `<button type="button" class="btn btn-primary project-cta" data-agent-open data-i18n="proj_cta_try">${t.proj_cta_try || ''}</button>` : '';
+                const ctaBtn      = url ? `<a href="${url}" class="btn ${proj.agentCta ? 'btn-secondary' : 'btn-primary'} project-cta" data-i18n="${proj.ctaKey}">${t[proj.ctaKey] || ''}</a>` : '';
                 const badgeHtml   = proj.badgeKey ? `<div class="project-badge" data-i18n="${proj.badgeKey}">${t[proj.badgeKey] || ''}</div>` : '';
-                return `<article class="project-card${proj.featured ? ' featured' : ''} reveal visible" id="proj-${proj.id}">
+                return `<article class="project-card${proj.featured ? ' featured' : ''}${proj.wide ? ' wide' : ''} reveal visible" id="proj-${proj.id}">
                   ${badgeHtml}
-                  <h3 class="project-title">${proj.title}</h3>
+                  <h3 class="project-title">${title}</h3>
                   <p class="project-desc" data-i18n="${proj.descKey}"></p>
                   <div class="result-chips">${resultsHtml}</div>
                   <div class="project-tags">${tagsHtml}</div>
-                  <div class="project-actions">${ctaBtn}</div>
+                  <div class="project-actions">${tryBtn}${ctaBtn}</div>
                 </article>`;
             }).join('');
             // Registra en el observer cualquier reveal dinámico restante
@@ -189,10 +192,11 @@
             navLockTimer = setTimeout(() => { navClickLock = false; }, 800);
         }
         navLinks.forEach(link => link.addEventListener('click', e => {
-            e.preventDefault();
-            const id = link.getAttribute('href').slice(1);
-            const target = document.getElementById(id);
-            if (target) { lockNavTo(id); target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
+            // Solo se interceptan las anclas de esta página; en otras páginas el menú enlaza a /#sección
+            const href = link.getAttribute('href') || '';
+            const id = href.startsWith('#') ? href.slice(1) : '';
+            const target = id && document.getElementById(id);
+            if (target) { e.preventDefault(); lockNavTo(id); target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' }); }
             navLinksContainer.classList.remove('open');
             menuBtn.classList.remove('open');
             menuBtn?.setAttribute('aria-expanded', 'false');
@@ -520,6 +524,11 @@
         initTechSkills();
         window.portfolio = Object.freeze({ ...portfolioApi, lang: () => currentLang, t: key => translations[currentLang]?.[key] });
         document.dispatchEvent(new Event('portfolio:ready'));
+        // Al llegar con un ancla (p. ej. /#projects desde otra página), la altura de la página
+        // cambia al montar las skills: se recoloca la sección cuando todo está en su sitio.
+        const anchored = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+        if (anchored) anchored.scrollIntoView({ behavior: 'instant' });
+
         navbar?.classList.toggle('scrolled', window.scrollY > 50);
         updateTimelineOnScroll();
     }
