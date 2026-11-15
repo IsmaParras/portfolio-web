@@ -2,15 +2,16 @@
 /**
  * Prerender del sitio (SEO, funcionamiento sin JS e inglés indexable).
  *
- * index.html es a la vez plantilla y página en español. A partir de
- * data/{projects,skills,i18n}.json este script:
+ * Cada página tiene una plantilla que es a la vez su versión en español
+ * (index.html, agente/index.html). A partir de data/*.json este script:
  *   - rellena todos los textos `data-i18n` y los atributos `data-i18n-attr`,
+ *   - resuelve los enlaces a la portada (`data-home-href`) según el idioma,
  *   - inyecta proyectos y skills entre marcadores `<!--prerender:…-->`,
  *   - genera el bloque SEO (canonical, hreflang, Open Graph) y el JSON-LD,
- *   - escribe index.html (español) y en/index.html (inglés).
+ *   - escribe cada página en español y en inglés (ver PAGES).
  *
- * Los datos son la única fuente de verdad: el texto escrito a mano en
- * index.html dentro de un `data-i18n` se sobrescribe. Es idempotente.
+ * Los datos son la única fuente de verdad: el texto escrito a mano en una
+ * plantilla dentro de un `data-i18n` se sobrescribe. Es idempotente.
  *
  * Uso:  npm run build
  */
@@ -21,11 +22,24 @@ import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://ismaelparras.vercel.app';
-const LANGS = {
-    es: { path: '/', out: 'index.html', ogLocale: 'es_ES' },
-    en: { path: '/en/', out: 'en/index.html', ogLocale: 'en_US' },
-};
+const LANGS = { es: { ogLocale: 'es_ES' }, en: { ogLocale: 'en_US' } };
 const DEFAULT_LANG = 'es';
+
+// Cada página: su plantilla, dónde se escribe en cada idioma, su URL y qué bloques genera.
+const PAGES = {
+    home: {
+        template: 'index.html',
+        out: { es: 'index.html', en: 'en/index.html' },
+        path: { es: '/', en: '/en/' },
+        blocks: ['seo', 'jsonld', 'projectsGrid', 'techSkillsGrid'],
+    },
+    agent: {
+        template: 'agente/index.html',
+        out: { es: 'agente/index.html', en: 'en/agent/index.html' },
+        path: { es: '/agente/', en: '/en/agent/' },
+        blocks: ['seo'],
+    },
+};
 
 const readJson = rel => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
 
@@ -44,7 +58,13 @@ function tr(t, key, where) {
 // ─────────────── GENERADORES (espejo del render de js/script.js) ───────────────
 function renderProjects(projects, t, lang) {
     return projects.map(proj => {
-        const featured = proj.featured ? ' featured' : '';
+        const featured = (proj.featured ? ' featured' : '') + (proj.wide ? ' wide' : '');
+        const title = typeof proj.title === 'string' ? proj.title : (proj.title[lang] || proj.title.es);
+        const url = proj.ctaUrl && (typeof proj.ctaUrl === 'string' ? proj.ctaUrl : (proj.ctaUrl[lang] || proj.ctaUrl.es));
+        // Solo se muestra si el asistente está activo (css/agent.css + js/agent.js)
+        const tryBtn = proj.agentCta
+            ? `<button type="button" class="btn btn-primary project-cta" data-agent-open data-i18n="proj_cta_try">${escText(tr(t, 'proj_cta_try', proj.id))}</button>`
+            : '';
         const badge = proj.badgeKey
             ? `<div class="project-badge" data-i18n="${escAttr(proj.badgeKey)}">${escText(tr(t, proj.badgeKey, proj.id))}</div>`
             : '';
@@ -54,16 +74,16 @@ function renderProjects(projects, t, lang) {
         const results = (proj.results || [])
             .map(r => `<span class="result-chip">${escText(r[lang] || r.es)}</span>`).join('');
         const tags = proj.tags.map(tag => `<span>${escText(tag)}</span>`).join('');
-        const cta = proj.ctaUrl
-            ? `<a href="${escAttr(proj.ctaUrl)}" class="btn btn-primary project-cta" data-i18n="${escAttr(proj.ctaKey)}">${escText(tr(t, proj.ctaKey, proj.id))}</a>`
+        const cta = url
+            ? `<a href="${escAttr(url)}" class="btn ${proj.agentCta ? 'btn-secondary' : 'btn-primary'} project-cta" data-i18n="${escAttr(proj.ctaKey)}">${escText(tr(t, proj.ctaKey, proj.id))}</a>`
             : '';
         return `<article class="project-card${featured} reveal visible" id="proj-${escAttr(proj.id)}">
   ${badge}
-  <h3 class="project-title">${escText(proj.title)}</h3>
+  <h3 class="project-title">${escText(title)}</h3>
   ${desc}
   <div class="result-chips">${results}</div>
   <div class="project-tags">${tags}</div>
-  <div class="project-actions">${cta}</div>
+  <div class="project-actions">${tryBtn}${cta}</div>
 </article>`;
     }).join('\n');
 }
@@ -92,23 +112,23 @@ function renderSkills(skills, t, lang) {
     }).join('\n');
 }
 
-function renderSeo(lang) {
-    const url = SITE + LANGS[lang].path;
-    const alternates = Object.entries(LANGS)
-        .map(([code, l]) => `    <link rel="alternate" hreflang="${code}" href="${SITE}${l.path}">`);
+function renderSeo(page, lang) {
+    const url = SITE + page.path[lang];
+    const alternates = Object.keys(LANGS)
+        .map(code => `    <link rel="alternate" hreflang="${code}" href="${SITE}${page.path[code]}">`);
     const ogAlternates = Object.entries(LANGS).filter(([code]) => code !== lang)
         .map(([, l]) => `    <meta property="og:locale:alternate" content="${l.ogLocale}">`);
     return [
         `    <link rel="canonical" href="${url}">`,
         ...alternates,
-        `    <link rel="alternate" hreflang="x-default" href="${SITE}${LANGS[DEFAULT_LANG].path}">`,
+        `    <link rel="alternate" hreflang="x-default" href="${SITE}${page.path[DEFAULT_LANG]}">`,
         `    <meta property="og:url" content="${url}">`,
         `    <meta property="og:locale" content="${LANGS[lang].ogLocale}">`,
         ...ogAlternates,
     ].join('\n');
 }
 
-function renderJsonLd(lang, t, profile) {
+function renderJsonLd(page, lang, t, profile) {
     const knowsAbout = {
         es: ['Agentic AI', 'Hiperautomatización', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'IA Generativa', 'Agentes Conversacionales', 'API REST', 'Python'],
         en: ['Agentic AI', 'Hyperautomation', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'Generative AI', 'Conversational Agents', 'REST APIs', 'Python'],
@@ -119,7 +139,7 @@ function renderJsonLd(lang, t, profile) {
         name: 'Ismael Parras Resino',
         jobTitle: tr(t, 'footer_tagline', 'JSON-LD'),
         email: `mailto:${profile.email}`,
-        url: SITE + LANGS[lang].path,
+        url: SITE + page.path[lang],
         image: `${SITE}/assets/img/Imagen_Ismael.jpg`,
         address: { '@type': 'PostalAddress', addressLocality: 'Leganés', addressRegion: 'Madrid', addressCountry: 'ES' },
         worksFor: { '@type': 'Organization', name: 'SGS' },
@@ -137,7 +157,7 @@ function inject(html, id, content) {
     const start = `<!--prerender:${id}:start-->`;
     const end = `<!--prerender:${id}:end-->`;
     const re = new RegExp(escRe(start) + '[\\s\\S]*?' + escRe(end));
-    if (!re.test(html)) throw new Error(`Faltan los marcadores ${start} … ${end} en index.html`);
+    if (!re.test(html)) throw new Error(`Faltan los marcadores ${start} … ${end} en la plantilla`);
     return html.replace(re, () => `${start}\n${content}\n${end}`);
 }
 
@@ -164,14 +184,25 @@ function fillAttrs(html, t) {
     });
 }
 
-function build(template, lang, data) {
+// <a data-home-href="#about"> → href a la portada del idioma (/#about o /en/#about)
+function fillHomeLinks(html, lang) {
+    return html.replace(/<[a-zA-Z][^>]*\sdata-home-href="([^"]*)"[^>]*>/g, (tag, suffix) => {
+        if (!/\shref="[^"]*"/.test(tag)) throw new Error(`Falta href en: ${tag.slice(0, 80)}`);
+        return tag.replace(/(\s)href="[^"]*"/, (_, sp) => `${sp}href="${escAttr(PAGES.home.path[lang] + suffix)}"`);
+    });
+}
+
+function build(page, template, lang, data) {
     const t = data.i18n[lang];
+    const blocks = {
+        seo: () => renderSeo(page, lang),
+        jsonld: () => renderJsonLd(page, lang, t, data.profile),
+        projectsGrid: () => renderProjects(data.projects, t, lang),
+        techSkillsGrid: () => renderSkills(data.skills, t, lang),
+    };
     let html = template.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
-    html = inject(html, 'seo', renderSeo(lang));
-    html = inject(html, 'jsonld', renderJsonLd(lang, t, data.profile));
-    html = inject(html, 'projectsGrid', renderProjects(data.projects, t, lang));
-    html = inject(html, 'techSkillsGrid', renderSkills(data.skills, t, lang));
-    return fillAttrs(fillText(html, t), t);
+    for (const id of page.blocks) html = inject(html, id, blocks[id]());
+    return fillHomeLinks(fillAttrs(fillText(html, t), t), lang);
 }
 
 // ─────────────── MAIN ───────────────
@@ -181,12 +212,15 @@ const data = {
     i18n: readJson('data/i18n.json'),
     profile: readJson('data/profile.json'),
 };
-const template = readFileSync(join(ROOT, 'index.html'), 'utf8');
-
-for (const [lang, cfg] of Object.entries(LANGS)) {
-    const out = join(ROOT, cfg.out);
-    mkdirSync(dirname(out), { recursive: true });
-    writeFileSync(out, build(template, lang, data));
+const written = [];
+for (const page of Object.values(PAGES)) {
+    const template = readFileSync(join(ROOT, page.template), 'utf8');
+    for (const lang of Object.keys(LANGS)) {
+        const out = join(ROOT, page.out[lang]);
+        mkdirSync(dirname(out), { recursive: true });
+        writeFileSync(out, build(page, template, lang, data));
+        written.push(page.out[lang]);
+    }
 }
 
-console.log(`✓ Prerender: ${data.projects.length} proyectos y ${data.skills.length} skills en ${Object.values(LANGS).map(l => l.out).join(' y ')}.`);
+console.log(`✓ Prerender: ${data.projects.length} proyectos y ${data.skills.length} skills; páginas: ${written.join(', ')}.`);

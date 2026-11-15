@@ -254,7 +254,8 @@ img.avatar { object-fit: cover; object-position: center top; max-width: 100%; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
 .project-tags span { font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary-text); background: rgba(124, 58, 237, 0.1); padding: 0.2rem 0.5rem; }
 [data-theme="light"] .project-tags span { background: rgba(107, 33, 168, 0.12); }
-.project-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.project-card.wide { grid-column: 1 / -1; }
+.project-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 
 /* Móvil: una columna, cards compactas y títulos legibles.
    Va DESPUÉS de las reglas base para que gane por orden de fuente. */

@@ -12,6 +12,8 @@ import { dirname, join } from 'node:path';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = rel => readFileSync(join(ROOT, rel), 'utf8');
 const errors = [];
+const TEMPLATES = ['index.html', 'agente/index.html'];
+const PAGES = [['index.html', 'es'], ['en/index.html', 'en'], ['agente/index.html', 'es'], ['en/agent/index.html', 'en']];
 const fail = msg => errors.push(msg);
 
 // 1. JSON válidos
@@ -28,14 +30,19 @@ if (!errors.length) {
     for (const k of Object.keys(es)) if (!(k in en)) fail(`i18n: "${k}" falta en inglés`);
     for (const k of Object.keys(en)) if (!(k in es)) fail(`i18n: "${k}" falta en español`);
 
-    // 3. Toda clave usada en la plantilla existe
-    const html = read('index.html');
+    // 3. Toda clave usada en las plantillas existe
+    const html = TEMPLATES.filter(f => existsSync(join(ROOT, f))).map(read).join('\n');
+    for (const f of TEMPLATES) if (!existsSync(join(ROOT, f))) fail(`No existe la plantilla ${f}`);
     const used = new Set();
     for (const m of html.matchAll(/data-i18n="([^"]+)"/g)) used.add(m[1]);
     for (const m of html.matchAll(/data-i18n-attr="([^"]+)"/g)) {
         for (const pair of m[1].split(';')) used.add(pair.split(':')[1]?.trim());
     }
-    for (const p of json.projects) for (const k of [p.badgeKey, p.descKey, p.ctaKey]) if (k) used.add(k);
+    for (const p of json.projects) {
+        for (const k of [p.badgeKey, p.descKey, p.ctaKey, p.agentCta && 'proj_cta_try']) if (k) used.add(k);
+        if (p.ctaUrl && typeof p.ctaUrl === 'object' && (!p.ctaUrl.es || !p.ctaUrl.en)) fail(`Proyecto ${p.id}: ctaUrl sin es/en`);
+        if (typeof p.title === 'object' && (!p.title.es || !p.title.en)) fail(`Proyecto ${p.id}: título sin es/en`);
+    }
     for (const k of used) if (!(k in es)) fail(`La clave "${k}" se usa pero no existe en i18n.json`);
 
     // 4. Ninguna clave huérfana (las que no están en la plantilla deben usarse desde JS)
@@ -55,9 +62,11 @@ if (!errors.length) {
     }
 
     // 6. Las páginas generadas existen y están en su idioma
-    for (const [file, lang] of [['index.html', 'es'], ['en/index.html', 'en']]) {
+    for (const [file, lang] of PAGES) {
         if (!existsSync(join(ROOT, file))) { fail(`No existe ${file}: ejecuta npm run build`); continue; }
-        if (!read(file).includes(`<html lang="${lang}"`)) fail(`${file} no declara lang="${lang}"`);
+        const page = read(file);
+        if (!page.includes(`<html lang="${lang}"`)) fail(`${file} no declara lang="${lang}"`);
+        if (/data-i18n="[^"]+"[^>]*><\//.test(page)) fail(`${file} tiene textos sin rellenar`);
     }
 }
 

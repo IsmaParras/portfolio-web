@@ -44,7 +44,8 @@ function build(lang) {
         `- ${t.edu1_degree} — ${f.education_places.edu1}`,
         `- ${t.edu2_degree} — ${f.education_places.edu2}`, '');
     out.push(`## ${L.proj}`);
-    for (const p of projects) out.push(`- ${p.title}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);
+    const title = p => (typeof p.title === 'string' ? p.title : (p.title[lang] || p.title.es));
+    for (const p of projects) out.push(`- ${title(p)}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);
     out.push('', `## ${L.skills}`, `${skills.map(s => s.name).join(', ')}.`, '');
     out.push(`## ${L.certs}`, skills.filter(s => s.cert).map(s => s.name).join(', ') + '.', '');
     out.push(`## ${L.contact}`,
