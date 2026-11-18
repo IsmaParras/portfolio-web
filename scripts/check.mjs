@@ -6,6 +6,7 @@
  */
 
 import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -70,6 +71,15 @@ if (!errors.length) {
         const page = read(file);
         if (!page.includes(`<html lang="${lang}"`)) fail(`${file} no declara lang="${lang}"`);
         if (/data-i18n="[^"]+"[^>]*><\//.test(page)) fail(`${file} tiene textos sin rellenar`);
+    }
+}
+
+// 7. Los scripts en línea de la 404 están autorizados en la CSP de vercel.json por su huella
+{
+    const csp = JSON.parse(read('vercel.json')).headers.flatMap(h => h.headers).find(h => h.key === 'Content-Security-Policy')?.value || '';
+    for (const [, body] of read('404.html').matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+        const hash = `'sha256-${createHash('sha256').update(body, 'utf8').digest('base64')}'`;
+        if (!csp.includes(hash)) fail(`404.html: su script no está autorizado en la CSP de vercel.json; pon ${hash} en script-src`);
     }
 }
 

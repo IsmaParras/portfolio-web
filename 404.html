@@ -61,16 +61,25 @@
     <main class="wrap">
         <p class="label">// ERROR</p>
         <h1 class="code"><span class="sr-only">Error </span>404</h1>
-        <p class="msg">Esta página no existe (o se ha movido).</p>
-        <p class="hint">Si llegaste aquí desde un enlace, puede que la URL esté rota. Vuelve al inicio y encuentra lo que buscas.</p>
-        <a href="/" class="back">← Volver al portfolio</a>
+        <p class="msg" data-en="This page doesn't exist (or it has moved).">Esta página no existe (o se ha movido).</p>
+        <p class="hint" data-en="If you followed a link here, the URL may be broken. Head back to the start to find what you're looking for.">Si llegaste aquí desde un enlace, puede que la URL esté rota. Vuelve al inicio y encuentra lo que buscas.</p>
+        <a href="/" class="back" data-en="← Back to the portfolio" data-en-href="/en/">← Volver al portfolio</a>
     </main>
     <script>
-        // Respetar tema guardado
+        // Tema guardado y, en rutas /en/, versión en inglés. Su huella sha256 está en la CSP de
+        // vercel.json: si cambias este script, actualízala (npm run check avisa).
         try {
             const t = localStorage.getItem('theme');
             if (t) document.documentElement.setAttribute('data-theme', t);
         } catch(e) {}
+        if (/^\/en(\/|$)/.test(location.pathname)) {
+            document.documentElement.lang = 'en';
+            document.title = '404 — Ismael Parras';
+            document.querySelectorAll('[data-en]').forEach(function (el) {
+                el.textContent = el.getAttribute('data-en');
+                if (el.hasAttribute('data-en-href')) el.setAttribute('href', el.getAttribute('data-en-href'));
+            });
+        }
     </script>
 </body>
 </html>
