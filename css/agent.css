@@ -40,6 +40,7 @@
     border: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.75rem; cursor: pointer;
 }
 .agent-chip:hover { border-color: var(--primary); color: var(--primary); }
+.agent-chip--link { display: inline-flex; align-items: center; gap: 0.35rem; text-decoration: none; color: var(--primary); border-color: color-mix(in srgb, var(--primary) 45%, transparent); }
 
 .agent-form { display: flex; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); }
 .agent-input {
@@ -71,6 +72,21 @@
 /* Botones de la página que abren el chat: ocultos hasta que el asistente está activo */
 [data-agent-open] { display: none; }
 .agent-on [data-agent-open] { display: inline-flex; }
+
+/* Preguntas de ejemplo en la portada: más discretas que los botones principales */
+.hero-ask { display: none; margin: -0.75rem 0 2rem; }
+.agent-on .hero-ask { display: block; }
+.hero-ask-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.6rem; }
+.hero-ask-label::before { content: '// '; color: var(--primary); }
+.hero-ask-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.hero-ask-btn {
+    min-height: 36px; padding: 0.4rem 0.8rem; background: transparent; color: var(--text);
+    border: 1px dashed color-mix(in srgb, var(--primary) 55%, transparent);
+    font-family: var(--font-mono); font-size: 0.78rem; cursor: pointer; text-align: left;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.hero-ask-btn:hover, .hero-ask-btn:focus-visible { border-style: solid; border-color: var(--primary); color: var(--primary); background: color-mix(in srgb, var(--primary) 6%, transparent); }
+.hero-ask-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* Traza de acciones: deja ver qué herramienta ha pedido el modelo */
 .agent-trace { list-style: none; margin-top: 0.45rem; display: grid; gap: 0.3rem; }

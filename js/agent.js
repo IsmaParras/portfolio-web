@@ -197,11 +197,18 @@
         form.append(input, sendBtn);
 
         const sugg = el('div', { class: 'agent-suggestions' });
-        ['agent_sug1', 'agent_sug2', 'agent_sug3'].forEach(key => {
+        ['agent_sug1', 'agent_sug2'].forEach(key => {
             const b = el('button', { type: 'button', class: 'agent-chip' }, t(key));
             b.addEventListener('click', () => send(b.textContent));
             sugg.append(b);
         });
+        // La tercera no es una pregunta: lleva a la página que explica cómo está hecho (no gasta cuota)
+        const how = el('a', { class: 'agent-chip agent-chip--link', href: t('agent_sug3_href') }, t('agent_sug3'));
+        how.append(el('span', { 'aria-hidden': 'true' }, '↗'));
+        how.addEventListener('click', e => {
+            if (how.pathname === location.pathname) { e.preventDefault(); close(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        });
+        sugg.append(how);
 
         const notice = el('p', { class: 'agent-notice' }, t('agent_notice') + ' ');
         const more = el('a', { href: t('agent_privacy_href') }, t('agent_privacy_link'));
@@ -218,9 +225,12 @@
         form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
         panel.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); close(); } });
 
-        // Botones "Probarlo" de la página: solo se muestran cuando el asistente existe
+        // Botones de la página que abren el chat ("Probarlo") o le hacen una pregunta de ejemplo
+        // (portada): solo se muestran cuando el asistente existe
         document.documentElement.classList.add('agent-on');
         document.addEventListener('click', e => {
+            const ask = e.target.closest?.('[data-agent-ask]');
+            if (ask) { e.preventDefault(); open(); send(ask.textContent.trim()); return; }
             if (e.target.closest?.('[data-agent-open]')) { e.preventDefault(); open(); }
         });
 
