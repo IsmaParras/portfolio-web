@@ -69,7 +69,8 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
   el asistente y solo se muestra si está activo).
 - **`skills.json`** — array de habilidades. Campos: `name`, `iconSvg` (SVG en
   línea), `color` (hex), `area` (`automatizacion` | `cloud` | `software`),
-  `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`,
+  `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`/`certName`
+  (nombre oficial de la certificación, que usa el asistente),
   `desc`/`desc_en`, `tags`.
 - **`i18n.json`** — textos en `es` y `en`.
 

@@ -6,12 +6,16 @@
       "automatizacion"
     ],
     "core": true,
-    "desc": "Agentes de IA en el ecosistema Microsoft",
-    "desc_en": "AI agents across the Microsoft ecosystem",
+    "cert": true,
+    "certUrl": "https://www.credly.com/badges/258d45bb-cc43-4b0c-afa5-ea20964a83a7/public_url",
+    "certName": "Microsoft 365 Copilot and Agent Administration Fundamentals (AB-900)",
+    "desc": "Agentes de IA en el ecosistema Microsoft — Certificado AB-900",
+    "desc_en": "AI agents across the Microsoft ecosystem — AB-900 certified",
     "tags": [
       "agentes",
       "microsoft",
-      "ia"
+      "ia",
+      "certificado"
     ],
     "iconImg": "/assets/logos/copilot-studio.png"
   },
@@ -56,6 +60,7 @@
     "core": true,
     "cert": true,
     "certUrl": "/assets/diploma_uipath.pdf",
+    "certName": "UiPath RPA Developer (UiPath Academy)",
     "desc": "RPA de nivel enterprise — Training oficial UiPath Academy",
     "desc_en": "Enterprise-grade RPA — official UiPath Academy training",
     "tags": [
@@ -105,6 +110,7 @@
     "core": true,
     "cert": true,
     "certUrl": "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
+    "certName": "Azure AI Fundamentals",
     "desc": "Servicios cognitivos de Azure — Certificado AI Fundamentals",
     "desc_en": "Azure cognitive services — AI Fundamentals certified",
     "tags": [
@@ -295,6 +301,7 @@
     ],
     "cert": true,
     "certUrl": "/assets/diploma_powershell.pdf",
+    "certName": "PowerShell",
     "desc": "Scripting de automatización en Windows y Azure — Certificado",
     "desc_en": "Automation scripting on Windows and Azure — certified",
     "tags": [

@@ -47,7 +47,7 @@ function build(lang) {
     const title = p => (typeof p.title === 'string' ? p.title : (p.title[lang] || p.title.es));
     for (const p of projects) out.push(`- ${title(p)}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);
     out.push('', `## ${L.skills}`, `${skills.map(s => s.name).join(', ')}.`, '');
-    out.push(`## ${L.certs}`, skills.filter(s => s.cert).map(s => s.name).join(', ') + '.', '');
+    out.push(`## ${L.certs}`, skills.filter(s => s.cert).map(s => s.certName || s.name).join(', ') + '.', '');
     out.push(`## ${L.contact}`,
         `${L.email}: ${profile.email}. LinkedIn: ${profile.socialLinks.linkedin}. GitHub: ${profile.socialLinks.github}. ${L.site}: https://ismaelparras.vercel.app${lang === 'en' ? '/en/' : '/'}`,
         f.contact_how, '');
