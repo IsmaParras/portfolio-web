@@ -278,5 +278,33 @@ await test('no se deduce ninguna acción de preguntas informativas, negativas ni
     reset(); modelScript.push(tool('filtrar_skills', { area: 'cloud' }));
     assert.deepEqual((await ask('muéstrame sus habilidades de cloud')).body.actions, [{ type: 'filterSkills', area: 'cloud', search: '' }]);
 });
+await test('fuentes: se extraen de la marca, se validan y la marca no llega al visitante', async () => {
+    modelScript.push({ role: 'assistant', content: 'Trabaja en SGS desde septiembre de 2026. [FUENTES: experiencia, perfil]' });
+    const r = await ask('¿Dónde trabaja?');
+    assert.equal(r.body.reply, 'Trabaja en SGS desde septiembre de 2026.');
+    assert.deepEqual(r.body.sources, ['experiencia', 'perfil']);
+});
+await test('fuentes: inválidas, repetidas o de más se descartan; acepta SOURCES y nombres en inglés', async () => {
+    modelScript.push({ role: 'assistant', content: 'Texto. [SOURCES: Experience, experiencia, hackeo, <script>, certifications, skills, contacto]' });
+    const r = await ask('x', { lang: 'en' });
+    assert.equal(r.body.reply, 'Texto.');
+    assert.deepEqual(r.body.sources, ['experiencia', 'certificaciones', 'habilidades']);
+});
+await test('fuentes: marca a mitad de texto o varias marcas; nunca en una negativa', async () => {
+    modelScript.push({ role: 'assistant', content: 'Uno [FUENTES: proyectos] y dos. [Fuente: formacion]' });
+    let r = await ask('x');
+    assert.equal(r.body.reply, 'Uno y dos.'); assert.deepEqual(r.body.sources, ['proyectos', 'formacion']);
+    reset(); modelScript.push({ role: 'assistant', content: '[NO] No puedo hablar de eso. [FUENTES: otros]' });
+    r = await ask('x');
+    assert.equal(r.body.reply, 'No puedo hablar de eso.'); assert.deepEqual(r.body.sources, []);
+    reset(); modelScript.push({ role: 'assistant', content: 'Sin marca.' });
+    assert.deepEqual((await ask('x')).body.sources, []);
+});
+await test('el conocimiento etiqueta cada apartado con su fuente en los dos idiomas', async () => {
+    const { KNOWLEDGE } = await import('../api/_knowledge.js');
+    for (const id of ['perfil', 'sobre_mi', 'experiencia', 'formacion', 'proyectos', 'habilidades', 'certificaciones', 'contacto', 'otros']) {
+        assert.ok(KNOWLEDGE.es.includes(`[fuente: ${id}]`), `es: ${id}`); assert.ok(KNOWLEDGE.en.includes(`[source: ${id}]`), `en: ${id}`);
+    }
+});
 
 console.log(`\n${passed} pruebas correctas${process.exitCode ? ' (hay fallos)' : ''}`);

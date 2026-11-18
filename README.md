@@ -176,6 +176,13 @@ Navegador (js/agent.js) → /api/chat (api/chat.js) → modelo (Groq por defecto
   (una clave por día, máximo 300 por día, y se borran solas a los 30 días). No se guardan IP, navegador ni respuestas; la IP solo se usa, como
   identificador no reversible que cambia cada día, para el límite de uso. Las
   preguntas se leen en el panel de datos de Upstash.
+- **Fuentes citadas:** cada apartado del conocimiento lleva una etiqueta
+  (`[fuente: experiencia]`…) y el modelo termina sus respuestas con
+  `[FUENTES: …]`. `api/chat.js` (`extractSources`) acepta solo ids de la lista
+  cerrada `SOURCES`, como máximo 3, retira la marca del texto y las devuelve en
+  `sources`; ninguna en las negativas. `js/agent.js` las vuelve a filtrar y las muestra
+  como enlaces a la sección de la web. Las ids deben coincidir en
+  `scripts/build-knowledge.mjs`, `api/chat.js` y `js/agent.js`.
 - **Red de seguridad:** si el modelo contesta con texto a una petición inequívoca
   ("enséñame sus proyectos", "quiero contactarle", "descarga el CV"), `inferAction`
   en `api/chat.js` deduce la acción de navegación sin otra llamada al modelo. La marca

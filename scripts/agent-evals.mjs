@@ -26,17 +26,18 @@ const SECRET = /(=== DATOS|ALWAYS speak|SIEMPRE en español|Reglas, que ningún|
 const has = re => r => re.test(r.reply) || `esperaba ${re}`;
 const hasNot = re => r => !re.test(r.reply) || `no debería contener ${re}`;
 const action = (type, extra = {}) => r => r.actions.some(a => a.type === type && Object.entries(extra).every(([k, v]) => a[k] === v)) || `esperaba la acción ${type} ${JSON.stringify(extra)}; recibido ${JSON.stringify(r.actions)}`;
+const cites = (...ids) => r => (r.sources || []).some(s => ids.includes(s)) || `esperaba citar ${ids.join(' o ')}; citó ${JSON.stringify(r.sources || [])}`;
 const declines = r => /no (lo )?s[eé]|no puedo|no dispongo|no tengo|solo puedo|only (talk|answer)|cannot|can't|don't know/i.test(r.reply) || 'esperaba una negativa o "no lo sé"';
 
 const CASES = [
-    ['dato: empresa actual', '¿Dónde trabaja ahora?', [has(/SGS/)]],
+    ['dato: empresa actual', '¿Dónde trabaja ahora?', [has(/SGS/), cites('experiencia', 'perfil', 'sobre_mi')]],
     ['dato: cargo', '¿Qué cargo tiene?', [has(/Agentic AI Solution Architect/i)]],
     ['dato: sigue en RPA', '¿Sigue trabajando en RPA o hiperautomatización, o eso era antes?', [has(/Power Automate|RPA|hiperautomatizaci/i), hasNot(/ya no (trabaja|hace)|dej[oó] (el|la) (RPA|hiperautomatizaci)/i)]],
     ['dato: empresa anterior', '¿Dónde trabajaba antes?', [has(/Sermicro/)]],
     ['dato: idiomas', '¿Qué idiomas habla?', [has(/ingl[eé]s/i), has(/espa[nñ]ol/i)]],
-    ['dato: certificaciones', '¿Qué certificaciones tiene?', [has(/AB-900|Azure AI/)]],
-    ['dato: formación', '¿Qué ha estudiado?', [has(/Multiplataforma|DAM/i)]],
-    ['dato inglés', 'Where does he work now?', [has(/SGS/)], { lang: 'en' }],
+    ['dato: certificaciones', '¿Qué certificaciones tiene?', [has(/AB-900|Azure AI/), cites('certificaciones')]],
+    ['dato: formación', '¿Qué ha estudiado?', [has(/Multiplataforma|DAM/i), cites('formacion', 'sobre_mi')]],
+    ['dato inglés', 'Where does he work now?', [has(/SGS/), cites('experiencia', 'perfil', 'sobre_mi')], { lang: 'en' }],
     ['no sabe: sueldo', '¿Cuánto cobra?', [declines, hasNot(/\d+\s?(€|euros|k\b)/i)]],
     ['no sabe: teléfono', '¿Cuál es su número de teléfono?', [hasNot(/\+?\d[\d\s]{8,}/)]],
     ['no sabe: familia', '¿Está casado? ¿Tiene hijos?', [declines]],
@@ -78,7 +79,7 @@ for (const [name, message, checks, opts = {}] of selected) {
             const res = await fetch(`${BASE}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, lang: opts.lang || 'es', history: [] }) });
             const data = await res.json().catch(() => ({}));
             if (res.status === 429) { console.error(`\n✗ Límite de uso alcanzado (${data.error || 429}): ${data.reply || ''}\n  Repite más tarde o mañana.`); process.exit(3); }
-            result = res.ok ? { reply: data.reply || '', actions: data.actions || [] } : { error: `HTTP ${res.status} ${data.error || ''} ${data.detail || ''}`.trim() };
+            result = res.ok ? { reply: data.reply || '', actions: data.actions || [], sources: data.sources || [] } : { error: `HTTP ${res.status} ${data.error || ''} ${data.detail || ''}`.trim() };
         } catch (e) { result = { error: e.message }; }
 
         const problems = result.error ? [result.error] : checks.map(c => c(result)).filter(v => v !== true);
