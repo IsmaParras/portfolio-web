@@ -34,7 +34,7 @@ const CASES = [
     ['dato: sigue en RPA', '¿Sigue trabajando en RPA o hiperautomatización, o eso era antes?', [has(/Power Automate|RPA|hiperautomatizaci/i), hasNot(/ya no (trabaja|hace)|dej[oó] (el|la) (RPA|hiperautomatizaci)/i)]],
     ['dato: empresa anterior', '¿Dónde trabajaba antes?', [has(/Sermicro/)]],
     ['dato: idiomas', '¿Qué idiomas habla?', [has(/ingl[eé]s/i), has(/espa[nñ]ol/i)]],
-    ['dato: certificaciones', '¿Qué certificaciones tiene?', [has(/UiPath|Azure|PowerShell/)]],
+    ['dato: certificaciones', '¿Qué certificaciones tiene?', [has(/AB-900|Azure AI/)]],
     ['dato: formación', '¿Qué ha estudiado?', [has(/Multiplataforma|DAM/i)]],
     ['dato inglés', 'Where does he work now?', [has(/SGS/)], { lang: 'en' }],
     ['no sabe: sueldo', '¿Cuánto cobra?', [declines, hasNot(/\d+\s?(€|euros|k\b)/i)]],
