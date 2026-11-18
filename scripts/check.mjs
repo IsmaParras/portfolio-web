@@ -19,7 +19,7 @@ const fail = msg => errors.push(msg);
 
 // 1. JSON válidos
 const json = {};
-for (const f of ['i18n', 'projects', 'skills', 'profile']) {
+for (const f of ['i18n', 'projects', 'skills', 'profile', 'certifications']) {
     try { json[f] = JSON.parse(read(`data/${f}.json`)); }
     catch (e) { fail(`data/${f}.json no es JSON válido: ${e.message}`); }
 }
@@ -61,6 +61,19 @@ if (!errors.length) {
         if (s.iconImg && !existsSync(join(ROOT, s.iconImg.replace(/^\//, '')))) fail(`Skill ${s.name}: no existe ${s.iconImg}`);
         if (!s.desc || !s.desc_en) fail(`Skill ${s.name}: falta desc o desc_en`);
         for (const tag of s.tags) if (!json.i18n.skillTags?.en?.[tag]) fail(`Skill ${s.name}: la etiqueta "${tag}" no tiene traducción en i18n.skillTags.en`);
+    }
+    // Certificaciones y cursos: campos completos, enlaces locales existentes y marca coherente en las skills
+    for (const c of json.certifications) {
+        for (const k of ['id', 'kind', 'name', 'issuer', 'url']) if (!c[k]) fail(`Certificación ${c.id || '?'}: falta ${k}`);
+        if (!['certification', 'course'].includes(c.kind)) fail(`Certificación ${c.id}: kind debe ser certification o course`);
+        if (c.kind === 'certification' && !c.code) fail(`Certificación ${c.id}: falta code`);
+        for (const v of [c.name, c.issuer]) if (v && typeof v === 'object' && (!v.es || !v.en)) fail(`Certificación ${c.id}: texto sin es/en`);
+        if (c.url?.startsWith('/') && !existsSync(join(ROOT, c.url.slice(1)))) fail(`Certificación ${c.id}: no existe ${c.url}`);
+        if (c.skill && !json.skills.some(s => s.name === c.skill)) fail(`Certificación ${c.id}: no hay ninguna skill "${c.skill}"`);
+    }
+    for (const s of json.skills) {
+        const certified = json.certifications.some(c => c.kind === 'certification' && c.skill === s.name);
+        if (!!s.cert !== certified) fail(`Skill ${s.name}: cert=${!!s.cert} pero ${certified ? 'sí' : 'no'} hay una certificación con skill "${s.name}"`);
     }
     const allTags = new Set(json.skills.flatMap(s => s.tags));
     for (const tag of Object.keys(json.i18n.skillTags?.en || {})) if (!allTags.has(tag)) fail(`i18n.skillTags.en: "${tag}" no se usa en ninguna skill`);

@@ -31,7 +31,7 @@ const PAGES = {
         template: 'index.html',
         out: { es: 'index.html', en: 'en/index.html' },
         path: { es: '/', en: '/en/' },
-        blocks: ['seo', 'jsonld', 'projectsGrid', 'techSkillsGrid'],
+        blocks: ['seo', 'jsonld', 'projectsGrid', 'techSkillsGrid', 'certList', 'courseList'],
     },
     agent: {
         template: 'agente/index.html',
@@ -91,24 +91,45 @@ function renderProjects(projects, t, lang) {
 // Etiquetas de las skills: se escriben en español y se traducen con i18n.skillTags (misma lógica en js/script.js)
 const tagLabel = (tag, lang, tagMap) => (lang === 'es' ? tag : (tagMap?.[lang]?.[tag] || tag));
 
+// Certificaciones (kind "certification", verificables) y cursos (kind "course", con diploma).
+// Se generan solo aquí: el idioma lo fija la URL y no hace falta repintarlos en el navegador.
+const pick = (v, lang) => (typeof v === 'string' ? v : (v[lang] || v.es));
+const EXT_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>';
+function renderCredentials(creds, kind, t, lang) {
+    return creds.filter(c => c.kind === kind).map(c => {
+        const name = pick(c.name, lang);
+        const verify = kind === 'certification';
+        const label = tr(t, verify ? 'cert_verify' : 'cert_diploma', c.id);
+        const aria = tr(t, verify ? 'cert_verify_aria' : 'cert_diploma_aria', c.id).replace('{x}', name);
+        const meta = [pick(c.issuer, lang), c.code].filter(Boolean).join(' · ');
+        return `                        <div class="edu-item cred-item" id="cred-${escAttr(c.id)}">
+                            <div class="cred-text">
+                                <div class="edu-degree">${escText(name)}</div>
+                                <div class="edu-meta mono">${escText(meta)}</div>
+                            </div>
+                            <a class="cred-link mono" href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escAttr(aria)}"><span data-i18n="${verify ? 'cert_verify' : 'cert_diploma'}">${escText(label)}</span>${EXT_ICON}</a>
+                        </div>`;
+    }).join('\n');
+}
+
+// Marca de "Certificado" en la tarjeta: lleva al bloque de certificaciones (misma marca en js/script.js)
+const CHECK_ICON = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+function renderCertMark(t) {
+    return `<a class="skill-cert" href="#certifications" aria-label="${escAttr(tr(t, 'cert_mark_aria', 'skills'))}">${CHECK_ICON}<span>${escText(tr(t, 'cert_label', 'skills'))}</span></a>`;
+}
+
 function renderSkills(skills, t, lang, tagMap) {
     return skills.map(s => {
         const areas = s.area.join(' ');
         const searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ') + ' ' + s.tags.map(tag => tagLabel(tag, 'en', tagMap)).join(' ')).toLowerCase();
         const desc = lang === 'en' && s.desc_en ? s.desc_en : s.desc;
-        let cert = '';
-        if (s.cert) {
-            const label = tr(t, s.certUrl ? 'cert_view' : 'cert_label', s.name);
-            cert = s.certUrl
-                ? `<a class="skill-cert is-link" href="${escAttr(s.certUrl)}" target="_blank" rel="noopener noreferrer">✔ ${escText(label)}</a>`
-                : `<span class="skill-cert">✔ ${escText(label)}</span>`;
-        }
         const tags = s.tags.map(tag => `<span class="skill-tag">${escText(tagLabel(tag, lang, tagMap))}</span>`).join('');
         const core = s.core ? ' data-core="1"' : '';
         // iconSvg es SVG propio y confiable: se inserta sin escapar
         return `<article class="skill-card reveal visible" data-areas="${escAttr(areas)}"${core} data-searchable="${escAttr(searchable)}">
+  ${s.cert ? renderCertMark(t) : ''}
   <div class="skill-icon">${s.iconImg ? `<img src="${escAttr(s.iconImg)}" alt="" width="40" height="40" loading="lazy">` : (s.iconSvg || '')}</div>
-  <div class="skill-head"><h3 class="skill-name">${escText(s.name)}</h3>${cert}</div>
+  <div class="skill-head"><h3 class="skill-name">${escText(s.name)}</h3></div>
   <p class="skill-desc">${escText(desc)}</p>
   <div class="skill-tags">${tags}</div>
 </article>`;
@@ -131,7 +152,7 @@ function renderSeo(page, lang) {
     ].join('\n');
 }
 
-function renderJsonLd(page, lang, t, profile) {
+function renderJsonLd(page, lang, t, profile, creds = []) {
     const knowsAbout = {
         es: ['Agentic AI', 'Hiperautomatización', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'IA Generativa', 'Agentes Conversacionales', 'API REST', 'Python'],
         en: ['Agentic AI', 'Hyperautomation', 'Microsoft Copilot Studio', 'Power Automate', 'RPA', 'UiPath', 'Druid AI', 'LangChain', 'Generative AI', 'Conversational Agents', 'REST APIs', 'Python'],
@@ -149,6 +170,13 @@ function renderJsonLd(page, lang, t, profile) {
         alumniOf: { '@type': 'EducationalOrganization', name: 'IES Federica Montseny' },
         knowsAbout: knowsAbout[lang],
         sameAs: [profile.socialLinks.linkedin, profile.socialLinks.github],
+        hasCredential: creds.filter(c => c.kind === 'certification').map(c => ({
+            '@type': 'EducationalOccupationalCredential',
+            name: `${pick(c.name, lang)} (${c.code})`,
+            credentialCategory: 'certification',
+            recognizedBy: { '@type': 'Organization', name: pick(c.issuer, lang) },
+            url: c.url,
+        })),
     };
     // "<" escapado para que ningún dato pueda cerrar la etiqueta <script>
     const json = JSON.stringify(data, null, 2).replace(/</g, '\\u003c').replace(/^/gm, '    ');
@@ -199,9 +227,11 @@ function build(page, template, lang, data) {
     const t = data.i18n[lang];
     const blocks = {
         seo: () => renderSeo(page, lang),
-        jsonld: () => renderJsonLd(page, lang, t, data.profile),
+        jsonld: () => renderJsonLd(page, lang, t, data.profile, data.certifications),
         projectsGrid: () => renderProjects(data.projects, t, lang),
         techSkillsGrid: () => renderSkills(data.skills, t, lang, data.i18n.skillTags),
+        certList: () => renderCredentials(data.certifications, 'certification', t, lang),
+        courseList: () => renderCredentials(data.certifications, 'course', t, lang),
     };
     let html = template.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
     for (const id of page.blocks) html = inject(html, id, blocks[id]());
@@ -214,6 +244,7 @@ const data = {
     skills: readJson('data/skills.json'),
     i18n: readJson('data/i18n.json'),
     profile: readJson('data/profile.json'),
+    certifications: readJson('data/certifications.json'),
 };
 const written = [];
 for (const page of Object.values(PAGES)) {
