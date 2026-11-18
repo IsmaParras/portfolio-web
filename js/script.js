@@ -316,14 +316,6 @@
 
         const areaLabel = f => ({ automatizacion: translations[currentLang]?.techskills_area_auto, cloud: translations[currentLang]?.techskills_area_cloud, software: translations[currentLang]?.techskills_area_software }[f] || f);
 
-        // Misma lógica que usedLabel() en scripts/prerender.mjs
-        function usedLabel(ref) {
-            if (ref.startsWith('exp-')) return translations[currentLang]?.[`used_exp_${ref.slice(4)}`] || '';
-            const proj = (CONFIG.projects || []).find(p => `proj-${p.id}` === ref);
-            const title = proj && (proj.shortTitle || proj.title);
-            return !title ? '' : typeof title === 'string' ? title : (title[currentLang] || title.es);
-        }
-
         function createCard(s) {
             const art = document.createElement('article');
             art.className = 'skill-card reveal visible';
@@ -348,22 +340,9 @@
                 head.appendChild(el);
             }
             const p = document.createElement('p'); p.className = 'skill-desc'; p.textContent = desc;
-            let footer;
-            const used = (s.usedIn || []).map(ref => [ref, usedLabel(ref)]).filter(([, label]) => label);
-            if (used.length) {
-                footer = document.createElement('p'); footer.className = 'skill-used';
-                const label = document.createElement('span'); label.className = 'skill-used-label';
-                label.textContent = translations[currentLang]?.skill_used_in || '';
-                footer.append(label, ' ');
-                used.forEach(([ref, text], i) => {
-                    if (i) { const sep = document.createElement('span'); sep.className = 'skill-used-sep'; sep.setAttribute('aria-hidden', 'true'); sep.textContent = ' · '; footer.append(sep); }
-                    const a = document.createElement('a'); a.className = 'skill-used-link'; a.href = '#' + ref; a.textContent = text; footer.append(a);
-                });
-            } else {
-                footer = document.createElement('div'); footer.className = 'skill-tags';
-                s.tags.forEach(tag => { const span = document.createElement('span'); span.className = 'skill-tag'; span.textContent = tag; footer.append(span); });
-            }
-            art.append(iconWrap, head, p, footer);
+            const tagsDiv = document.createElement('div'); tagsDiv.className = 'skill-tags';
+            tagsDiv.innerHTML = s.tags.map(t => `<span class="skill-tag">${t}</span>`).join('');
+            art.append(iconWrap, head, p, tagsDiv);
             return art;
         }
 

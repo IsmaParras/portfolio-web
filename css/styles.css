@@ -232,10 +232,6 @@ img.avatar { object-fit: cover; object-position: center top; max-width: 100%; }
 .skill-desc { font-family: var(--font-body); font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; flex-grow: 1; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
 .skill-tag { display: inline-block; padding: 0.2rem 0.6rem; background: var(--surface); border: 1px solid var(--border); font-family: var(--font-mono); font-size: 0.7rem; color: var(--text); }
-.skill-used { margin-top: auto; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.7; color: var(--muted); }
-.skill-used-label { display: block; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
-.skill-used-link { color: var(--primary); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--primary) 40%, transparent); text-underline-offset: 3px; }
-.skill-used-link:hover { text-decoration-color: var(--primary); }
 .empty-state { grid-column: 1 / -1; text-align: center; padding: 3rem 1.5rem; background: var(--surface); border: 1px solid var(--border); }
 .empty-state svg { color: var(--muted); margin-bottom: 1rem; }
 .empty-state p { color: var(--muted); font-family: var(--font-body); margin-bottom: 1.5rem; }
