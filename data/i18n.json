@@ -1,18 +1,4 @@
 {
-  "typeTexts": {
-    "es": [
-      "Agentic AI Solution Architect",
-      "Especialista en Hiperautomatización",
-      "Desarrollador de Agentes IA",
-      "Integraciones & API REST"
-    ],
-    "en": [
-      "Agentic AI Solution Architect",
-      "Hyperautomation Specialist",
-      "AI Agent Developer",
-      "Integrations & REST APIs"
-    ]
-  },
   "es": {
     "skip_link": "Saltar al contenido",
     "nav_home": "Inicio",
@@ -21,9 +7,8 @@
     "nav_projects": "Proyectos",
     "nav_contact": "Contacto",
     "hero_greeting": "Hola, soy",
-    "hero_tagline": "Diseño y llevo a producción agentes de IA y automatizaciones de extremo a extremo: agentes conversacionales, integraciones API y flujos inteligentes que ahorran horas de trabajo manual.",
+    "hero_tagline": "Diseño agentes de IA que hacen trabajo real, no solo conversación: los conecto con flujos de Power Automate y RPA, los llevo a producción y ayudo a gobernarlos.",
     "hero_location": "Leganés, Madrid · España",
-    "hero_availability": "Presencial · Híbrido · Remoto",
     "btn_projects": "Ver proyectos",
     "btn_cv": "Descargar CV",
     "about_title": "Sobre mí & Experiencia",
@@ -89,7 +74,6 @@
     "proj5_desc": "Automatización de procesos de negocio repetitivos con UiPath y Power Automate, desplegada en máquinas virtuales de Azure para ejecución desatendida. Bots que operan de extremo a extremo sobre los sistemas del cliente sin intervención manual.",
     "meta_title": "Ismael Parras Resino | Agentic AI Solution Architect",
     "meta_description": "Agentic AI Solution Architect en Madrid. Hiperautomatización con agentes de IA (Copilot Studio, Druid AI, LangChain), RPA (Power Automate, UiPath) e integraciones API REST.",
-    "meta_keywords": "Agentic AI, Solution Architect, Agentes de IA, Copilot Studio, AI Automation, Hiperautomatización, Power Automate, UiPath, Druid AI, LangChain, Automatización, Madrid",
     "og_description": "Agentes de IA, hiperautomatización e IA Generativa. Diseño y llevo a producción agentes y automatizaciones con Copilot Studio, Power Automate, LangChain y UiPath.",
     "twitter_description": "Agentes de IA, hiperautomatización e IA Generativa con Copilot Studio, Power Automate, LangChain y UiPath.",
     "og_image_alt": "Ismael Parras Resino — Agentic AI Solution Architect",
@@ -200,7 +184,16 @@
     "agentpage_p5_t": "Borrado",
     "agentpage_p5": "Las preguntas no están asociadas a ninguna persona. Si escribiste un dato personal por error, dime el día y el texto aproximado y lo borro.",
     "agentpage_p6_t": "Consejo",
-    "agentpage_p6": "No escribas datos personales en el asistente."
+    "agentpage_p6": "No escribas datos personales en el asistente.",
+    "hero_role": "Agentic AI Solution Architect · SGS",
+    "agent_trace": "Acción",
+    "agent_act_goto": "ir a {x}",
+    "agent_act_filter": "filtrar habilidades: {x}",
+    "agent_act_all": "todas",
+    "agent_act_lang_es": "cambiar a español",
+    "agent_act_lang_en": "cambiar a inglés",
+    "agent_act_cv": "descargar el CV",
+    "agent_act_contact": "preparar el formulario de contacto"
   },
   "en": {
     "skip_link": "Skip to content",
@@ -210,9 +203,8 @@
     "nav_projects": "Projects",
     "nav_contact": "Contact",
     "hero_greeting": "Hi, I'm",
-    "hero_tagline": "I design and ship AI agents and end-to-end automations: conversational agents, API integrations and intelligent workflows that save hours of manual work.",
+    "hero_tagline": "I design AI agents that do real work, not just chat: I connect them to Power Automate and RPA flows, take them to production and help govern them.",
     "hero_location": "Leganés, Madrid · Spain",
-    "hero_availability": "On-site · Hybrid · Remote",
     "btn_projects": "View projects",
     "btn_cv": "Download CV",
     "about_title": "About Me & Experience",
@@ -278,7 +270,6 @@
     "proj5_desc": "Automation of repetitive business processes with UiPath and Power Automate, deployed on Azure virtual machines for unattended execution. Bots running end to end across the client's systems with no manual intervention.",
     "meta_title": "Ismael Parras Resino | Agentic AI Solution Architect",
     "meta_description": "Agentic AI Solution Architect based in Madrid. Hyperautomation with AI agents (Copilot Studio, Druid AI, LangChain), RPA (Power Automate, UiPath) and REST API integrations.",
-    "meta_keywords": "Agentic AI, Solution Architect, AI Agents, Copilot Studio, AI Automation, Hyperautomation, Power Automate, UiPath, Druid AI, LangChain, Automation, Madrid",
     "og_description": "AI agents, hyperautomation and Generative AI. I design and ship agents and automations with Copilot Studio, Power Automate, LangChain and UiPath.",
     "twitter_description": "AI agents, hyperautomation and Generative AI with Copilot Studio, Power Automate, LangChain and UiPath.",
     "og_image_alt": "Ismael Parras Resino — Agentic AI Solution Architect",
@@ -389,6 +380,15 @@
     "agentpage_p5_t": "Deletion",
     "agentpage_p5": "Questions are not linked to any person. If you typed personal data by mistake, tell me the day and the approximate text and I'll delete it.",
     "agentpage_p6_t": "Advice",
-    "agentpage_p6": "Do not type personal data into the assistant."
+    "agentpage_p6": "Do not type personal data into the assistant.",
+    "hero_role": "Agentic AI Solution Architect · SGS",
+    "agent_trace": "Action",
+    "agent_act_goto": "go to {x}",
+    "agent_act_filter": "filter skills: {x}",
+    "agent_act_all": "all",
+    "agent_act_lang_es": "switch to Spanish",
+    "agent_act_lang_en": "switch to English",
+    "agent_act_cv": "download the CV",
+    "agent_act_contact": "prepare the contact form"
   }
 }

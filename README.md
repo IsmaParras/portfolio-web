@@ -13,7 +13,9 @@ agentes de IA, hiperautomatización e IA generativa.
 - **Prerender estático** (Node, sin dependencias) que genera la página en
   español (`/`) y en inglés (`/en/`) con todo el contenido en el HTML, para SEO
   y funcionamiento sin JS.
-- **Google Fonts** (Inter, JetBrains Mono, Syne).
+- Fuentes Inter, JetBrains Mono y Syne **servidas desde la propia web**
+  (`css/fonts.css`, `assets/fonts/`; versiones variables, subconjunto latino,
+  licencia SIL OFL 1.1). Ninguna petición a terceros al cargar la página.
 - Iconos de skills incrustados como SVG (de [Simple Icons](https://simpleicons.org/), licencia CC0).
 - Formulario de contacto con [Formspree](https://formspree.io/).
 - Desplegado en **Vercel** (hosting estático + cabeceras de seguridad).
@@ -47,7 +49,7 @@ portfolio-web/
 │   ├── profile.json    # Email, Formspree ID, CVs, redes sociales
 │   ├── projects.json   # Proyectos destacados
 │   ├── skills.json     # Habilidades técnicas (icono, área, certificación)
-│   └── i18n.json       # Traducciones ES/EN + textos del typewriter
+│   └── i18n.json       # Traducciones ES/EN
 ├── assets/             # Imágenes, CVs (PDF), diplomas, og-image
 ├── robots.txt          # SEO
 ├── sitemap.xml         # SEO
@@ -69,7 +71,7 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
   línea), `color` (hex), `area` (`automatizacion` | `cloud` | `software`),
   `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`,
   `desc`/`desc_en`, `tags`.
-- **`i18n.json`** — textos en `es` y `en`, más `typeTexts` del efecto typewriter.
+- **`i18n.json`** — textos en `es` y `en`.
 
 En `index.html`, un elemento con `data-i18n="clave"` recibe su texto de
 `i18n.json`, y `data-i18n-attr="atributo:clave;atributo:clave"` hace lo mismo

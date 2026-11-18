@@ -137,9 +137,7 @@ nav.scrolled {
 .glitch-name::after { color: var(--secondary); z-index: -2; animation: glitch 2s infinite reverse; transform: translate(2px, -2px); }
 @keyframes glitch { 0% { clip-path: inset(20% 0 80% 0); } 20% { clip-path: inset(60% 0 10% 0); } 40% { clip-path: inset(40% 0 50% 0); } 60% { clip-path: inset(80% 0 5% 0); } 80% { clip-path: inset(10% 0 70% 0); } 100% { clip-path: inset(30% 0 50% 0); } }
 
-.typewriter-box { font-family: var(--font-mono); color: var(--primary); font-size: clamp(1rem, 2vw, 1.5rem); margin-bottom: 1.5rem; min-height: 2rem; display: flex; align-items: center; }
-.typewriter-text { border-right: 2px solid var(--primary); padding-right: 4px; animation: blink 0.7s infinite; }
-@keyframes blink { 50% { border-color: transparent; } }
+.hero-role { color: var(--primary); font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 700; margin-bottom: 1.5rem; }
 
 .hero-tagline { color: var(--muted); font-size: 1.1rem; max-width: 540px; margin-bottom: 1.5rem; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 2rem; font-size: 0.85rem; color: var(--muted); }
@@ -316,6 +314,5 @@ textarea.form-control { resize: vertical; min-height: 120px; }
     }
     .bg-grid { animation: none; }
     .glitch-name::before, .glitch-name::after { display: none; }
-    .typewriter-text { border-right: none; animation: none; }
     .reveal { opacity: 1; transform: none; }
 }

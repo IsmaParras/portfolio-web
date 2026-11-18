@@ -74,13 +74,41 @@
         if (!saved || typeof saved !== 'object' || !(Date.now() - saved.at < PENDING_TTL)) return;
         const turns = (Array.isArray(saved.history) ? saved.history : []).slice(-MAX_HISTORY)
             .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
-            .map(m => ({ role: m.role, content: m.content.slice(0, 1200) }));
-        turns.forEach(m => { history.push(m); addMessage(m.role === 'user' ? 'user' : 'bot', m.content); });
+            .map(m => ({ role: m.role, content: m.content.slice(0, 1200), acts: m.role === 'assistant' ? cleanActions(m.acts) : [] }));
+        turns.forEach(m => { history.push(m); addTrace(addMessage(m.role === 'user' ? 'user' : 'bot', m.content), m.acts); });
         const actions = (Array.isArray(saved.actions) ? saved.actions.slice(0, 3) : []).map(sanitize)
             .filter(a => a && HOME_ACTIONS.includes(a.type));
         if (turns.length) open();
         if (onHome()) actions.forEach(execute);
     }
+
+    // ───────── traza: qué acción ha pedido el modelo y se ha ejecutado ─────────
+    // Las claves van escritas enteras para que scripts/check.mjs las encuentre.
+    const SECTION_KEYS = { home: 'nav_home', about: 'nav_about', 'tech-skills': 'nav_skills', projects: 'nav_projects', contact: 'nav_contact' };
+    const AREA_KEYS = { automatizacion: 'techskills_area_auto', cloud: 'techskills_area_cloud', software: 'techskills_area_software' };
+    function describe(a) {
+        switch (a.type) {
+            case 'goTo': return t('agent_act_goto').replace('{x}', t(SECTION_KEYS[a.section]));
+            case 'filterSkills': return t('agent_act_filter').replace('{x}', (a.area ? t(AREA_KEYS[a.area]) : t('agent_act_all')) + (a.search ? ` · "${a.search}"` : ''));
+            case 'setLang': return t(a.lang === 'en' ? 'agent_act_lang_en' : 'agent_act_lang_es');
+            case 'downloadCV': return t('agent_act_cv');
+            case 'prefillContact': return t('agent_act_contact');
+            default: return '';
+        }
+    }
+    function addTrace(wrap, actions) {
+        const items = actions.map(describe).filter(Boolean);
+        if (!items.length) return;
+        const ul = el('ul', { class: 'agent-trace', 'aria-label': t('agent_trace') });
+        items.forEach(text => {
+            const li = el('li');
+            li.append(el('span', { class: 'agent-trace-tag' }, t('agent_trace')), ' ', el('span', {}, text));
+            ul.append(li);
+        });
+        wrap.append(ul);
+        list.scrollTop = list.scrollHeight;
+    }
+    const cleanActions = v => (Array.isArray(v) ? v.slice(0, 3) : []).map(sanitize).filter(Boolean);
 
     // ───────── interfaz ─────────
     function el(tag, attrs = {}, text) {
@@ -117,7 +145,7 @@
             const res = await fetch(ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text, lang: lang(), history: history.slice(-MAX_HISTORY) }),
+                body: JSON.stringify({ message: text, lang: lang(), history: history.slice(-MAX_HISTORY).map(({ role, content }) => ({ role, content })) }),
             });
             const data = await res.json().catch(() => ({}));
             const reply = typeof data.reply === 'string' && data.reply ? data.reply : t('agent_error');
@@ -125,8 +153,10 @@
             pending.classList.remove('agent-msg--pending');
             pending.querySelector('p').textContent = reply;
             if (res.ok) {
-                history.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
-                runAll(Array.isArray(data.actions) ? data.actions.slice(0, 3) : []);
+                const acts = cleanActions(data.actions);
+                addTrace(pending, acts);
+                history.push({ role: 'user', content: text }, { role: 'assistant', content: reply, acts });
+                runAll(acts);
             }
         } catch {
             pending.classList.remove('agent-msg--pending');

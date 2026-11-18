@@ -10,7 +10,6 @@
     <title data-i18n="meta_title">Ismael Parras Resino | Agentic AI Solution Architect</title>
     <meta name="description" content="Agentic AI Solution Architect based in Madrid. Hyperautomation with AI agents (Copilot Studio, Druid AI, LangChain), RPA (Power Automate, UiPath) and REST API integrations." data-i18n-attr="content:meta_description">
     <meta name="author" content="Ismael Parras Resino">
-    <meta name="keywords" content="Agentic AI, Solution Architect, AI Agents, Copilot Studio, AI Automation, Hyperautomation, Power Automate, UiPath, Druid AI, LangChain, Automation, Madrid" data-i18n-attr="content:meta_keywords">
     <meta name="robots" content="index, follow">
 
 <!--prerender:seo:start-->
@@ -89,10 +88,11 @@
     <!-- Favicon dinámico SVG -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230a0a0f%22/><text x=%2250%22 y=%2250%22 font-family=%22Syne, sans-serif%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%2300d4ff%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>IPR</text></svg>">
 
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+    <!-- Fuentes servidas desde la propia web (css/fonts.css) -->
+    <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/syne-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css">
 
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/agent.css">
@@ -142,19 +142,12 @@
                 <div class="hero-content reveal">
                     <p class="mono hero-greeting" data-i18n="hero_greeting">Hi, I'm</p>
                     <h1 class="glitch-name" data-text="Ismael Parras">Ismael Parras</h1>
-                    <div class="typewriter-box">
-                        <span class="sr-only" data-i18n="footer_tagline">Agentic AI Solution Architect</span>
-                        <span class="typewriter-text" id="typewriter" aria-hidden="true"></span>
-                    </div>
-                    <p class="hero-tagline" data-i18n="hero_tagline">I design and ship AI agents and end-to-end automations: conversational agents, API integrations and intelligent workflows that save hours of manual work.</p>
+                    <p class="hero-role mono" data-i18n="hero_role">Agentic AI Solution Architect · SGS</p>
+                    <p class="hero-tagline" data-i18n="hero_tagline">I design AI agents that do real work, not just chat: I connect them to Power Automate and RPA flows, take them to production and help govern them.</p>
                     <div class="hero-meta mono">
                         <span class="hero-meta-item">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             <span data-i18n="hero_location">Leganés, Madrid · Spain</span>
-                        </span>
-                        <span class="hero-meta-item">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span data-i18n="hero_availability">On-site · Hybrid · Remote</span>
                         </span>
                     </div>
                     <div class="hero-actions">

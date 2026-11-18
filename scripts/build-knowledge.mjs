@@ -34,7 +34,7 @@ function build(lang) {
     const t = i18n[lang], f = facts[lang], L = LABELS[lang];
     const out = [];
     out.push(`## ${L.profile}`,
-        `${L.name}: Ismael Parras Resino. ${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}. ${L.place}: ${t.hero_location}. ${L.avail}: ${t.hero_availability}.`, '');
+        `${L.name}: Ismael Parras Resino. ${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}. ${L.place}: ${t.hero_location}. ${L.avail}: ${f.availability}`, '');
     out.push(`## ${L.about}`, t.about_p1, '');
     out.push(`## ${L.exp}`,
         `- ${t.exp_sgs_date} · ${t.exp_sgs_role} · ${t.exp_sgs_company}: ${t.exp_sgs_desc}`,
