@@ -4,6 +4,7 @@
     // ─────────────── ESTADO DEL MÓDULO ───────────────
     let CONFIG       = {};   // profile.json
     let translations = {};   // i18n.json
+    let skillTags    = {};   // i18n.json → traducción de las etiquetas de skills
 
     let currentLang = document.documentElement.lang === 'en' ? 'en' : 'es';   // lo fija la URL: / o /en/
     let rerenderSkills  = null;
@@ -19,14 +20,17 @@
     // ─────────────── CARGA DE DATOS ───────────────
     async function loadData() {
         const get  = url => fetch(url).then(r => { if (!r.ok) throw new Error(url); return r.json(); });
+        // Proyectos y skills solo hacen falta donde están sus rejillas (no en /agente/): ~45 KB menos
+        const needs = id => !!document.getElementById(id);
         const [profile, projects, skills, i18n] = await Promise.all([
             get('/data/profile.json'),
-            get('/data/projects.json'),
-            get('/data/skills.json'),
+            needs('projectsGrid') ? get('/data/projects.json') : [],
+            needs('techSkillsGrid') ? get('/data/skills.json') : [],
             get('/data/i18n.json'),
         ]);
         CONFIG = { ...profile, projects, techSkills: skills };
         translations = { es: i18n.es, en: i18n.en };
+        skillTags    = i18n.skillTags || {};
     }
 
     function showLoadError() {
@@ -321,7 +325,9 @@
             art.className = 'skill-card reveal visible';
             art.dataset.areas      = s.area.join(' ');
             if (s.core) art.dataset.core = '1';
-            art.dataset.searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
+            // Misma lógica que tagLabel() en scripts/prerender.mjs
+            const tagLabel = (tag, l) => (l === 'es' ? tag : (skillTags[l]?.[tag] || tag));
+            art.dataset.searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ') + ' ' + s.tags.map(tag => tagLabel(tag, 'en')).join(' ')).toLowerCase();
             const desc  = currentLang === 'en' && s.desc_en ? s.desc_en : s.desc;
             const iconWrap = document.createElement('div'); iconWrap.className = 'skill-icon';
             if (s.iconImg) {
@@ -341,7 +347,7 @@
             }
             const p = document.createElement('p'); p.className = 'skill-desc'; p.textContent = desc;
             const tagsDiv = document.createElement('div'); tagsDiv.className = 'skill-tags';
-            tagsDiv.innerHTML = s.tags.map(t => `<span class="skill-tag">${t}</span>`).join('');
+            s.tags.forEach(tag => { const span = document.createElement('span'); span.className = 'skill-tag'; span.textContent = tagLabel(tag, currentLang); tagsDiv.append(span); });
             art.append(iconWrap, head, p, tagsDiv);
             return art;
         }

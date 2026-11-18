@@ -125,7 +125,7 @@
     "desc_en": "Backend, automation, scraping and data analysis",
     "tags": [
       "lenguaje",
-      "automatizacion"
+      "automatización"
     ]
   },
   {
@@ -183,7 +183,7 @@
     "desc": "Orquestación de flujos de trabajo y automatización low-code",
     "desc_en": "Workflow orchestration and low-code automation",
     "tags": [
-      "automatizacion",
+      "automatización",
       "workflows"
     ]
   },
@@ -197,7 +197,7 @@
     "desc": "Integraciones entre apps y automatización visual de procesos",
     "desc_en": "App integrations and visual process automation",
     "tags": [
-      "automatizacion",
+      "automatización",
       "integraciones"
     ]
   },
