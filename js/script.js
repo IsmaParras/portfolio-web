@@ -338,12 +338,13 @@
             const head = document.createElement('div'); head.className = 'skill-head';
             const h3   = document.createElement('h3');  h3.className = 'skill-name'; h3.textContent = s.name;
             head.appendChild(h3);
+            // Misma marca que renderCertMark() en scripts/prerender.mjs
             if (s.cert) {
-                const el = s.certUrl ? document.createElement('a') : document.createElement('span');
-                el.className = 'skill-cert' + (s.certUrl ? ' is-link' : '');
-                el.textContent = '✔ ' + (s.certUrl ? translations[currentLang]?.cert_view : translations[currentLang]?.cert_label);
-                if (s.certUrl) { el.href = s.certUrl; el.target = '_blank'; el.rel = 'noopener noreferrer'; }
-                head.appendChild(el);
+                const mark = document.createElement('a'); mark.className = 'skill-cert'; mark.href = '#certifications';
+                mark.setAttribute('aria-label', translations[currentLang]?.cert_mark_aria || '');
+                mark.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+                const label = document.createElement('span'); label.textContent = translations[currentLang]?.cert_label || ''; mark.append(label);
+                art.appendChild(mark);
             }
             const p = document.createElement('p'); p.className = 'skill-desc'; p.textContent = desc;
             const tagsDiv = document.createElement('div'); tagsDiv.className = 'skill-tags';

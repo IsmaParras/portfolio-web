@@ -12,7 +12,7 @@
     "btn_projects": "Ver proyectos",
     "btn_cv": "Descargar CV",
     "about_title": "Sobre mí & Experiencia",
-    "about_p1": "Soy Agentic AI Solution Architect en SGS y trabajo en hiperautomatización: diseño agentes de IA con Microsoft Copilot Studio, los conecto con flujos de Power Automate en la nube y de escritorio (RPA), los llevo a producción y participo en el gobierno de la IA agéntica de la compañía. Antes, en Sermicro, puse en producción agentes conversacionales con Druid AI, automatizaciones con UiPath y LangChain e integraciones vía API REST para clientes de administración pública, consultoría y servicios IT. Soy Técnico Superior en DAM y estoy certificado en UiPath, Azure AI y PowerShell.",
+    "about_p1": "Soy Agentic AI Solution Architect en SGS y trabajo en hiperautomatización: diseño agentes de IA con Microsoft Copilot Studio, los conecto con flujos de Power Automate en la nube y de escritorio (RPA), los llevo a producción y participo en el gobierno de la IA agéntica de la compañía. Antes, en Sermicro, puse en producción agentes conversacionales con Druid AI, automatizaciones con UiPath y LangChain e integraciones vía API REST para clientes de administración pública, consultoría y servicios IT. Soy Técnico Superior en DAM y tengo las certificaciones de Microsoft AB-900 (administración de Microsoft 365 Copilot y agentes) y Azure AI Fundamentals.",
     "edu_title": "Formación",
     "edu1_degree": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
     "edu2_degree": "Bachillerato de Ciencias",
@@ -40,7 +40,6 @@
     "techskills_area_auto": "Automatización / IA",
     "techskills_area_cloud": "Cloud & Sistemas",
     "techskills_area_software": "Desarrollo & Datos",
-    "cert_view": "Ver credencial",
     "cert_label": "Certificado",
     "projects_title": "Proyectos Destacados",
     "projects_subtitle": "Una selección de soluciones reales de automatización e IA que he construido.",
@@ -194,7 +193,13 @@
     "agent_act_lang_es": "cambiar a español",
     "agent_act_lang_en": "cambiar a inglés",
     "agent_act_cv": "descargar el CV",
-    "agent_act_contact": "preparar el formulario de contacto"
+    "agent_act_contact": "preparar el formulario de contacto",
+    "cert_title": "Certificaciones",
+    "cert_verify": "Ver credencial",
+    "cert_diploma_aria": "{x}: ver diploma (PDF, se abre en una pestaña nueva)",
+    "cert_mark_aria": "Certificado: ver mis certificaciones",
+    "cert_courses": "Cursos",
+    "cert_new_tab": "(se abre en una pestaña nueva)"
   },
   "en": {
     "skip_link": "Skip to content",
@@ -209,7 +214,7 @@
     "btn_projects": "View projects",
     "btn_cv": "Download CV",
     "about_title": "About Me & Experience",
-    "about_p1": "I'm an Agentic AI Solution Architect at SGS, working in hyperautomation: I design AI agents with Microsoft Copilot Studio, connect them to Power Automate cloud and desktop flows (RPA), take them to production and contribute to the company's agentic AI governance. Previously, at Sermicro, I shipped conversational agents with Druid AI, automations with UiPath and LangChain, and REST API integrations for clients in public administration, consulting and IT services. I'm a Higher Technician in Cross-Platform Application Development (DAM) and certified in UiPath, Azure AI and PowerShell.",
+    "about_p1": "I'm an Agentic AI Solution Architect at SGS, working in hyperautomation: I design AI agents with Microsoft Copilot Studio, connect them to Power Automate cloud and desktop flows (RPA), take them to production and contribute to the company's agentic AI governance. Previously, at Sermicro, I shipped conversational agents with Druid AI, automations with UiPath and LangChain, and REST API integrations for clients in public administration, consulting and IT services. I'm a Higher Technician in Cross-Platform Application Development (DAM) and hold the Microsoft AB-900 (Microsoft 365 Copilot and Agent Administration) and Azure AI Fundamentals certifications.",
     "edu_title": "Education",
     "edu1_degree": "Higher Technician in Cross-Platform Application Development (DAM)",
     "edu2_degree": "Baccalaureate in Sciences",
@@ -237,7 +242,6 @@
     "techskills_area_auto": "Automation / AI",
     "techskills_area_cloud": "Cloud & Systems",
     "techskills_area_software": "Development & Data",
-    "cert_view": "View credential",
     "cert_label": "Certified",
     "projects_title": "Featured Projects",
     "projects_subtitle": "A selection of real automation and AI solutions I've built.",
@@ -391,7 +395,13 @@
     "agent_act_lang_es": "switch to Spanish",
     "agent_act_lang_en": "switch to English",
     "agent_act_cv": "download the CV",
-    "agent_act_contact": "prepare the contact form"
+    "agent_act_contact": "prepare the contact form",
+    "cert_title": "Certifications",
+    "cert_verify": "View credential",
+    "cert_diploma_aria": "{x}: view diploma (PDF, opens in a new tab)",
+    "cert_mark_aria": "Certified: see my certifications",
+    "cert_courses": "Courses",
+    "cert_new_tab": "(opens in a new tab)"
   },
   "skillTags": {
     "en": {

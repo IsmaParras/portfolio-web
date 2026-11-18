@@ -6,12 +6,14 @@
       "automatizacion"
     ],
     "core": true,
+    "cert": true,
     "desc": "Agentes de IA en el ecosistema Microsoft",
     "desc_en": "AI agents across the Microsoft ecosystem",
     "tags": [
       "agentes",
       "microsoft",
-      "ia"
+      "ia",
+      "certificado"
     ],
     "iconImg": "/assets/logos/copilot-studio.png"
   },
@@ -54,10 +56,8 @@
       "automatizacion"
     ],
     "core": true,
-    "cert": true,
-    "certUrl": "/assets/diploma_uipath.pdf",
-    "desc": "RPA de nivel enterprise — Training oficial UiPath Academy",
-    "desc_en": "Enterprise-grade RPA — official UiPath Academy training",
+    "desc": "RPA de nivel enterprise",
+    "desc_en": "Enterprise-grade RPA",
     "tags": [
       "rpa",
       "enterprise",
@@ -104,9 +104,8 @@
     ],
     "core": true,
     "cert": true,
-    "certUrl": "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
-    "desc": "Servicios cognitivos de Azure — Certificado AI Fundamentals",
-    "desc_en": "Azure cognitive services — AI Fundamentals certified",
+    "desc": "Servicios cognitivos de Azure",
+    "desc_en": "Azure cognitive services",
     "tags": [
       "ia",
       "cloud",
@@ -293,14 +292,12 @@
     "area": [
       "cloud"
     ],
-    "cert": true,
-    "certUrl": "/assets/diploma_powershell.pdf",
-    "desc": "Scripting de automatización en Windows y Azure — Certificado",
-    "desc_en": "Automation scripting on Windows and Azure — certified",
+    "desc": "Scripting de automatización en Windows y Azure",
+    "desc_en": "Automation scripting on Windows and Azure",
     "tags": [
       "scripting",
       "windows",
-      "certificado"
+      "training"
     ]
   },
   {

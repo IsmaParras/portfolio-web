@@ -18,6 +18,8 @@ const projects = readJson('data/projects.json');
 const skills = readJson('data/skills.json');
 const profile = readJson('data/profile.json');
 const facts = readJson('data/agent-facts.json');
+const creds = readJson('data/certifications.json');
+const pick = (v, lang) => (typeof v === 'string' ? v : (v[lang] || v.es));
 
 const LABELS = {
     es: { profile: 'PERFIL', about: 'SOBRE ÉL', exp: 'EXPERIENCIA', edu: 'FORMACIÓN', proj: 'PROYECTOS', skills: 'HABILIDADES', certs: 'CERTIFICACIONES', contact: 'CONTACTO', other: 'OTROS DATOS',
@@ -42,12 +44,13 @@ function build(lang) {
         `- ${t.exp_elecnor_date} · ${t.exp_elecnor_role} · Elecnor Deimos: ${first(t.exp_elecnor_desc)}`, '');
     out.push(`## ${L.edu}`,
         `- ${t.edu1_degree} — ${f.education_places.edu1}`,
-        `- ${t.edu2_degree} — ${f.education_places.edu2}`, '');
+        `- ${t.edu2_degree} — ${f.education_places.edu2}`,
+        ...creds.filter(c => c.kind === 'course').map(c => `- ${pick(c.name, lang)} — ${pick(c.issuer, lang)}`), '');
     out.push(`## ${L.proj}`);
     const title = p => (typeof p.title === 'string' ? p.title : (p.title[lang] || p.title.es));
     for (const p of projects) out.push(`- ${title(p)}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);
     out.push('', `## ${L.skills}`, `${skills.map(s => s.name).join(', ')}.`, '');
-    out.push(`## ${L.certs}`, skills.filter(s => s.cert).map(s => s.name).join(', ') + '.', '');
+    out.push(`## ${L.certs}`, creds.filter(c => c.kind === 'certification').map(c => `${pick(c.name, lang)} (${c.code}, ${pick(c.issuer, lang)})`).join(', ') + '.', '');
     out.push(`## ${L.contact}`,
         `${L.email}: ${profile.email}. LinkedIn: ${profile.socialLinks.linkedin}. GitHub: ${profile.socialLinks.github}. ${L.site}: https://ismaelparras.vercel.app${lang === 'en' ? '/en/' : '/'}`,
         f.contact_how, '');

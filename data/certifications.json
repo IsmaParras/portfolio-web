@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ab-900",
+    "kind": "certification",
+    "name": "Microsoft 365 Copilot and Agent Administration Fundamentals",
+    "code": "AB-900",
+    "issuer": "Microsoft",
+    "url": "https://www.credly.com/badges/258d45bb-cc43-4b0c-afa5-ea20964a83a7/public_url",
+    "badge": "/assets/badges/ab-900.webp",
+    "skill": "Copilot Studio"
+  },
+  {
+    "id": "ai-900",
+    "kind": "certification",
+    "name": "Azure AI Fundamentals",
+    "code": "AI-900",
+    "issuer": "Microsoft",
+    "url": "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
+    "badge": "/assets/badges/ai-900.webp",
+    "skill": "Azure AI"
+  },
+  {
+    "id": "uipath-adt",
+    "kind": "course",
+    "name": "UiPath Automation Developer Associate Training",
+    "issuer": {
+      "es": "UiPath Academy · plan de formación",
+      "en": "UiPath Academy · learning plan"
+    },
+    "url": "/assets/diploma_uipath.pdf",
+    "short": "UiPath Automation Developer"
+  },
+  {
+    "id": "powershell-admin",
+    "kind": "course",
+    "name": {
+      "es": "Automatización de la administración con PowerShell",
+      "en": "Automating Administration with PowerShell"
+    },
+    "issuer": {
+      "es": "Microsoft Learn · curso",
+      "en": "Microsoft Learn · course"
+    },
+    "url": "/assets/diploma_powershell.pdf",
+    "short": {
+      "es": "PowerShell (Microsoft Learn)",
+      "en": "PowerShell (Microsoft Learn)"
+    }
+  }
+]

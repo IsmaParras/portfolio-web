@@ -49,7 +49,8 @@ portfolio-web/
 │   ├── profile.json    # Email, Formspree ID, CVs, redes sociales
 │   ├── projects.json   # Proyectos destacados
 │   ├── skills.json     # Habilidades técnicas (icono, área, certificación)
-│   └── i18n.json       # Traducciones ES/EN
+│   ├── i18n.json       # Traducciones ES/EN
+│   └── certifications.json # Certificaciones y cursos
 ├── assets/             # Imágenes, CVs (PDF), diplomas, og-image
 ├── robots.txt          # SEO
 ├── sitemap.xml         # SEO
@@ -69,9 +70,18 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
   el asistente y solo se muestra si está activo).
 - **`skills.json`** — array de habilidades. Campos: `name`, `iconSvg` (SVG en
   línea), `color` (hex), `area` (`automatizacion` | `cloud` | `software`),
-  `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`,
+  `core` (las principales, que se ven sin pulsar "Ver todas"), `cert` (marca
+  "Certificado" en la tarjeta; debe haber una certificación con esa `skill`),
   `desc`/`desc_en`, `tags`.
 - **`i18n.json`** — textos en `es` y `en`.
+- **`certifications.json`** — certificaciones y cursos. Campos: `id`, `kind`
+  (`certification`: tarjeta con insignia en "Certificaciones"; `course`: enlace en la
+  línea "Cursos"), `name` e `issuer` (texto o `{es, en}`), `code` (solo
+  certificaciones), `url` (Credly o PDF del diploma), `badge` (opcional: imagen de la
+  insignia oficial en `assets/badges/`; sin ella se muestra un sello genérico), `short`
+  (opcional: nombre corto del curso) y `skill` (opcional: skill que lleva la marca
+  "Certificado"). Lo usan la portada, el JSON-LD
+  (`hasCredential`) y el asistente; `npm run check` comprueba que todo cuadra.
 
 En `index.html`, un elemento con `data-i18n="clave"` recibe su texto de
 `i18n.json`, y `data-i18n-attr="atributo:clave;atributo:clave"` hace lo mismo
