@@ -71,3 +71,8 @@
 /* Botones de la página que abren el chat: ocultos hasta que el asistente está activo */
 [data-agent-open] { display: none; }
 .agent-on [data-agent-open] { display: inline-flex; }
+
+/* Traza de acciones: deja ver qué herramienta ha pedido el modelo */
+.agent-trace { list-style: none; margin-top: 0.45rem; display: grid; gap: 0.3rem; }
+.agent-trace li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text); border-left: 2px solid var(--primary); padding: 0.15rem 0 0.15rem 0.55rem; }
+.agent-trace-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }

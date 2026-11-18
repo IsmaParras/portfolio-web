@@ -43,6 +43,14 @@ if (!errors.length) {
         if (p.ctaUrl && typeof p.ctaUrl === 'object' && (!p.ctaUrl.es || !p.ctaUrl.en)) fail(`Proyecto ${p.id}: ctaUrl sin es/en`);
         if (typeof p.title === 'object' && (!p.title.es || !p.title.en)) fail(`Proyecto ${p.id}: título sin es/en`);
     }
+    // "Usado en" de las skills: exp-* necesita su etiqueta y su id en la portada; proj-* un proyecto
+    const home = existsSync(join(ROOT, 'index.html')) ? read('index.html') : '';
+    for (const sk of json.skills) for (const ref of sk.usedIn || []) {
+        if (ref.startsWith('exp-')) {
+            used.add(`used_exp_${ref.slice(4)}`);
+            if (!home.includes(`id="${ref}"`)) fail(`Skill ${sk.name}: no hay ningún elemento con id="${ref}" en index.html`);
+        } else if (!json.projects.some(p => `proj-${p.id}` === ref)) fail(`Skill ${sk.name}: usedIn "${ref}" no es un proyecto`);
+    }
     for (const k of used) if (!(k in es)) fail(`La clave "${k}" se usa pero no existe en i18n.json`);
 
     // 4. Ninguna clave huérfana (las que no están en la plantilla deben usarse desde JS)

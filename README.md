@@ -13,7 +13,9 @@ agentes de IA, hiperautomatización e IA generativa.
 - **Prerender estático** (Node, sin dependencias) que genera la página en
   español (`/`) y en inglés (`/en/`) con todo el contenido en el HTML, para SEO
   y funcionamiento sin JS.
-- **Google Fonts** (Inter, JetBrains Mono, Syne).
+- Fuentes Inter, JetBrains Mono y Syne **servidas desde la propia web**
+  (`css/fonts.css`, `assets/fonts/`; versiones variables, subconjunto latino,
+  licencia SIL OFL 1.1). Ninguna petición a terceros al cargar la página.
 - Iconos de skills incrustados como SVG (de [Simple Icons](https://simpleicons.org/), licencia CC0).
 - Formulario de contacto con [Formspree](https://formspree.io/).
 - Desplegado en **Vercel** (hosting estático + cabeceras de seguridad).
@@ -47,7 +49,7 @@ portfolio-web/
 │   ├── profile.json    # Email, Formspree ID, CVs, redes sociales
 │   ├── projects.json   # Proyectos destacados
 │   ├── skills.json     # Habilidades técnicas (icono, área, certificación)
-│   └── i18n.json       # Traducciones ES/EN + textos del typewriter
+│   └── i18n.json       # Traducciones ES/EN
 ├── assets/             # Imágenes, CVs (PDF), diplomas, og-image
 ├── robots.txt          # SEO
 ├── sitemap.xml         # SEO
@@ -60,7 +62,7 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
 
 - **`profile.json`** — datos de contacto, ID de Formspree y rutas de los CVs.
 - **`projects.json`** — array de proyectos. Cada uno: `id`, `title` (texto o
-  `{es, en}`), `featured` (bool, destaca la tarjeta a ancho completo), `wide`
+  `{es, en}`), `shortTitle` (opcional, `{es, en}`, para los enlaces "Usado en"), `featured` (bool, destaca la tarjeta a ancho completo), `wide`
   (ancho completo sin el estilo de destacado), `badgeKey` y `descKey` (claves en
   `i18n.json`), `tags`, `results` (con `es`/`en`) y, opcionalmente, `ctaKey` +
   `ctaUrl` (texto o `{es, en}`) y `agentCta` (añade el botón "Probarlo", que abre
@@ -68,8 +70,11 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
 - **`skills.json`** — array de habilidades. Campos: `name`, `iconSvg` (SVG en
   línea), `color` (hex), `area` (`automatizacion` | `cloud` | `software`),
   `core` (las principales, que se ven sin pulsar "Ver todas"), `cert`/`certUrl`,
-  `desc`/`desc_en`, `tags`.
-- **`i18n.json`** — textos en `es` y `en`, más `typeTexts` del efecto typewriter.
+  `desc`/`desc_en`, `tags` (sirven al buscador) y `usedIn` (opcional: lista de
+  ids `exp-…` de la trayectoria o `proj-…` de un proyecto; si existe, la tarjeta
+  muestra "Usado en" con enlaces en lugar de las etiquetas). `npm run check`
+  comprueba que cada referencia existe.
+- **`i18n.json`** — textos en `es` y `en`.
 
 En `index.html`, un elemento con `data-i18n="clave"` recibe su texto de
 `i18n.json`, y `data-i18n-attr="atributo:clave;atributo:clave"` hace lo mismo

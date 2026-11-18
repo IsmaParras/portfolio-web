@@ -2,69 +2,171 @@
   {
     "id": "druid-ai-agents",
     "featured": true,
-    "title": { "es": "Agentes Conversacionales Druid AI", "en": "Druid AI Conversational Agents" },
+    "title": {
+      "es": "Agentes Conversacionales Druid AI",
+      "en": "Druid AI Conversational Agents"
+    },
+    "shortTitle": {
+      "es": "Agentes Druid AI",
+      "en": "Druid AI agents"
+    },
     "badgeKey": "proj3_badge",
-    "tags": ["Druid AI", "NLP", "Microsoft Teams", "Voicebot"],
+    "tags": [
+      "Druid AI",
+      "NLP",
+      "Microsoft Teams",
+      "Voicebot"
+    ],
     "descKey": "proj3_desc",
     "results": [
-      { "es": "En producción 24/7", "en": "Live 24/7" },
-      { "es": "Multicanal: Teams · Web · Voz", "en": "Multichannel: Teams · Web · Voice" },
-      { "es": "Escalado a agente humano", "en": "Human handover" }
+      {
+        "es": "En producción 24/7",
+        "en": "Live 24/7"
+      },
+      {
+        "es": "Multicanal: Teams · Web · Voz",
+        "en": "Multichannel: Teams · Web · Voice"
+      },
+      {
+        "es": "Escalado a agente humano",
+        "en": "Human handover"
+      }
     ]
   },
   {
     "id": "portfolio-assistant",
     "featured": false,
     "wide": true,
-    "title": { "es": "Asistente de IA de este portfolio", "en": "This portfolio's AI assistant" },
+    "title": {
+      "es": "Asistente de IA de este portfolio",
+      "en": "This portfolio's AI assistant"
+    },
+    "shortTitle": {
+      "es": "Asistente de esta web",
+      "en": "This site's assistant"
+    },
     "badgeKey": "proj6_badge",
-    "tags": ["Tool calling", "Vercel Functions", "Groq", "Upstash Redis"],
+    "tags": [
+      "Tool calling",
+      "Vercel Functions",
+      "Groq",
+      "Upstash Redis"
+    ],
     "descKey": "proj6_desc",
     "results": [
-      { "es": "Responde solo con datos de la web", "en": "Answers only from the site's data" },
-      { "es": "Actúa sobre la página", "en": "Acts on the page" },
-      { "es": "Código público en GitHub", "en": "Public code on GitHub" }
+      {
+        "es": "Responde solo con datos de la web",
+        "en": "Answers only from the site's data"
+      },
+      {
+        "es": "Actúa sobre la página",
+        "en": "Acts on the page"
+      },
+      {
+        "es": "Código público en GitHub",
+        "en": "Public code on GitHub"
+      }
     ],
     "agentCta": true,
     "ctaKey": "proj6_cta",
-    "ctaUrl": { "es": "/agente/", "en": "/en/agent/" }
+    "ctaUrl": {
+      "es": "/agente/",
+      "en": "/en/agent/"
+    }
   },
   {
     "id": "servicedesk-langchain",
     "featured": false,
-    "title": { "es": "Automatización ServiceDesk con LangChain", "en": "ServiceDesk Automation with LangChain" },
+    "title": {
+      "es": "Automatización ServiceDesk con LangChain",
+      "en": "ServiceDesk Automation with LangChain"
+    },
+    "shortTitle": {
+      "es": "ServiceDesk con LangChain",
+      "en": "LangChain ServiceDesk"
+    },
     "badgeKey": "proj4_badge",
-    "tags": ["LangChain", "LLM", "API REST", "Jira"],
+    "tags": [
+      "LangChain",
+      "LLM",
+      "API REST",
+      "Jira"
+    ],
     "descKey": "proj4_desc",
     "results": [
-      { "es": "Clasificación automática de tickets", "en": "Automatic ticket triage" },
-      { "es": "Integración Jira", "en": "Jira integration" },
-      { "es": "Menos trabajo manual de soporte", "en": "Less manual support work" }
+      {
+        "es": "Clasificación automática de tickets",
+        "en": "Automatic ticket triage"
+      },
+      {
+        "es": "Integración Jira",
+        "en": "Jira integration"
+      },
+      {
+        "es": "Menos trabajo manual de soporte",
+        "en": "Less manual support work"
+      }
     ]
   },
   {
     "id": "rpa-uipath-azure",
     "featured": false,
-    "title": { "es": "Automatización RPA con UiPath en Azure", "en": "RPA Automation with UiPath on Azure" },
+    "title": {
+      "es": "Automatización RPA con UiPath en Azure",
+      "en": "RPA Automation with UiPath on Azure"
+    },
+    "shortTitle": {
+      "es": "RPA en Azure",
+      "en": "RPA on Azure"
+    },
     "badgeKey": "proj5_badge",
-    "tags": ["UiPath", "Power Automate", "Azure", "RPA"],
+    "tags": [
+      "UiPath",
+      "Power Automate",
+      "Azure",
+      "RPA"
+    ],
     "descKey": "proj5_desc",
     "results": [
-      { "es": "Ejecución desatendida", "en": "Unattended execution" },
-      { "es": "Desplegado en VM de Azure", "en": "Deployed on Azure VM" },
-      { "es": "Procesos de extremo a extremo", "en": "End-to-end processes" }
+      {
+        "es": "Ejecución desatendida",
+        "en": "Unattended execution"
+      },
+      {
+        "es": "Desplegado en VM de Azure",
+        "en": "Deployed on Azure VM"
+      },
+      {
+        "es": "Procesos de extremo a extremo",
+        "en": "End-to-end processes"
+      }
     ]
   },
   {
     "id": "lead-auditor-pro",
     "featured": false,
     "title": "Lead Auditor Pro",
+    "shortTitle": {
+      "es": "Lead Auditor Pro",
+      "en": "Lead Auditor Pro"
+    },
     "badgeKey": "proj1_badge",
-    "tags": ["Python", "Google Maps API", "Web Scraping", "Lead Generation"],
+    "tags": [
+      "Python",
+      "Google Maps API",
+      "Web Scraping",
+      "Lead Generation"
+    ],
     "descKey": "proj1_desc",
     "results": [
-      { "es": "Prospección 100% automática", "en": "100% automated prospecting" },
-      { "es": "Auditoría digital completa", "en": "Full digital audit" }
+      {
+        "es": "Prospección 100% automática",
+        "en": "100% automated prospecting"
+      },
+      {
+        "es": "Auditoría digital completa",
+        "en": "Full digital audit"
+      }
     ],
     "ctaKey": "proj_cta_info",
     "ctaUrl": "#contact"
@@ -74,11 +176,22 @@
     "featured": false,
     "title": "CitaMatic",
     "badgeKey": "proj2_badge",
-    "tags": ["Botpress", "Make", "Google Calendar API", "IA Conversacional"],
+    "tags": [
+      "Botpress",
+      "Make",
+      "Google Calendar API",
+      "IA Conversacional"
+    ],
     "descKey": "proj2_desc",
     "results": [
-      { "es": "Disponible 24/7", "en": "Available 24/7" },
-      { "es": "0 intervención manual", "en": "0 manual intervention" }
+      {
+        "es": "Disponible 24/7",
+        "en": "Available 24/7"
+      },
+      {
+        "es": "0 intervención manual",
+        "en": "0 manual intervention"
+      }
     ],
     "ctaKey": "proj_cta_info",
     "ctaUrl": "#contact"

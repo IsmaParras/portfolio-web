@@ -34,15 +34,14 @@ function build(lang) {
     const t = i18n[lang], f = facts[lang], L = LABELS[lang];
     const out = [];
     out.push(`## ${L.profile}`,
-        `${L.name}: Ismael Parras Resino. ${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}. ${L.place}: ${t.hero_location}. ${L.avail}: ${t.hero_availability}.`, '');
+        `${L.name}: Ismael Parras Resino. ${L.role}: ${t.exp_sgs_role} — ${t.exp_sgs_company}. ${L.place}: ${t.hero_location}. ${L.avail}: ${f.availability}`, '');
     out.push(`## ${L.about}`, t.about_p1, '');
     out.push(`## ${L.exp}`,
         `- ${t.exp_sgs_date} · ${t.exp_sgs_role} · ${t.exp_sgs_company}: ${t.exp_sgs_desc}`,
         `- ${t.exp_sermicro_date} · ${t.exp_sermicro_role} · Sermicro (Madrid): ${t.exp_sermicro_desc}`,
         `- ${t.exp_elecnor_date} · ${t.exp_elecnor_role} · Elecnor Deimos: ${first(t.exp_elecnor_desc)}`, '');
     out.push(`## ${L.edu}`,
-        `- ${t.edu1_degree} — ${f.education_places.edu1}`,
-        `- ${t.edu2_degree} — ${f.education_places.edu2}`, '');
+        `- ${t.edu1_degree} — ${f.education_places.edu1}`, '');
     out.push(`## ${L.proj}`);
     const title = p => (typeof p.title === 'string' ? p.title : (p.title[lang] || p.title.es));
     for (const p of projects) out.push(`- ${title(p)}${t[p.badgeKey] ? ` (${t[p.badgeKey]})` : ''}: ${first(t[p.descKey])}`);

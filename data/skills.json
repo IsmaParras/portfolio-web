@@ -13,6 +13,9 @@
       "microsoft",
       "ia"
     ],
+    "usedIn": [
+      "exp-sgs"
+    ],
     "iconImg": "/assets/logos/copilot-studio.png"
   },
   {
@@ -28,6 +31,10 @@
     "tags": [
       "rpa",
       "microsoft"
+    ],
+    "usedIn": [
+      "exp-sgs",
+      "proj-rpa-uipath-azure"
     ]
   },
   {
@@ -44,6 +51,9 @@
       "ia",
       "llm",
       "orquestación"
+    ],
+    "usedIn": [
+      "proj-servicedesk-langchain"
     ]
   },
   {
@@ -62,6 +72,9 @@
       "rpa",
       "enterprise",
       "training"
+    ],
+    "usedIn": [
+      "proj-rpa-uipath-azure"
     ]
   },
   {
@@ -78,6 +91,9 @@
       "agentes",
       "conversacional"
     ],
+    "usedIn": [
+      "proj-druid-ai-agents"
+    ],
     "iconImg": "/assets/logos/druid-ai.png"
   },
   {
@@ -93,6 +109,10 @@
     "tags": [
       "ia",
       "nlp"
+    ],
+    "usedIn": [
+      "proj-servicedesk-langchain",
+      "proj-portfolio-assistant"
     ]
   },
   {
@@ -126,6 +146,9 @@
     "tags": [
       "lenguaje",
       "automatizacion"
+    ],
+    "usedIn": [
+      "proj-lead-auditor-pro"
     ]
   },
   {
@@ -140,6 +163,10 @@
     "tags": [
       "integraciones",
       "backend"
+    ],
+    "usedIn": [
+      "proj-servicedesk-langchain",
+      "proj-portfolio-assistant"
     ],
     "core": true
   },

@@ -88,7 +88,17 @@ function renderProjects(projects, t, lang) {
     }).join('\n');
 }
 
-function renderSkills(skills, t, lang) {
+// "Usado en": enlaces a la experiencia (exp-*) o a la tarjeta de un proyecto (proj-*).
+// Misma lógica que usedLabel() en js/script.js.
+function usedLabel(ref, t, lang, projects) {
+    if (ref.startsWith('exp-')) return tr(t, `used_exp_${ref.slice(4)}`, ref);
+    const proj = projects.find(p => `proj-${p.id}` === ref);
+    if (!proj) throw new Error(`usedIn: no existe el proyecto ${ref}`);
+    const title = proj.shortTitle || proj.title;
+    return typeof title === 'string' ? title : (title[lang] || title.es);
+}
+
+function renderSkills(skills, t, lang, projects) {
     return skills.map(s => {
         const areas = s.area.join(' ');
         const searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
@@ -100,14 +110,18 @@ function renderSkills(skills, t, lang) {
                 ? `<a class="skill-cert is-link" href="${escAttr(s.certUrl)}" target="_blank" rel="noopener noreferrer">✔ ${escText(label)}</a>`
                 : `<span class="skill-cert">✔ ${escText(label)}</span>`;
         }
-        const tags = s.tags.map(tag => `<span class="skill-tag">${escText(tag)}</span>`).join('');
+        // Si se sabe dónde se ha usado, eso sustituye a las etiquetas (que siguen sirviendo al buscador)
+        const used = (s.usedIn || []).map(ref => `<a class="skill-used-link" href="#${escAttr(ref)}">${escText(usedLabel(ref, t, lang, projects))}</a>`);
+        const footer = used.length
+            ? `<p class="skill-used"><span class="skill-used-label" data-i18n="skill_used_in">${escText(tr(t, 'skill_used_in', s.name))}</span> ${used.join('<span class="skill-used-sep" aria-hidden="true"> · </span>')}</p>`
+            : `<div class="skill-tags">${s.tags.map(tag => `<span class="skill-tag">${escText(tag)}</span>`).join('')}</div>`;
         const core = s.core ? ' data-core="1"' : '';
         // iconSvg es SVG propio y confiable: se inserta sin escapar
         return `<article class="skill-card reveal visible" data-areas="${escAttr(areas)}"${core} data-searchable="${escAttr(searchable)}">
   <div class="skill-icon">${s.iconImg ? `<img src="${escAttr(s.iconImg)}" alt="" width="40" height="40" loading="lazy">` : (s.iconSvg || '')}</div>
   <div class="skill-head"><h3 class="skill-name">${escText(s.name)}</h3>${cert}</div>
   <p class="skill-desc">${escText(desc)}</p>
-  <div class="skill-tags">${tags}</div>
+  ${footer}
 </article>`;
     }).join('\n');
 }
@@ -198,7 +212,7 @@ function build(page, template, lang, data) {
         seo: () => renderSeo(page, lang),
         jsonld: () => renderJsonLd(page, lang, t, data.profile),
         projectsGrid: () => renderProjects(data.projects, t, lang),
-        techSkillsGrid: () => renderSkills(data.skills, t, lang),
+        techSkillsGrid: () => renderSkills(data.skills, t, lang, data.projects),
     };
     let html = template.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
     for (const id of page.blocks) html = inject(html, id, blocks[id]());
