@@ -2,7 +2,7 @@
 /**
  * Genera los ficheros binarios del sitio a partir de sus plantillas HTML:
  *   cv/cv-es.html, cv/cv-en.html  →  assets/Ismael_Parras_CV_{ES,EN}.pdf
- *   scripts/og-image.html         →  assets/og-image.png (1200×630)
+ *   scripts/og-image.html         →  assets/og-image.jpg (1200×630; JPEG: ¼ del peso del PNG)
  *
  * Usa Chrome/Chromium/Edge en modo headless, sin dependencias de npm. Si no lo
  * encuentra, indica la ruta con CHROME_BIN. No forma parte de `npm run build`.
@@ -75,9 +75,9 @@ const pdf = out => ['--no-pdf-header-footer', `--print-to-pdf=${join(ROOT, out)}
 const JOBS = [
     ['cv/cv-es.html', 'assets/Ismael_Parras_CV_ES.pdf', pdf('assets/Ismael_Parras_CV_ES.pdf')],
     ['cv/cv-en.html', 'assets/Ismael_Parras_CV_EN.pdf', pdf('assets/Ismael_Parras_CV_EN.pdf')],
-    ['scripts/og-image.html', 'assets/og-image.png', [
+    ['scripts/og-image.html', 'assets/og-image.jpg', [
         '--window-size=1200,630', '--force-device-scale-factor=1',
-        `--screenshot=${join(ROOT, 'assets/og-image.png')}`,
+        `--screenshot=${join(ROOT, 'assets/og-image.jpg')}`,   // el formato sale de la extensión
     ]],
 ];
 

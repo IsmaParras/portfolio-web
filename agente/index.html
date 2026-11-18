@@ -24,7 +24,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Cómo está hecho el asistente de IA | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
     <meta property="og:description" content="Arquitectura, decisiones de diseño, seguridad y privacidad del asistente de IA de mi portfolio: función serverless, modelo con llamadas a herramientas y límites de uso." data-i18n-attr="content:agentpage_meta_description">
-    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Ismael Parras Resino — Agentic AI Solution Architect" data-i18n-attr="content:og_image_alt">
@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cómo está hecho el asistente de IA | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
     <meta name="twitter:description" content="Arquitectura, decisiones de diseño, seguridad y privacidad del asistente de IA de mi portfolio: función serverless, modelo con llamadas a herramientas y límites de uso." data-i18n-attr="content:agentpage_meta_description">
-    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.jpg">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230a0a0f%22/><text x=%2250%22 y=%2250%22 font-family=%22Syne, sans-serif%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%2300d4ff%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>IPR</text></svg>">
 
@@ -65,7 +65,7 @@
             </div>
 
             <div class="controls">
-                <a class="icon-btn lang-switch" id="langToggle" href="/en/agent/" hreflang="en" aria-label="Ver en inglés" title="Ver en inglés" data-i18n="lang_switch_label" data-i18n-attr="href:agentpage_lang_href;hreflang:lang_switch_code;aria-label:lang_switch_aria;title:lang_switch_aria">EN</a>
+                <a class="icon-btn lang-switch" id="langToggle" href="/en/agent/" hreflang="en" aria-label="EN: ver en inglés" title="EN: ver en inglés" data-i18n="lang_switch_label" data-i18n-attr="href:agentpage_lang_href;hreflang:lang_switch_code;aria-label:lang_switch_aria;title:lang_switch_aria">EN</a>
                 <button type="button" class="icon-btn" id="themeToggle" aria-label="Modo claro/oscuro" title="Modo claro/oscuro" data-i18n-attr="aria-label:aria_theme;title:aria_theme">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="12" cy="12" r="5"/>
@@ -124,7 +124,7 @@
                 <div class="arch-node">
                     <span class="arch-tech mono" data-i18n="agentpage_n1_tech">JavaScript sin dependencias</span>
                     <h3 data-i18n="agentpage_n1_title">Navegador</h3>
-                    <p data-i18n="agentpage_n1_desc">El panel de chat envía la pregunta y ejecuta las acciones que devuelve el servidor.</p>
+                    <p data-i18n="agentpage_n1_desc">El panel de chat envía la pregunta, ejecuta las acciones que devuelve el servidor y muestra bajo la respuesta cuál ha ejecutado.</p>
                 </div>
                 <div class="arch-arrow" aria-hidden="true"></div>
                 <div class="arch-stack">
@@ -162,7 +162,7 @@
                 </article>
                 <article class="page-card">
                     <h3 data-i18n="agentpage_d3_title">Acciones contra una lista cerrada</h3>
-                    <p data-i18n="agentpage_d3">El modelo no ejecuta nada: propone una acción y el servidor la traduce a un conjunto fijo de valores. El navegador la valida otra vez antes de hacerla. Lo que no encaja se descarta.</p>
+                    <p data-i18n="agentpage_d3">El modelo no ejecuta nada: propone una acción y el servidor la traduce a un conjunto fijo de valores. El navegador la valida otra vez antes de hacerla. Lo que no encaja se descarta. Cada acción ejecutada se muestra bajo la respuesta, así que se ve qué ha pedido el modelo.</p>
                 </article>
                 <article class="page-card">
                     <h3 data-i18n="agentpage_d4_title">Respuestas como texto plano</h3>

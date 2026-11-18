@@ -59,7 +59,10 @@ if (!errors.length) {
         if (!s.iconSvg && !s.iconImg) fail(`Skill ${s.name}: falta iconSvg o iconImg`);
         if (s.iconImg && !existsSync(join(ROOT, s.iconImg.replace(/^\//, '')))) fail(`Skill ${s.name}: no existe ${s.iconImg}`);
         if (!s.desc || !s.desc_en) fail(`Skill ${s.name}: falta desc o desc_en`);
+        for (const tag of s.tags) if (!json.i18n.skillTags?.en?.[tag]) fail(`Skill ${s.name}: la etiqueta "${tag}" no tiene traducción en i18n.skillTags.en`);
     }
+    const allTags = new Set(json.skills.flatMap(s => s.tags));
+    for (const tag of Object.keys(json.i18n.skillTags?.en || {})) if (!allTags.has(tag)) fail(`i18n.skillTags.en: "${tag}" no se usa en ninguna skill`);
 
     // 6. Las páginas generadas existen y están en su idioma
     for (const [file, lang] of PAGES) {

@@ -149,6 +149,7 @@ nav.scrolled {
 .social-icons a:hover { color: var(--primary); transform: translateY(-2px); }
 
 .hero-visual { flex: 1; display: flex; justify-content: center; min-width: 300px; }
+.hero-visual picture { display: contents; }
 .avatar {
     width: clamp(250px, 30vw, 350px); height: clamp(250px, 30vw, 350px); border-radius: 50%;
     background: linear-gradient(135deg, var(--bg), var(--surface)); border: 2px solid var(--primary);

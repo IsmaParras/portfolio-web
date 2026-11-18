@@ -88,10 +88,13 @@ function renderProjects(projects, t, lang) {
     }).join('\n');
 }
 
-function renderSkills(skills, t, lang) {
+// Etiquetas de las skills: se escriben en español y se traducen con i18n.skillTags (misma lógica en js/script.js)
+const tagLabel = (tag, lang, tagMap) => (lang === 'es' ? tag : (tagMap?.[lang]?.[tag] || tag));
+
+function renderSkills(skills, t, lang, tagMap) {
     return skills.map(s => {
         const areas = s.area.join(' ');
-        const searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ')).toLowerCase();
+        const searchable = (s.name + ' ' + (s.desc_en || '') + ' ' + s.desc + ' ' + s.tags.join(' ') + ' ' + s.tags.map(tag => tagLabel(tag, 'en', tagMap)).join(' ')).toLowerCase();
         const desc = lang === 'en' && s.desc_en ? s.desc_en : s.desc;
         let cert = '';
         if (s.cert) {
@@ -100,7 +103,7 @@ function renderSkills(skills, t, lang) {
                 ? `<a class="skill-cert is-link" href="${escAttr(s.certUrl)}" target="_blank" rel="noopener noreferrer">✔ ${escText(label)}</a>`
                 : `<span class="skill-cert">✔ ${escText(label)}</span>`;
         }
-        const tags = s.tags.map(tag => `<span class="skill-tag">${escText(tag)}</span>`).join('');
+        const tags = s.tags.map(tag => `<span class="skill-tag">${escText(tagLabel(tag, lang, tagMap))}</span>`).join('');
         const core = s.core ? ' data-core="1"' : '';
         // iconSvg es SVG propio y confiable: se inserta sin escapar
         return `<article class="skill-card reveal visible" data-areas="${escAttr(areas)}"${core} data-searchable="${escAttr(searchable)}">
@@ -198,7 +201,7 @@ function build(page, template, lang, data) {
         seo: () => renderSeo(page, lang),
         jsonld: () => renderJsonLd(page, lang, t, data.profile),
         projectsGrid: () => renderProjects(data.projects, t, lang),
-        techSkillsGrid: () => renderSkills(data.skills, t, lang),
+        techSkillsGrid: () => renderSkills(data.skills, t, lang, data.i18n.skillTags),
     };
     let html = template.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
     for (const id of page.blocks) html = inject(html, id, blocks[id]());

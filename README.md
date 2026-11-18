@@ -41,7 +41,7 @@ portfolio-web/
 │   ├── test-chat.mjs       # Pruebas de api/chat.js (npm test)
 │   ├── agent-evals.mjs     # Evaluación del agente real sobre una URL
 │   ├── render-assets.mjs   # Genera los CVs en PDF y la og-image (npm run assets)
-│   └── og-image.html       # Plantilla de assets/og-image.png
+│   └── og-image.html       # Plantilla de assets/og-image.jpg
 ├── api/chat.js         # Función de Vercel del asistente de IA
 ├── cv/                 # Plantillas HTML de los CVs (cv-es.html, cv-en.html, cv.css)
 ├── package.json        # Scripts `npm run build` (prerender) y `npm run assets`
@@ -182,7 +182,7 @@ con Chrome, Chromium o Edge en modo headless (sin dependencias de npm):
 | Plantilla | Fichero generado |
 |---|---|
 | `cv/cv-es.html`, `cv/cv-en.html` (estilos en `cv/cv.css`) | `assets/Ismael_Parras_CV_ES.pdf`, `assets/Ismael_Parras_CV_EN.pdf` |
-| `scripts/og-image.html` | `assets/og-image.png` (1200×630) |
+| `scripts/og-image.html` | `assets/og-image.jpg` (1200×630) |
 
 ```bash
 npm run assets     # equivale a: node scripts/render-assets.mjs

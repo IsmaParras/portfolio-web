@@ -24,7 +24,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="How the AI assistant is built | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
     <meta property="og:description" content="Architecture, design decisions, security and privacy of my portfolio's AI assistant: serverless function, a model with tool calling and usage limits." data-i18n-attr="content:agentpage_meta_description">
-    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta property="og:image" content="https://ismaelparras.vercel.app/assets/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Ismael Parras Resino — Agentic AI Solution Architect" data-i18n-attr="content:og_image_alt">
@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="How the AI assistant is built | Ismael Parras Resino" data-i18n-attr="content:agentpage_meta_title">
     <meta name="twitter:description" content="Architecture, design decisions, security and privacy of my portfolio's AI assistant: serverless function, a model with tool calling and usage limits." data-i18n-attr="content:agentpage_meta_description">
-    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.png">
+    <meta name="twitter:image" content="https://ismaelparras.vercel.app/assets/og-image.jpg">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230a0a0f%22/><text x=%2250%22 y=%2250%22 font-family=%22Syne, sans-serif%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%2300d4ff%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22>IPR</text></svg>">
 
@@ -65,7 +65,7 @@
             </div>
 
             <div class="controls">
-                <a class="icon-btn lang-switch" id="langToggle" href="/agente/" hreflang="es" aria-label="View in Spanish" title="View in Spanish" data-i18n="lang_switch_label" data-i18n-attr="href:agentpage_lang_href;hreflang:lang_switch_code;aria-label:lang_switch_aria;title:lang_switch_aria">ES</a>
+                <a class="icon-btn lang-switch" id="langToggle" href="/agente/" hreflang="es" aria-label="ES: view in Spanish" title="ES: view in Spanish" data-i18n="lang_switch_label" data-i18n-attr="href:agentpage_lang_href;hreflang:lang_switch_code;aria-label:lang_switch_aria;title:lang_switch_aria">ES</a>
                 <button type="button" class="icon-btn" id="themeToggle" aria-label="Light/dark mode" title="Light/dark mode" data-i18n-attr="aria-label:aria_theme;title:aria_theme">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="12" cy="12" r="5"/>
@@ -124,7 +124,7 @@
                 <div class="arch-node">
                     <span class="arch-tech mono" data-i18n="agentpage_n1_tech">Dependency-free JavaScript</span>
                     <h3 data-i18n="agentpage_n1_title">Browser</h3>
-                    <p data-i18n="agentpage_n1_desc">The chat panel sends the question and runs the actions the server returns.</p>
+                    <p data-i18n="agentpage_n1_desc">The chat panel sends the question, runs the actions the server returns and shows under the answer which one it ran.</p>
                 </div>
                 <div class="arch-arrow" aria-hidden="true"></div>
                 <div class="arch-stack">
@@ -162,7 +162,7 @@
                 </article>
                 <article class="page-card">
                     <h3 data-i18n="agentpage_d3_title">Actions against a closed list</h3>
-                    <p data-i18n="agentpage_d3">The model executes nothing: it proposes an action and the server maps it to a fixed set of values. The browser validates it again before doing it. Anything that doesn't fit is discarded.</p>
+                    <p data-i18n="agentpage_d3">The model executes nothing: it proposes an action and the server maps it to a fixed set of values. The browser validates it again before doing it. Anything that doesn't fit is discarded. Every action that runs is shown under the answer, so you can see what the model asked for.</p>
                 </article>
                 <article class="page-card">
                     <h3 data-i18n="agentpage_d4_title">Answers as plain text</h3>

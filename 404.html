@@ -32,6 +32,8 @@
             text-shadow: 6px 6px 0 var(--secondary);
             line-height: 1;
         }
+        .wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+        .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
         .label { font-size: 0.75rem; letter-spacing: 0.15em; color: var(--muted); }
         .msg  { font-size: clamp(1rem, 3vw, 1.3rem); color: var(--text); max-width: 400px; }
         .hint { font-size: 0.8rem; color: var(--muted); max-width: 360px; line-height: 1.6; }
@@ -56,11 +58,13 @@
 </head>
 <body>
     <div class="grid" aria-hidden="true"></div>
-    <p class="label">// ERROR</p>
-    <div class="code" aria-label="Error 404">404</div>
-    <p class="msg">Esta página no existe (o se ha movido).</p>
-    <p class="hint">Si llegaste aquí desde un enlace, puede que la URL esté rota. Vuelve al inicio y encuentra lo que buscas.</p>
-    <a href="/" class="back">← Volver al portfolio</a>
+    <main class="wrap">
+        <p class="label">// ERROR</p>
+        <h1 class="code"><span class="sr-only">Error </span>404</h1>
+        <p class="msg">Esta página no existe (o se ha movido).</p>
+        <p class="hint">Si llegaste aquí desde un enlace, puede que la URL esté rota. Vuelve al inicio y encuentra lo que buscas.</p>
+        <a href="/" class="back">← Volver al portfolio</a>
+    </main>
     <script>
         // Respetar tema guardado
         try {
