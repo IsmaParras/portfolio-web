@@ -31,7 +31,7 @@ const PAGES = {
         template: 'index.html',
         out: { es: 'index.html', en: 'en/index.html' },
         path: { es: '/', en: '/en/' },
-        blocks: ['seo', 'jsonld', 'projectsGrid', 'techSkillsGrid', 'certList', 'courseList'],
+        blocks: ['seo', 'jsonld', 'projectsGrid', 'techSkillsGrid', 'certList'],
     },
     agent: {
         template: 'agente/index.html',
@@ -95,21 +95,31 @@ const tagLabel = (tag, lang, tagMap) => (lang === 'es' ? tag : (tagMap?.[lang]?.
 // Se generan solo aquí: el idioma lo fija la URL y no hace falta repintarlos en el navegador.
 const pick = (v, lang) => (typeof v === 'string' ? v : (v[lang] || v.es));
 const EXT_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>';
-function renderCredentials(creds, kind, t, lang) {
-    return creds.filter(c => c.kind === kind).map(c => {
-        const name = pick(c.name, lang);
-        const verify = kind === 'certification';
-        const label = tr(t, verify ? 'cert_verify' : 'cert_diploma', c.id);
-        const aria = tr(t, verify ? 'cert_verify_aria' : 'cert_diploma_aria', c.id).replace('{x}', name);
-        const meta = [pick(c.issuer, lang), c.code].filter(Boolean).join(' · ');
-        return `                        <div class="edu-item cred-item" id="cred-${escAttr(c.id)}">
-                            <div class="cred-text">
-                                <div class="edu-degree">${escText(name)}</div>
-                                <div class="edu-meta mono">${escText(meta)}</div>
-                            </div>
-                            <a class="cred-link mono" href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escAttr(aria)}"><span data-i18n="${verify ? 'cert_verify' : 'cert_diploma'}">${escText(label)}</span>${EXT_ICON}</a>
-                        </div>`;
+// Sello propio mientras no haya imagen de la insignia oficial (campo "badge")
+const SEAL = '<svg class="cert-seal" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4 54 13v17c0 14-9.5 25-22 30C19.5 55 10 44 10 30V13Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="m22 32 7 7 13-14" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function renderCertifications(creds, t, lang) {
+    const cards = creds.filter(c => c.kind === 'certification').map(c => {
+        const badge = c.badge
+            ? `<img class="cert-badge" src="${escAttr(c.badge)}" alt="" width="72" height="72" loading="lazy">`
+            : `<span class="cert-badge cert-badge--seal">${SEAL}</span>`;
+        return `    <a class="cert-card" href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer" id="cred-${escAttr(c.id)}">
+        ${badge}
+        <span class="cert-body">
+            <span class="cert-code mono">${escText(c.code)}</span>
+            <span class="cert-name">${escText(pick(c.name, lang))}</span>
+            <span class="cert-meta mono">${escText(pick(c.issuer, lang))} · <span class="cert-verify">${escText(tr(t, 'cert_verify', c.id))}${EXT_ICON}</span></span>
+        </span>
+        <span class="sr-only">${escText(tr(t, 'cert_new_tab', c.id))}</span>
+    </a>`;
     }).join('\n');
+    const courses = creds.filter(c => c.kind === 'course').map(c => {
+        const label = pick(c.short || c.name, lang);
+        const aria = tr(t, 'cert_diploma_aria', c.id).replace('{x}', label);
+        return `<a class="cert-course" href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escAttr(aria)}" title="${escAttr(pick(c.name, lang))}">${escText(label)}${EXT_ICON}</a>`;
+    }).join(' ');
+    return `<div class="cert-grid">\n${cards}\n</div>` + (courses
+        ? `\n<p class="cert-courses mono"><span class="cert-courses-label">${escText(tr(t, 'cert_courses', 'cursos'))}</span> ${courses}</p>`
+        : '');
 }
 
 // Marca de "Certificado" en la tarjeta: lleva al bloque de certificaciones (misma marca en js/script.js)
@@ -230,8 +240,7 @@ function build(page, template, lang, data) {
         jsonld: () => renderJsonLd(page, lang, t, data.profile, data.certifications),
         projectsGrid: () => renderProjects(data.projects, t, lang),
         techSkillsGrid: () => renderSkills(data.skills, t, lang, data.i18n.skillTags),
-        certList: () => renderCredentials(data.certifications, 'certification', t, lang),
-        courseList: () => renderCredentials(data.certifications, 'course', t, lang),
+        certList: () => renderCertifications(data.certifications, t, lang),
     };
     let html = template.replace(/<html lang="[a-z-]+"/, `<html lang="${lang}"`);
     for (const id of page.blocks) html = inject(html, id, blocks[id]());

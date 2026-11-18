@@ -196,10 +196,10 @@
     "agent_act_contact": "preparar el formulario de contacto",
     "cert_title": "Certificaciones",
     "cert_verify": "Verificar",
-    "cert_verify_aria": "Verificar {x} en Credly (se abre en una pestaña nueva)",
-    "cert_diploma": "Ver diploma",
-    "cert_diploma_aria": "Ver diploma de {x} (PDF, se abre en una pestaña nueva)",
-    "cert_mark_aria": "Certificado: ver mis certificaciones"
+    "cert_diploma_aria": "{x}: ver diploma (PDF, se abre en una pestaña nueva)",
+    "cert_mark_aria": "Certificado: ver mis certificaciones",
+    "cert_courses": "Cursos",
+    "cert_new_tab": "(se abre en una pestaña nueva)"
   },
   "en": {
     "skip_link": "Skip to content",
@@ -398,10 +398,10 @@
     "agent_act_contact": "prepare the contact form",
     "cert_title": "Certifications",
     "cert_verify": "Verify",
-    "cert_verify_aria": "Verify {x} on Credly (opens in a new tab)",
-    "cert_diploma": "View diploma",
-    "cert_diploma_aria": "View diploma for {x} (PDF, opens in a new tab)",
-    "cert_mark_aria": "Certified: see my certifications"
+    "cert_diploma_aria": "{x}: view diploma (PDF, opens in a new tab)",
+    "cert_mark_aria": "Certified: see my certifications",
+    "cert_courses": "Courses",
+    "cert_new_tab": "(opens in a new tab)"
   },
   "skillTags": {
     "en": {

@@ -75,10 +75,12 @@ Todo el contenido vive en `data/` — no hace falta tocar el HTML para actualiza
   `desc`/`desc_en`, `tags`.
 - **`i18n.json`** — textos en `es` y `en`.
 - **`certifications.json`** — certificaciones y cursos. Campos: `id`, `kind`
-  (`certification`, verificable, va al bloque "Certificaciones"; o `course`, va al
-  final de "Formación"), `name` e `issuer` (texto o `{es, en}`), `code` (solo
-  certificaciones), `url` (Credly o PDF del diploma) y `skill` (opcional: nombre de la
-  skill que lleva la marca "Certificado"). Lo usan la portada, el JSON-LD
+  (`certification`: tarjeta con insignia en "Certificaciones"; `course`: enlace en la
+  línea "Cursos"), `name` e `issuer` (texto o `{es, en}`), `code` (solo
+  certificaciones), `url` (Credly o PDF del diploma), `badge` (opcional: imagen de la
+  insignia oficial en `assets/badges/`; sin ella se muestra un sello genérico), `short`
+  (opcional: nombre corto del curso) y `skill` (opcional: skill que lleva la marca
+  "Certificado"). Lo usan la portada, el JSON-LD
   (`hasCredential`) y el asistente; `npm run check` comprueba que todo cuadra.
 
 En `index.html`, un elemento con `data-i18n="clave"` recibe su texto de

@@ -68,7 +68,7 @@ if (!errors.length) {
         if (!['certification', 'course'].includes(c.kind)) fail(`Certificación ${c.id}: kind debe ser certification o course`);
         if (c.kind === 'certification' && !c.code) fail(`Certificación ${c.id}: falta code`);
         for (const v of [c.name, c.issuer]) if (v && typeof v === 'object' && (!v.es || !v.en)) fail(`Certificación ${c.id}: texto sin es/en`);
-        if (c.url?.startsWith('/') && !existsSync(join(ROOT, c.url.slice(1)))) fail(`Certificación ${c.id}: no existe ${c.url}`);
+        for (const f of [c.url, c.badge]) if (f?.startsWith('/') && !existsSync(join(ROOT, f.slice(1)))) fail(`Certificación ${c.id}: no existe ${f}`);
         if (c.skill && !json.skills.some(s => s.name === c.skill)) fail(`Certificación ${c.id}: no hay ninguna skill "${c.skill}"`);
     }
     for (const s of json.skills) {

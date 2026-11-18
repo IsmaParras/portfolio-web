@@ -25,7 +25,8 @@
       "es": "UiPath Academy · plan de formación",
       "en": "UiPath Academy · learning plan"
     },
-    "url": "/assets/diploma_uipath.pdf"
+    "url": "/assets/diploma_uipath.pdf",
+    "short": "UiPath Automation Developer"
   },
   {
     "id": "powershell-admin",
@@ -38,6 +39,10 @@
       "es": "Microsoft Learn · curso",
       "en": "Microsoft Learn · course"
     },
-    "url": "/assets/diploma_powershell.pdf"
+    "url": "/assets/diploma_powershell.pdf",
+    "short": {
+      "es": "PowerShell (Microsoft Learn)",
+      "en": "PowerShell (Microsoft Learn)"
+    }
   }
 ]
