@@ -202,7 +202,7 @@
 
         <section id="privacy">
             <h2 data-i18n="agentpage_priv_title">Privacidad</h2>
-            <p data-i18n="agentpage_priv_intro">Qué ocurre con lo que escribes en el asistente.</p>
+            <p data-i18n="agentpage_priv_intro">Qué datos se tratan en esta web y qué ocurre con lo que escribes en el asistente.</p>
             <dl class="page-defs">
                 <div class="page-def">
                     <dt data-i18n="agentpage_p1_t">Responsable</dt>
@@ -225,6 +225,10 @@
                     <dd data-i18n="agentpage_p5">Las preguntas no están asociadas a ninguna persona. Si escribiste un dato personal por error, dime el día y el texto aproximado y lo borro.</dd>
                 </div>
                 <div class="page-def">
+                    <dt data-i18n="agentpage_p7_t">Estadísticas de visitas</dt>
+                    <dd data-i18n="agentpage_p7">Vercel Web Analytics cuenta las visitas de forma agregada (páginas vistas, país, tipo de dispositivo y de dónde llegas), sin cookies y con un identificador que se renueva cada día y no permite identificarte. No recibe lo que escribes en el asistente.</dd>
+                </div>
+                <div class="page-def">
                     <dt data-i18n="agentpage_p6_t">Consejo</dt>
                     <dd data-i18n="agentpage_p6">No escribas datos personales en el asistente.</dd>
                 </div>
@@ -243,5 +247,7 @@
 
     <script src="/js/script.js" defer></script>
     <script src="/js/agent.js" defer></script>
+    <!-- Vercel Web Analytics: sin cookies; se activa en el panel de Vercel (ver README) -->
+    <script src="/_vercel/insights/script.js" defer></script>
 </body>
 </html>

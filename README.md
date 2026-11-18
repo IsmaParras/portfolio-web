@@ -127,6 +127,14 @@ Para añadir otra página: crea su plantilla, añádela a `PAGES` en
 `scripts/prerender.mjs`, a `TEMPLATES` y `PAGES` en `scripts/check.mjs` y a
 `sitemap.xml`.
 
+## Analítica
+
+[Vercel Web Analytics](https://vercel.com/docs/analytics): sin cookies y sin datos
+personales. Las plantillas cargan `/_vercel/insights/script.js`, que Vercel sirve desde
+el propio dominio cuando la analítica está activada en el panel del proyecto
+(*Analytics → Enable*); si se desactiva, basta con quitar esa línea de las plantillas.
+El aviso de privacidad (`/agente/#privacy`) lo explica.
+
 ## Asistente de IA
 
 Botón "Pregúntame" que abre un chat que responde sobre Ismael y puede actuar sobre
