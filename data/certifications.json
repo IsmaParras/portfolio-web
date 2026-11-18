@@ -6,6 +6,7 @@
     "code": "AB-900",
     "issuer": "Microsoft",
     "url": "https://www.credly.com/badges/258d45bb-cc43-4b0c-afa5-ea20964a83a7/public_url",
+    "badge": "/assets/badges/ab-900.webp",
     "skill": "Copilot Studio"
   },
   {
@@ -15,6 +16,7 @@
     "code": "AI-900",
     "issuer": "Microsoft",
     "url": "https://www.credly.com/badges/372e9788-f701-435a-8575-c7fc5702a3aa/linked_in_profile",
+    "badge": "/assets/badges/ai-900.webp",
     "skill": "Azure AI"
   },
   {

@@ -100,7 +100,7 @@ const SEAL = '<svg class="cert-seal" viewBox="0 0 64 64" aria-hidden="true"><pat
 function renderCertifications(creds, t, lang) {
     const cards = creds.filter(c => c.kind === 'certification').map(c => {
         const badge = c.badge
-            ? `<img class="cert-badge" src="${escAttr(c.badge)}" alt="" width="72" height="72" loading="lazy">`
+            ? `<img class="cert-badge" src="${escAttr(c.badge)}" alt="" width="64" height="64" loading="lazy">`
             : `<span class="cert-badge cert-badge--seal">${SEAL}</span>`;
         return `    <a class="cert-card" href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer" id="cred-${escAttr(c.id)}">
         ${badge}
