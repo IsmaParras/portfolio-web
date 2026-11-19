@@ -104,12 +104,17 @@ nav.scrolled {
     border-bottom: 1px solid var(--border);
 }
 [data-theme="light"] nav.scrolled { background: rgba(253, 251, 247, 0.9); }
-.nav-content { display: flex; justify-content: space-between; align-items: center; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
 .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: var(--text); }
 .logo span { color: var(--primary); }
 .nav-links { display: flex; gap: 2rem; align-items: center; }
 .nav-links a { color: var(--text); font-family: var(--font-mono); font-size: 0.9rem; }
 .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+@media (min-width: 769px) and (max-width: 1000px) {
+    .logo { font-size: 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    .nav-links a { font-size: 0.85rem; }
+}
 
 .controls { display: flex; gap: 1rem; align-items: center; }
 .icon-btn {
@@ -260,7 +265,7 @@ img.avatar { object-fit: cover; object-position: center top; max-width: 100%; }
 .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.05); border-color: var(--primary); }
 .project-card.featured { grid-column: 1 / -1; background: linear-gradient(to bottom right, var(--surface), var(--surface-hover)); border-color: var(--primary); }
 .project-badge { display: inline-block; align-self: flex-start; background: var(--primary); color: var(--bg); font-family: var(--font-mono); font-size: 0.7rem; font-weight: bold; padding: 0.3rem 0.75rem; margin-bottom: 0.75rem; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
-.project-title { font-size: 1.5rem; margin-bottom: 0.5rem; margin-top: 0.5rem; }
+.project-title { font-size: 1.5rem; margin-bottom: 0.5rem; margin-top: 0.5rem; overflow-wrap: break-word; }   /* solo parte una palabra si no cabe en su propia línea */
 .featured .project-title { font-size: 2rem; color: var(--primary); }
 .project-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem; flex-grow: 1; }
 .result-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.1rem; }
@@ -278,7 +283,7 @@ img.avatar { object-fit: cover; object-position: center top; max-width: 100%; }
     .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1rem; width: 100%; }
     .project-card { padding: 1.25rem; width: 100%; min-width: 0; box-sizing: border-box; }
     .project-title { font-size: 1.2rem; margin-top: 0.25rem; margin-bottom: 0.4rem; }
-    .featured .project-title { font-size: 1.4rem; }
+    .featured .project-title { font-size: clamp(1.1rem, 5vw, 1.4rem); }
     .project-desc { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.85rem; }
     .result-chips { margin-bottom: 0.75rem; }
     /* Sin botón: la card no debe dejar hueco muerto debajo de los tags */
@@ -291,7 +296,7 @@ img.avatar { object-fit: cover; object-position: center top; max-width: 100%; }
 .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1rem; }
 @media (max-width: 768px) { .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; } }
 .contact-info p { color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem; }
-.contact-email { font-family: var(--font-display); font-size: clamp(1.1rem, 3vw, 1.5rem); color: var(--primary); display: block; margin-bottom: 2rem; word-break: break-all; }
+.contact-email { font-family: var(--font-mono); font-size: clamp(1rem, 2.6vw, 1.3rem); color: var(--primary); display: block; margin-bottom: 2rem; word-break: break-all; }
 .form-group { margin-bottom: 1.5rem; position: relative; }
 .form-group label { display: block; font-family: var(--font-mono); font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--muted); }
 .form-control { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 1rem; font-family: var(--font-body); font-size: 1rem; outline: none; transition: var(--transition); }
@@ -306,6 +311,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 
 /* ================= FOOTER ================= */
 .site-footer { border-top: 1px solid var(--border); padding: 2rem 0; margin-top: 2rem; }
+@media (max-width: 600px) { .site-footer { padding-bottom: 5rem; } }
 .site-footer p { color: var(--muted); font-size: 0.8rem; text-align: center; }
 
 /* ================= MENÚ MÓVIL ================= */
