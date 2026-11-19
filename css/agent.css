@@ -10,7 +10,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
 }
 .agent-toggle:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--secondary); }
-.agent-toggle-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bg); }
+.agent-toggle-icon { width: 20px; height: 20px; flex: 0 0 auto; }
 
 .agent-panel {
     position: fixed; right: 1.25rem; bottom: 5.25rem; z-index: 91;
@@ -62,7 +62,8 @@
 @media (max-width: 600px) {
     .agent-toggle { right: 0.75rem; bottom: 0.75rem; }
     .agent-toggle-text { display: none; }
-    .agent-toggle { width: 48px; padding: 0; justify-content: center; }
+    .agent-toggle { width: 52px; min-height: 52px; padding: 0; justify-content: center; }
+    .agent-toggle-icon { width: 24px; height: 24px; }
     .agent-panel { right: 0.75rem; left: 0.75rem; width: auto; bottom: 4.5rem; height: min(70vh, calc(100vh - 6rem)); }
 }
 @media (prefers-reduced-motion: reduce) { .agent-toggle { transition: none; } }

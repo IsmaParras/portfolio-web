@@ -206,7 +206,10 @@
 
     function build() {
         toggleBtn = el('button', { type: 'button', class: 'agent-toggle', 'aria-expanded': 'false', 'aria-controls': 'agentPanel', 'aria-label': t('agent_open') });
-        toggleBtn.append(el('span', { class: 'agent-toggle-dot', 'aria-hidden': 'true' }), el('span', { class: 'agent-toggle-text' }, t('agent_open_short')));
+        const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        icon.setAttribute('class', 'agent-toggle-icon'); icon.setAttribute('viewBox', '0 0 24 24'); icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = '<path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="9" cy="10.5" r="1.2" fill="currentColor"/><circle cx="12" cy="10.5" r="1.2" fill="currentColor"/><circle cx="15" cy="10.5" r="1.2" fill="currentColor"/>';
+        toggleBtn.append(icon, el('span', { class: 'agent-toggle-text' }, t('agent_open_short')));
 
         panel = el('section', { id: 'agentPanel', class: 'agent-panel', role: 'dialog', 'aria-label': t('agent_title') });
         panel.hidden = true;
