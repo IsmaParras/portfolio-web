@@ -74,8 +74,8 @@
         if (!saved || typeof saved !== 'object' || !(Date.now() - saved.at < PENDING_TTL)) return;
         const turns = (Array.isArray(saved.history) ? saved.history : []).slice(-MAX_HISTORY)
             .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
-            .map(m => ({ role: m.role, content: m.content.slice(0, 1200), acts: m.role === 'assistant' ? cleanActions(m.acts) : [] }));
-        turns.forEach(m => { history.push(m); addTrace(addMessage(m.role === 'user' ? 'user' : 'bot', m.content), m.acts); });
+            .map(m => ({ role: m.role, content: m.content.slice(0, 1200), acts: m.role === 'assistant' ? cleanActions(m.acts) : [], srcs: m.role === 'assistant' ? cleanSources(m.srcs) : [] }));
+        turns.forEach(m => { history.push(m); const w = addMessage(m.role === 'user' ? 'user' : 'bot', m.content); addSources(w, m.srcs); addTrace(w, m.acts); });
         const actions = (Array.isArray(saved.actions) ? saved.actions.slice(0, 3) : []).map(sanitize)
             .filter(a => a && HOME_ACTIONS.includes(a.type));
         if (turns.length) open();
@@ -109,6 +109,30 @@
         list.scrollTop = list.scrollHeight;
     }
     const cleanActions = v => (Array.isArray(v) ? v.slice(0, 3) : []).map(sanitize).filter(Boolean);
+
+    // ───────── fuentes citadas: de qué parte de la web sale cada respuesta ─────────
+    // Mismas ids que SOURCES en api/chat.js; "otros" son datos que Ismael facilita y no están a la vista.
+    const SOURCES = {
+        perfil: ['agent_src_perfil', 'home'], sobre_mi: ['agent_src_sobre_mi', 'about'], experiencia: ['agent_src_experiencia', 'timeline'],
+        formacion: ['agent_src_formacion', 'education'], proyectos: ['agent_src_proyectos', 'projects'], habilidades: ['agent_src_habilidades', 'tech-skills'],
+        certificaciones: ['agent_src_certificaciones', 'certifications'], contacto: ['agent_src_contacto', 'contact'], otros: ['agent_src_otros', null],
+    };
+    const cleanSources = v => [...new Set(Array.isArray(v) ? v : [])].filter(id => Object.hasOwn(SOURCES, id)).slice(0, 3);
+    function addSources(wrap, ids) {
+        if (!ids.length) return;
+        const p = el('div', { class: 'agent-sources' });   // div, no p: no hereda el estilo de burbuja de .agent-msg p
+        p.append(el('span', { class: 'agent-sources-label' }, t('agent_sources')));
+        ids.forEach(id => {
+            const [key, anchor] = SOURCES[id];
+            if (!anchor) { p.append(el('span', { class: 'agent-source agent-source--plain' }, t(key))); return; }
+            const a = el('a', { class: 'agent-source', href: (onHome() ? '' : homeUrl(lang())) + '#' + anchor }, t(key));
+            // En pantallas estrechas el panel tapa la página: se cierra para ver la sección
+            a.addEventListener('click', () => { if (onHome() && window.matchMedia('(max-width: 700px)').matches) close(false); });
+            p.append(a);
+        });
+        wrap.append(p);
+        list.scrollTop = list.scrollHeight;
+    }
 
     // ───────── interfaz ─────────
     function el(tag, attrs = {}, text) {
@@ -154,8 +178,10 @@
             pending.querySelector('p').textContent = reply;
             if (res.ok) {
                 const acts = cleanActions(data.actions);
+                const srcs = cleanSources(data.sources);
+                addSources(pending, srcs);
                 addTrace(pending, acts);
-                history.push({ role: 'user', content: text }, { role: 'assistant', content: reply, acts });
+                history.push({ role: 'user', content: text }, { role: 'assistant', content: reply, acts, srcs });
                 runAll(acts);
             }
         } catch {
@@ -189,7 +215,8 @@
         const closeBtn = el('button', { type: 'button', class: 'agent-close', 'aria-label': t('agent_close') }, '×');
         head.append(el('h2', { class: 'agent-title' }, t('agent_title')), closeBtn);
 
-        list = el('div', { class: 'agent-list', role: 'log', 'aria-live': 'polite' });
+        // tabindex: con el teclado también se puede desplazar la conversación cuando no hay enlaces dentro
+        list = el('div', { class: 'agent-list', role: 'log', 'aria-live': 'polite', 'aria-label': t('agent_title'), tabindex: '0' });
 
         const form = el('form', { class: 'agent-form', autocomplete: 'off' });
         input = el('input', { type: 'text', class: 'agent-input', maxlength: String(MAX_CHARS), placeholder: t('agent_placeholder'), 'aria-label': t('agent_placeholder') });

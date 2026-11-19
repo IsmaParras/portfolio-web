@@ -55,7 +55,7 @@
 .agent-send:disabled, .agent-input:disabled { opacity: 0.6; cursor: wait; }
 .agent-notice { margin: 0; padding: 0 1rem 0.8rem; font-size: 0.7rem; line-height: 1.4; color: var(--muted); }
 
-.agent-toggle:focus-visible, .agent-close:focus-visible, .agent-chip:focus-visible, .agent-send:focus-visible, .agent-input:focus-visible {
+.agent-list:focus-visible, .agent-toggle:focus-visible, .agent-close:focus-visible, .agent-chip:focus-visible, .agent-send:focus-visible, .agent-input:focus-visible {
     outline: 2px solid var(--primary); outline-offset: 2px;
 }
 
@@ -91,4 +91,9 @@
 /* Traza de acciones: deja ver qué herramienta ha pedido el modelo */
 .agent-trace { list-style: none; margin-top: 0.45rem; display: grid; gap: 0.3rem; }
 .agent-trace li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text); border-left: 2px solid var(--primary); padding: 0.15rem 0 0.15rem 0.55rem; }
+.agent-sources { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.5rem; margin-top: 0.45rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.agent-sources-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.agent-source { color: var(--primary); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--primary) 45%, transparent); text-underline-offset: 3px; }
+.agent-source:hover, .agent-source:focus-visible { text-decoration-color: var(--primary); }
+.agent-source--plain { color: var(--text); text-decoration: none; }
 .agent-trace-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--primary); }
